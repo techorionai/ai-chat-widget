@@ -1,0 +1,18 @@
+{
+  "name": "chat-widget-main-script",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "types:sync": "echo \"Syncing types for main & react app\" && cp ./src/types.ts ../react-app/src/types/mainProcess.ts",
+    "dev": "nodemon --exec \"npm run build:dev\" -e ts --ignore dist/*",
+    "build": "rm -rf dist/* && npx tsc --project tsconfig.json || exit 1",
+    "mkdir:dev": "if not exist ../dev-host/js/main-script mkdir ../dev-host/js/main-script",
+    "copy:dev": "npm run types:sync && npm run mkdir:dev && cp -a ./dist/. ../dev-host/js/main-script/",
+    "build:dev": "npm run build && npm run copy:dev"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "typescript": "^5.0.0"
+  }
+}
