@@ -14,10 +14,13 @@
     "@mantine/core": "^8.2.1",
     "@mantine/form": "^8.2.1",
     "@mantine/hooks": "^8.2.1",
+    "lodash.merge": "^4.6.2",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-router": "^7.7.1"
   },
   "devDependencies": {
+    "@types/lodash.merge": "^4.6.9",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "postcss": "^8.5.6",

@@ -1,32 +1,29 @@
 import "@mantine/core/styles.css";
 
-import { MantineProvider, Text, Container } from "@mantine/core";
-import { theme } from "./theme";
-import { ConfigProvider, useConfig } from "./providers/ConfigProvider";
+import { MantineProvider } from "@mantine/core";
+import { Route, Routes } from "react-router";
+
+import ChatWindow from "./components/screens/ChatWindow";
+import { ConfigProvider } from "./providers/ConfigProvider";
 import { EventHandlerProvider } from "./providers/EventHandlerProvider";
+import { theme } from "./theme";
 
 export default function App() {
   return (
-    <MantineProvider theme={theme}>
-      <ConfigProvider>
-        <EventHandlerProvider>
+    <ConfigProvider>
+      <EventHandlerProvider>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
           <AppContent />
-        </EventHandlerProvider>
-      </ConfigProvider>
-    </MantineProvider>
+        </MantineProvider>
+      </EventHandlerProvider>
+    </ConfigProvider>
   );
 }
 
 function AppContent() {
-  const { config } = useConfig();
   return (
-    <Container>
-      <Text size="xl" fw={700} mb="md" variant="gradient">
-        Chat Widget Config
-      </Text>
-      <pre>
-        {config ? JSON.stringify(config, null, 2) : "No config received"}
-      </pre>
-    </Container>
+    <Routes>
+      <Route index element={<ChatWindow />} />
+    </Routes>
   );
 }

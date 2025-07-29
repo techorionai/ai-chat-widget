@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useConfig } from "./ConfigProvider";
 import sendEventToMain from "../utils/sendEvent";
-import {
-  ChatWidgetConfig,
-  EventHandler,
-  EventTypeMain,
-} from "../types/mainProcess";
+import { ChatWidgetConfig, EventTypeMain } from "../types/mainProcess";
 import { PARENT_ORIGIN } from "../consts/parent";
+import merge from "lodash.merge";
 
 // EventHandler context (could be expanded for more event features)
 const EventHandlerContext = createContext<null>(null);
@@ -40,7 +37,11 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const setConfigEventHandler = (data: ChatWidgetConfig = {}) => {
-    setConfig({ ...config, ...data });
+    const finalConfig = {};
+    merge(finalConfig, config);
+    merge(finalConfig, data);
+
+    setConfig(finalConfig);
   };
 
   return (

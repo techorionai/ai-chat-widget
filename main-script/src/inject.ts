@@ -25,18 +25,14 @@ export function injectAiChatWidget(config: ChatWidgetConfig = {}) {
     iframe.style.bottom = "24px";
     iframe.style.right = "24px";
     iframe.style.width = "400px";
-    iframe.style.height = "600px";
+    iframe.style.maxWidth = "calc(100vw - 48px)";
+    iframe.style.height = "704px";
+    iframe.style.maxHeight = "calc(100vh - 48px)";
     iframe.style.border = "none";
+    iframe.style.borderRadius = "16px";
+    iframe.style.boxShadow = "rgb(0 0 0 / 16%) 0px 0px 16px";
     iframe.style.zIndex = "9999";
     iframe.allow = "clipboard-write";
-
-    // iframe.onload = () => {
-    //   window.$aiChatWidget.sendEvent("SET_CONFIG", config);
-
-    //   setTimeout(() => {
-    //     window.$aiChatWidget.sendEvent("SET_CONFIG", config);
-    //   }, 1000); // Allow time for iframe to load
-    // };
   } catch (error) {
     logger.error("Error injecting widget:", error);
   }
