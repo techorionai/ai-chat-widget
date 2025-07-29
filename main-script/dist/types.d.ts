@@ -1,7 +1,7 @@
 export type sendMainEventFn = (type: EventTypeMain, data?: Record<string, any>) => void;
-export type EventTypeMain = "set_config";
+export type EventTypeMain = "set_config" | "toggleExpand";
 export type sendIframeEventFn = (type: EventTypeIframe, data?: Record<string, any>) => void;
-export type EventTypeIframe = "init" | "LOG";
+export type EventTypeIframe = "init" | "LOG" | "toggleExpand";
 export type EventHandler = <T extends any>(data: MessageEvent<T>["data"]) => void;
 export interface ChatWidgetConfig {
     debug?: boolean;
@@ -10,6 +10,8 @@ export interface ChatWidgetConfig {
 export interface ChatWindowConfig {
     defaults?: ChatWidgetDefaults;
     header?: ChatWindowHeaderConfig;
+    expanded?: boolean;
+    disallowExpand?: boolean;
 }
 export interface ChatWindowHeaderConfig {
     avatars?: ChatWidgetHeaderAvatarConfig[];

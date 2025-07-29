@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
 import { Route, Routes } from "react-router";
@@ -12,7 +13,7 @@ export default function App() {
   return (
     <ConfigProvider>
       <EventHandlerProvider>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
+        <MantineProvider theme={theme} defaultColorScheme="light">
           <AppContent />
         </MantineProvider>
       </EventHandlerProvider>

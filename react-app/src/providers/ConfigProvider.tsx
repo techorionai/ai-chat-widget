@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
 import { ChatWidgetConfig } from "../types/mainProcess";
 
 interface ConfigContextType {
   config: ChatWidgetConfig;
-  setConfig: (config: ChatWidgetConfig) => void;
+  setConfig: React.Dispatch<React.SetStateAction<ChatWidgetConfig>>;
 }
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);

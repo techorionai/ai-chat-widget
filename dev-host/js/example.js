@@ -23,8 +23,9 @@ initAiChatWidget({
         title: "Support",
         showOnlineSubtitle: true,
       },
-      bg: "blue",
-      color: "white",
+      // bg: "blue",
+      // color: "white",
     },
+    // disallowExpand: true,
   },
 });

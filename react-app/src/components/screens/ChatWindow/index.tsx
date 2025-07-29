@@ -1,28 +1,13 @@
-import { Container, useMantineColorScheme } from "@mantine/core";
+import { Container } from "@mantine/core";
 
+import useConfigColors from "../../../hooks/useConfigColors";
 import ChatWindowHeader from "./Header";
-import { useConfig } from "../../../providers/ConfigProvider";
 
 export default function ChatWindow() {
-  const { config } = useConfig();
-  const { colorScheme } = useMantineColorScheme();
+  const { bg, color } = useConfigColors();
 
   return (
-    <Container
-      fluid
-      bg={
-        colorScheme === "light"
-          ? config.chatWindow?.defaults?.colors?.light?.bg || "white"
-          : config.chatWindow?.defaults?.colors?.dark?.bg || "dark"
-      }
-      c={
-        colorScheme === "light"
-          ? config.chatWindow?.defaults?.colors?.light?.color || "black"
-          : config.chatWindow?.defaults?.colors?.dark?.color || "white"
-      }
-      h="100vh"
-      p={0}
-    >
+    <Container fluid bg={bg} c={color} h="100vh" p={0}>
       <ChatWindowHeader />
     </Container>
   );

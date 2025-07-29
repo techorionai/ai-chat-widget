@@ -1,5 +1,6 @@
 import { IFRAME_SRC } from "../consts.js";
 import initEventHandler from "../eventHandlers/init.js";
+import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import { EventTypeIframe } from "../types.js";
 import logger from "./logger.js";
 
@@ -11,10 +12,13 @@ const iframeEventHandler = (event: MessageEvent<any>) => {
 
   switch (eventType as EventTypeIframe) {
     case "init":
-      initEventHandler(event.data);
+      initEventHandler(event.data.data);
+      break;
+    case "toggleExpand":
+      toggleExpandEventHandler(event.data.data);
       break;
     default:
-      logger.warn(`Unhandled event type: ${eventType}`, event.data);
+      logger.warn(`Unhandled event type: ${eventType}`, event.data.data);
       break;
   }
 };
