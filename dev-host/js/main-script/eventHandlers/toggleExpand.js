@@ -10,7 +10,6 @@ export const defaultExpandedSize = {
 };
 const toggleExpandEventHandler = (data) => {
     try {
-        logger.log("Handling toggleExpand event with data:", data);
         if (!data?.hasOwnProperty("expanded")) {
             throw new Error("toggleExpand event data missing 'expanded' property:", data);
         }

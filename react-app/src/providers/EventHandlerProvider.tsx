@@ -1,11 +1,5 @@
 import merge from "lodash.merge";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 import { PARENT_ORIGIN } from "../consts/parent";
 import { ChatWidgetConfig, EventTypeMain } from "../types/mainProcess";
