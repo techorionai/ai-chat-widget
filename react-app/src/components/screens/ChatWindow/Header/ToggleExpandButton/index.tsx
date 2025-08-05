@@ -9,7 +9,7 @@ import { useConfig } from "../../../../../providers/ConfigProvider";
 
 export default function ChatWindowHeaderToggleExpandButton() {
   const { config } = useConfig();
-  const { headerBg } = useConfigColors();
+  const { headerColor } = useConfigColors();
 
   const handleToggleExpand = () => {
     sendEventToMain("toggleExpand", {
@@ -24,7 +24,7 @@ export default function ChatWindowHeaderToggleExpandButton() {
   return (
     <ActionIcon
       variant="subtle"
-      color={headerBg !== "white" && headerBg !== "black" ? headerBg : "gray"}
+      color={headerColor ?? "gray"}
       onClick={handleToggleExpand}
     >
       {config.chatWindow?.expanded ? (
