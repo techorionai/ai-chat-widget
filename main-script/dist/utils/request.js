@@ -38,8 +38,7 @@ const request = async (config, options) => {
         });
         const data = await res.json();
         return {
-            ...res,
-            data,
+            ...data,
         };
     }
     catch (error) {

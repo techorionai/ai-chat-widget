@@ -1,12 +1,15 @@
-import { sendMainEventFn, ChatWidgetConfig } from "./types.js";
+import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
+import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
 declare global {
     interface Window {
         $aiChatWidget: {
             Iframe?: HTMLIFrameElement;
             sendEvent: sendMainEventFn;
             initialConfig?: ChatWidgetConfig;
+            chatProvider?: ChatProvider;
         };
         initAiChatWidget: (config: ChatWidgetConfig) => void;
+        NavigableChatProvider: typeof NavigableChatProvider;
     }
 }
 export * from "./consts.js";

@@ -2,29 +2,35 @@ import "@mantine/core/styles.css";
 import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
-import { Route, Routes } from "react-router";
 
-import ChatWindow from "./components/screens/ChatWindow";
+import RoutesBuilder from "./components/RoutesBuilder";
 import { ConfigProvider } from "./providers/ConfigProvider";
 import { EventHandlerProvider } from "./providers/EventHandlerProvider";
 import { theme } from "./theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function App() {
   return (
     <ConfigProvider>
-      <EventHandlerProvider>
-        <MantineProvider theme={theme} defaultColorScheme="light">
-          <AppContent />
-        </MantineProvider>
-      </EventHandlerProvider>
+      <QueryClientProvider client={queryClient}>
+        <EventHandlerProvider>
+          <MantineProvider theme={theme} defaultColorScheme="light">
+            <AppContent />
+          </MantineProvider>
+        </EventHandlerProvider>
+      </QueryClientProvider>
     </ConfigProvider>
   );
 }
 
 function AppContent() {
-  return (
-    <Routes>
-      <Route index element={<ChatWindow />} />
-    </Routes>
-  );
+  return <RoutesBuilder />;
 }

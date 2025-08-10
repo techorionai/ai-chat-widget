@@ -1,5 +1,6 @@
+import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
 import { injectAiChatWidget } from "./inject.js";
-import { sendMainEventFn, ChatWidgetConfig } from "./types.js";
+import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
 
 // Extend the Window interface to $aiChatWidget & initAiChatWidget
 declare global {
@@ -8,8 +9,10 @@ declare global {
       Iframe?: HTMLIFrameElement;
       sendEvent: sendMainEventFn;
       initialConfig?: ChatWidgetConfig;
+      chatProvider?: ChatProvider;
     };
     initAiChatWidget: (config: ChatWidgetConfig) => void;
+    NavigableChatProvider: typeof NavigableChatProvider;
   }
 }
 
@@ -18,3 +21,4 @@ export * from "./types.js";
 export * from "./inject.js";
 
 window.initAiChatWidget = injectAiChatWidget;
+window.NavigableChatProvider = NavigableChatProvider;

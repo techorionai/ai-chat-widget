@@ -49,8 +49,7 @@ const request = async <T extends any>(
     });
     const data = await res.json();
     return {
-      ...res,
-      data,
+      ...data,
     } as T;
   } catch (error) {
     logger.error(`Error in request: ${error}\nConfig: ${config}`);

@@ -1,0 +1,72 @@
+import {
+  Box,
+  Card,
+  Center,
+  Container,
+  Group,
+  Loader,
+  Text,
+} from "@mantine/core";
+import { useQueries } from "@tanstack/react-query";
+import { CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY } from "../../../../consts/queryKeys";
+import useConfigColors from "../../../../hooks/useConfigColors";
+import {
+  ChatProviderSession,
+  DataOrError,
+} from "../../../../types/mainProcess";
+import getPrettyDate from "../../../../utils/getPrettyDate";
+import sendEventToMain from "../../../../utils/sendEvent";
+import ChatWindowHeaderAvatar from "../../ChatWindow/Header/Avatar";
+import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
+
+export default function SessionsList() {
+  const { borderColor } = useConfigColors();
+
+  const [sessionsListRes] = useQueries({
+    queries: [
+      {
+        queryKey: CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY,
+        queryFn: async () => {
+          sendEventToMain("chatProviderListSessions");
+          return {
+            loading: true,
+            data: [] as ChatProviderSession[],
+          } as DataOrError<ChatProviderSession[]>;
+        },
+      },
+    ],
+  });
+
+  const {
+    component: Component,
+    hasError,
+    data: sessionList,
+  } = getQueryDataOrError(sessionsListRes);
+  if (hasError || !sessionList) {
+    return Component;
+  }
+
+  return (
+    <Box>
+      {sessionList.map((session) => (
+        <Card
+          key={session.id}
+          className="cursor-pointer"
+          padding="sm"
+          radius="0px"
+          style={{ borderBottom: `2px solid ${borderColor}` }}
+        >
+          <Group align="center">
+            <ChatWindowHeaderAvatar />
+            <Box>
+              <Text>{session.title}</Text>
+              <Text fz="xs" c="gray">
+                {getPrettyDate(session.createdAt)}
+              </Text>
+            </Box>
+          </Group>
+        </Card>
+      ))}
+    </Box>
+  );
+}

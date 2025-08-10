@@ -1,24 +1,46 @@
+/** Common events to both the main script and iframe. Round-trip events. */
+type CommonEventTypes =
+  | "toggleExpand"
+  | "chatProviderListSessions"
+  | "chatProviderCreateSession"
+  | "chatProviderListSessionMessages"
+  | "chatProviderSendMessage";
+
+/** Function to send an event from the main script to the iframe */
 export type sendMainEventFn = (
   type: EventTypeMain,
   data?: Record<string, any>
 ) => void;
 
-export type EventTypeMain = "set_config" | "toggleExpand";
+/** Events sent from the main script */
+export type EventTypeMain = CommonEventTypes | "set_config";
 
+/** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (
   type: EventTypeIframe,
   data?: Record<string, any>
 ) => void;
 
-export type EventTypeIframe = "init" | "LOG" | "toggleExpand";
+/** Events sent from the iframe */
+export type EventTypeIframe = CommonEventTypes | "init" | "LOG";
 
 export type EventHandler = <T extends any>(
   data: MessageEvent<T>["data"]
 ) => void;
 
+export type DataOrError<T> =
+  | DataResponse<T>
+  | { error: string }
+  | { loading: boolean };
+
+export interface DataResponse<T> {
+  data: T;
+}
+
 export interface ChatWidgetConfig {
   debug?: boolean;
   chatWindow?: ChatWindowConfig;
+  chatProvider?: ChatProvider;
 }
 
 export interface ChatWindowConfig {
@@ -113,11 +135,14 @@ export interface ChatProviderSendMessageOptions {
 
 /**
  * Interface for a chat provider adapter.
+ *
  * Implementations should provide methods for message management. Session management is optional.
  *
- * If session management is not implemented, the widget will not show the session list. There will be only a chat window.
+ * If multi-session is enabled, the provider should implement session management methods.
  */
 export interface ChatProvider {
+  multiSession: boolean;
+
   /**
    * Optional: List all chat sessions for a user.
    * @param options - Options for listing sessions.
@@ -353,4 +378,7 @@ export interface NavigableChatProviderOptions {
 
   /** Optional user ID to initialize the provider with. If not provided, UUID v7 is used. */
   userId?: string;
+
+  /** Optional flag to toggle support for multiple chat sessions. */
+  multiSession?: boolean;
 }

@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { ChatWidgetConfig } from "../types/mainProcess";
+import {
+  ChatProviderListSessionMessagesMessage,
+  ChatProviderListSessionMessagesOptions,
+  ChatProviderSendMessageOptions,
+  ChatWidgetConfig,
+} from "../types/mainProcess";
 
 interface ConfigContextType {
   config: ChatWidgetConfig;

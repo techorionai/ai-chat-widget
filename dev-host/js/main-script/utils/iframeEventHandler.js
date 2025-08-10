@@ -1,4 +1,5 @@
 import { IFRAME_SRC } from "../consts.js";
+import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
 import initEventHandler from "../eventHandlers/init.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import logger from "./logger.js";
@@ -14,6 +15,9 @@ const iframeEventHandler = (event) => {
             break;
         case "toggleExpand":
             toggleExpandEventHandler(event.data.data);
+            break;
+        case "chatProviderListSessions":
+            chatProviderListSessionsEventHandler(event.data.data);
             break;
         default:
             logger.warn(`Unhandled event type: ${eventType}`, event.data.data);

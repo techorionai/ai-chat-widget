@@ -1,5 +1,6 @@
 import { ChatProvider, ChatProviderListSessionMessagesMessage, ChatProviderListSessionMessagesOptions, ChatProviderListSessionsOptions, ChatProviderSendMessageOptions, ChatProviderSession, NavigableChatProviderOptions } from "../../types.js";
 declare class NavigableChatProvider implements ChatProvider {
+    multiSession: boolean;
     private apiMode;
     private embedId?;
     userId: string;

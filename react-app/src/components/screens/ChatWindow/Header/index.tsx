@@ -1,10 +1,8 @@
-import { Container, Group, useMantineColorScheme } from "@mantine/core";
+import { Container, Group } from "@mantine/core";
+import useConfigColors from "../../../../hooks/useConfigColors";
 import ChatWindowHeaderAvatar from "./Avatar";
 import ChatWindowHeaderTitle from "./Title";
-import { useConfig } from "../../../../providers/ConfigProvider";
-import logToIframe from "../../../../utils/logger";
 import ChatWindowHeaderToggleExpandButton from "./ToggleExpandButton";
-import useConfigColors from "../../../../hooks/useConfigColors";
 
 export default function ChatWindowHeader() {
   const { headerBg, headerColor, borderColor } = useConfigColors();

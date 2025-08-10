@@ -2,10 +2,17 @@ import merge from "lodash.merge";
 import React, { createContext, useContext, useEffect } from "react";
 
 import { PARENT_ORIGIN } from "../consts/parent";
-import { ChatWidgetConfig, EventTypeMain } from "../types/mainProcess";
+import {
+  ChatProviderSession,
+  ChatWidgetConfig,
+  DataOrError,
+  EventTypeMain,
+} from "../types/mainProcess";
 import logToIframe from "../utils/logger";
 import sendEventToMain from "../utils/sendEvent";
 import { useConfig } from "./ConfigProvider";
+import { useQueryClient } from "@tanstack/react-query";
+import { CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY } from "../consts/queryKeys";
 
 // EventHandler context (could be expanded for more event features)
 const EventHandlerContext = createContext<null>(null);
@@ -14,6 +21,7 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { setConfig } = useConfig();
+  const queryClient = useQueryClient();
 
   const setConfigEventHandler = (data: ChatWidgetConfig = {}) => {
     setConfig((prev) => merge({}, prev, data));
@@ -44,6 +52,12 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const toggleListSessionsEventHandler = (
+    data: DataOrError<ChatProviderSession[]>
+  ) => {
+    queryClient.setQueryData(CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY, () => data);
+  };
+
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== PARENT_ORIGIN) return;
@@ -55,6 +69,9 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
           break;
         case "toggleExpand":
           toggleExpandEventHandler(event.data?.data);
+          break;
+        case "chatProviderListSessions":
+          toggleListSessionsEventHandler(event.data?.data);
           break;
         default:
           console.warn(`Unhandled event type: ${eventType}`, event.data);

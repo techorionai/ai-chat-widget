@@ -1,11 +1,13 @@
-import uuid from "uuid";
-import request from "../../utils/request.js";
 import navigableResponseHandler from "../../utils/navigableResponseHandler.js";
-const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
+import request from "../../utils/request.js";
+import generateTULIP from "../../utils/tulip.js";
+// const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
+const API_ENDPOINT = "http://localhost:3002/embed/v1";
 class NavigableChatProvider {
+    multiSession = true;
     apiMode = "unknown";
     embedId = undefined;
-    userId = uuid.v7();
+    userId = generateTULIP();
     lastNewSessionRequest = undefined;
     constructor(options) {
         if (options?.userId &&
@@ -13,9 +15,24 @@ class NavigableChatProvider {
             options.userId.trim() !== "") {
             this.userId = options.userId;
         }
+        if (!options?.userId) {
+            const lsUserId = localStorage.getItem("navigableUserId");
+            if (lsUserId && lsUserId.trim() !== "") {
+                this.userId = lsUserId;
+            }
+            else {
+                localStorage.setItem("navigableUserId", this.userId);
+            }
+        }
         if (options?.embedId) {
             this.embedId = options.embedId;
             this.apiMode = "embed";
+        }
+        if (!options?.embedId) {
+            throw new Error("Please provide an embedId or proxy API config to use NavigableChatProvider.");
+        }
+        if (options?.multiSession !== undefined) {
+            this.multiSession = Boolean(options.multiSession);
         }
     }
     async listSessionMessages(options) {

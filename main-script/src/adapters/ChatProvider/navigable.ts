@@ -9,16 +9,18 @@ import {
   NavigableChatProviderOptions,
   ToolCall,
 } from "../../types.js";
-import uuid from "uuid";
-import request from "../../utils/request.js";
 import navigableResponseHandler from "../../utils/navigableResponseHandler.js";
+import request from "../../utils/request.js";
+import generateTULIP from "../../utils/tulip.js";
 
-const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
+// const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
+const API_ENDPOINT = "http://localhost:3002/embed/v1";
 
 class NavigableChatProvider implements ChatProvider {
+  multiSession: boolean = true;
   private apiMode: "unknown" | "embed" | "proxy-api" = "unknown";
   private embedId?: string | undefined = undefined;
-  userId: string = uuid.v7();
+  userId: string = generateTULIP();
 
   lastNewSessionRequest:
     | undefined
@@ -35,10 +37,28 @@ class NavigableChatProvider implements ChatProvider {
     ) {
       this.userId = options.userId;
     }
+    if (!options?.userId) {
+      const lsUserId = localStorage.getItem("navigableUserId");
+      if (lsUserId && lsUserId.trim() !== "") {
+        this.userId = lsUserId;
+      } else {
+        localStorage.setItem("navigableUserId", this.userId);
+      }
+    }
 
     if (options?.embedId) {
       this.embedId = options.embedId;
       this.apiMode = "embed";
+    }
+
+    if (!options?.embedId) {
+      throw new Error(
+        "Please provide an embedId or proxy API config to use NavigableChatProvider."
+      );
+    }
+
+    if (options?.multiSession !== undefined) {
+      this.multiSession = Boolean(options.multiSession);
     }
   }
 
