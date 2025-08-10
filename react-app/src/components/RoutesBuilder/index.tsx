@@ -3,6 +3,7 @@ import { useConfig } from "../../providers/ConfigProvider";
 import InvalidConfig from "../InvalidConfig";
 import ChatWindow from "../screens/ChatWindow";
 import ChatSessions from "../screens/ChatSessions";
+import Home from "../screens/Home";
 
 export default function RoutesBuilder() {
   const { config } = useConfig();
@@ -16,8 +17,11 @@ export default function RoutesBuilder() {
   if (config.chatProvider.multiSession) {
     return (
       <Routes>
-        <Route index element={<ChatSessions />} />
-        <Route path="sessions/*" element={<ChatWindow />} />
+        <Route index element={<Home />} />
+        <Route path="sessions">
+          <Route index element={<ChatSessions />} />
+          <Route path=":sessionId" element={<ChatWindow />} />
+        </Route>
       </Routes>
     );
   }

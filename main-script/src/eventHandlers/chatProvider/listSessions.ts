@@ -16,8 +16,6 @@ const chatProviderListSessionsEventHandler = async (
 
     const result = await window.$aiChatWidget.chatProvider?.listSessions(data);
 
-    logger.log("chatProviderListSessions result:", result);
-
     if (!result) {
       throw new Error("An error occurred while listing sessions.");
     }

@@ -3,12 +3,14 @@ import useConfigColors from "../../../../hooks/useConfigColors";
 import ChatWindowHeaderAvatar from "./Avatar";
 import ChatWindowHeaderTitle from "./Title";
 import ChatWindowHeaderToggleExpandButton from "./ToggleExpandButton";
+import ChatWindowHeaderBackToSessionsListButton from "./BackToSessionsListButton";
 
 export default function ChatWindowHeader() {
   const { headerBg, headerColor, borderColor } = useConfigColors();
 
   return (
     <Container
+      id="ai-chat-window-header"
       fluid
       bg={headerBg}
       c={headerColor}
@@ -17,12 +19,13 @@ export default function ChatWindowHeader() {
         borderBottom: `2px solid ${borderColor}`,
       }}
     >
-      <Group justify="space-between">
-        <Group>
+      <Group justify="space-between" align="center">
+        <Group align="center">
+          <ChatWindowHeaderBackToSessionsListButton />
           <ChatWindowHeaderAvatar />
           <ChatWindowHeaderTitle />
         </Group>
-        <Group>
+        <Group align="center">
           <ChatWindowHeaderToggleExpandButton />
         </Group>
       </Group>

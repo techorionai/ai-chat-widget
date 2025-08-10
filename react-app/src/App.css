@@ -6,6 +6,11 @@ body {
   font-variation-settings: "wdth" 100, "YTLC" 500;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .action-icon {
   width: 75%;
 }

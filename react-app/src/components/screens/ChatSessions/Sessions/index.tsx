@@ -18,6 +18,7 @@ import getPrettyDate from "../../../../utils/getPrettyDate";
 import sendEventToMain from "../../../../utils/sendEvent";
 import ChatWindowHeaderAvatar from "../../ChatWindow/Header/Avatar";
 import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
+import { NavLink } from "react-router";
 
 export default function SessionsList() {
   const { borderColor } = useConfigColors();
@@ -49,23 +50,27 @@ export default function SessionsList() {
   return (
     <Box>
       {sessionList.map((session) => (
-        <Card
+        <NavLink
+          to={`/sessions/${session.id}?${session.closed ? "closed=true" : ""}`}
           key={session.id}
-          className="cursor-pointer"
-          padding="sm"
-          radius="0px"
-          style={{ borderBottom: `2px solid ${borderColor}` }}
         >
-          <Group align="center">
-            <ChatWindowHeaderAvatar />
-            <Box>
-              <Text>{session.title}</Text>
-              <Text fz="xs" c="gray">
-                {getPrettyDate(session.createdAt)}
-              </Text>
-            </Box>
-          </Group>
-        </Card>
+          <Card
+            className="cursor-pointer"
+            padding="sm"
+            radius="0px"
+            style={{ borderBottom: `2px solid ${borderColor}` }}
+          >
+            <Group align="center">
+              <ChatWindowHeaderAvatar />
+              <Box>
+                <Text>{session.title}</Text>
+                <Text fz="xs" c="gray">
+                  {getPrettyDate(session.createdAt)}
+                </Text>
+              </Box>
+            </Group>
+          </Card>
+        </NavLink>
       ))}
     </Box>
   );

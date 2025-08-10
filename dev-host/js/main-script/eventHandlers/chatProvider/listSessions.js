@@ -9,7 +9,6 @@ const chatProviderListSessionsEventHandler = async (data) => {
             throw new Error("Chat provider does not support listing sessions.");
         }
         const result = await window.$aiChatWidget.chatProvider?.listSessions(data);
-        logger.log("chatProviderListSessions result:", result);
         if (!result) {
             throw new Error("An error occurred while listing sessions.");
         }
