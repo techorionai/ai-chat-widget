@@ -4,13 +4,14 @@ import ChatWindowHeaderAvatar from "./Avatar";
 import ChatWindowHeaderTitle from "./Title";
 import ChatWindowHeaderToggleExpandButton from "./ToggleExpandButton";
 import ChatWindowHeaderBackToSessionsListButton from "./BackToSessionsListButton";
+import { AI_CHAT_WINDOW_HEADER_ID } from "../../../../consts/elementIds";
 
 export default function ChatWindowHeader() {
   const { headerBg, headerColor, borderColor } = useConfigColors();
 
   return (
     <Container
-      id="ai-chat-window-header"
+      id={AI_CHAT_WINDOW_HEADER_ID}
       fluid
       bg={headerBg}
       c={headerColor}

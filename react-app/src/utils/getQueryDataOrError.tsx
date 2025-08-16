@@ -17,10 +17,12 @@ const getQueryDataOrError = <T,>(
     data: null,
   };
 
+  const UNEXPECTED_ERROR = "An unexpected error occurred.";
+
   if (!useQueryResult.data) {
     result.component = (
       <Container>
-        <Text c="red">An unexpected error occurred</Text>
+        <Text c="red">{UNEXPECTED_ERROR}</Text>
       </Container>
     );
     result.hasError = true;
@@ -54,7 +56,7 @@ const getQueryDataOrError = <T,>(
   ) {
     result.component = (
       <Container>
-        <Text c="red">Invalid data format received.</Text>
+        <Text c="red">{UNEXPECTED_ERROR}</Text>
       </Container>
     );
     result.hasError = true;
@@ -62,7 +64,7 @@ const getQueryDataOrError = <T,>(
 
   result.data =
     useQueryResult.data && "data" in useQueryResult.data
-      ? useQueryResult.data?.data
+      ? useQueryResult.data?.data ?? null
       : null;
 
   return result;

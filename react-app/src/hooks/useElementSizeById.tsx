@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useElementSize = (id: string) => {
+const useElementSizeById = (id: string) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
@@ -25,3 +25,5 @@ const useElementSize = (id: string) => {
 
   return size;
 };
+
+export default useElementSizeById;

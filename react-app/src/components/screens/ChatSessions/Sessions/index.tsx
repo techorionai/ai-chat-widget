@@ -1,13 +1,6 @@
-import {
-  Box,
-  Card,
-  Center,
-  Container,
-  Group,
-  Loader,
-  Text,
-} from "@mantine/core";
+import { Box, Group, Paper, Text } from "@mantine/core";
 import { useQueries } from "@tanstack/react-query";
+import { NavLink } from "react-router";
 import { CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY } from "../../../../consts/queryKeys";
 import useConfigColors from "../../../../hooks/useConfigColors";
 import {
@@ -15,10 +8,9 @@ import {
   DataOrError,
 } from "../../../../types/mainProcess";
 import getPrettyDate from "../../../../utils/getPrettyDate";
+import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
 import sendEventToMain from "../../../../utils/sendEvent";
 import ChatWindowHeaderAvatar from "../../ChatWindow/Header/Avatar";
-import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
-import { NavLink } from "react-router";
 
 export default function SessionsList() {
   const { borderColor } = useConfigColors();
@@ -54,11 +46,11 @@ export default function SessionsList() {
           to={`/sessions/${session.id}?${session.closed ? "closed=true" : ""}`}
           key={session.id}
         >
-          <Card
+          <Paper
             className="cursor-pointer"
-            padding="sm"
+            p="sm"
             radius="0px"
-            style={{ borderBottom: `2px solid ${borderColor}` }}
+            style={{ borderBottom: `1px solid ${borderColor}` }}
           >
             <Group align="center">
               <ChatWindowHeaderAvatar />
@@ -69,7 +61,7 @@ export default function SessionsList() {
                 </Text>
               </Box>
             </Group>
-          </Card>
+          </Paper>
         </NavLink>
       ))}
     </Box>

@@ -67,5 +67,6 @@ export default function useConfigColors() {
     headerBg,
     headerColor,
     borderColor,
+    colorScheme,
   };
 }
