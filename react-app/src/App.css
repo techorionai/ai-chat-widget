@@ -1,9 +1,8 @@
 html,
 body {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Geist", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-variation-settings: "wdth" 100, "YTLC" 500;
 }
 
 a {
