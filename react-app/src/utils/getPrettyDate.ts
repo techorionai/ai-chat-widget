@@ -23,18 +23,22 @@ function getPrettyDate(timestamp: string) {
   if (seconds < 1) {
     return "Just now";
   } else if (seconds < 60) {
-    return `${seconds} seconds ago`;
+    return `${seconds} second${withPluralSuffix(seconds)} ago`;
   } else if (minutes < 60) {
-    return `${minutes} minutes ago`;
+    return `${minutes} minute${withPluralSuffix(minutes)} ago`;
   } else if (hours < 24) {
-    return `${hours} hours ago`;
+    return `${hours} hour${withPluralSuffix(hours)} ago`;
   } else if (days < 30) {
-    return `${days} days ago`;
+    return `${days} day${withPluralSuffix(days)} ago`;
   } else if (months < 12) {
-    return `${months} months ago`;
+    return `${months} month${withPluralSuffix(months)} ago`;
   } else {
-    return `${years} years ago`;
+    return `${years} year${withPluralSuffix(years)} ago`;
   }
+}
+
+function withPluralSuffix(number: number) {
+  return number === 0 || number > 1 ? "s" : "";
 }
 
 export default getPrettyDate;
