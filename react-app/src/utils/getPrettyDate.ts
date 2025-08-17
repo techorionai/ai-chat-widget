@@ -20,7 +20,9 @@ function getPrettyDate(timestamp: string) {
   const years = Math.floor(months / 12);
 
   // Return the formatted string
-  if (seconds < 60) {
+  if (seconds < 1) {
+    return "Just now";
+  } else if (seconds < 60) {
     return `${seconds} seconds ago`;
   } else if (minutes < 60) {
     return `${minutes} minutes ago`;
