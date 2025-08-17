@@ -1,4 +1,4 @@
-import { Box, Group, Paper, Stack, Text } from "@mantine/core";
+import { Box, Group, Loader, Paper, Stack, Text } from "@mantine/core";
 import { ChatProviderListSessionMessagesMessage } from "../../../../../types/mainProcess";
 import getPrettyDate from "../../../../../utils/getPrettyDate";
 import useConfigColors from "../../../../../hooks/useConfigColors";
@@ -6,6 +6,7 @@ import ChatWindowHeaderAvatar from "../../Header/Avatar";
 
 interface IChatWindowMessageProps
   extends ChatProviderListSessionMessagesMessage {
+  isLoading?: boolean;
   _ref?: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -43,15 +44,21 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
               isUser ? (colorScheme === "dark" ? "white" : "white") : undefined
             }
           >
-            <Text>{props.content}</Text>
+            {props.isLoading ? (
+              <Loader type="dots" size="sm" />
+            ) : (
+              <Text>{props.content}</Text>
+            )}
           </Paper>
-          <Text
-            size="xs"
-            c="gray"
-            style={{ textAlign: isUser ? "right" : "left" }}
-          >
-            {props.createdAt && getPrettyDate(props.createdAt)}
-          </Text>
+          {!props.isLoading && (
+            <Text
+              size="xs"
+              c="gray"
+              style={{ textAlign: isUser ? "right" : "left" }}
+            >
+              {props.createdAt && getPrettyDate(props.createdAt)}
+            </Text>
+          )}
         </Stack>
       </Group>
     </Box>

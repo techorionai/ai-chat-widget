@@ -10,11 +10,19 @@ import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
 import sendEventToMain from "../../../../utils/sendEvent";
 import ChatWindowMessage from "./Message";
 import useElementSizeById from "../../../../hooks/useElementSizeById";
-import { AI_CHAT_WINDOW_HEADER_ID } from "../../../../consts/elementIds";
+import {
+  AI_CHAT_WINDOW_HEADER_ID,
+  AI_CHAT_WINDOW_MESSAGE_BOX_ID,
+} from "../../../../consts/elementIds";
 import { useEffect, useRef } from "react";
 import logToIframe from "../../../../utils/logger";
 
-export default function ChatWindowMessages() {
+interface IChatWindowMessagesProps {
+  isResponding?: boolean;
+  respondingMessage?: string;
+}
+
+export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
   const { sessionId } = useParams();
   const isNewSession = sessionId === "new" || !sessionId;
 
@@ -24,8 +32,12 @@ export default function ChatWindowMessages() {
 
   const scrollAreaViewportRef = useRef<HTMLDivElement | null>(null);
 
-  const pad = 32;
+  const pad = 48;
   const { height: headerHeight } = useElementSizeById(AI_CHAT_WINDOW_HEADER_ID);
+  const { height: messageBoxHeight } = useElementSizeById(
+    AI_CHAT_WINDOW_MESSAGE_BOX_ID
+  );
+  const occupiedHeight = headerHeight + messageBoxHeight + pad;
 
   const [messagesListRes] = useQueries({
     queries: [
@@ -81,7 +93,7 @@ export default function ChatWindowMessages() {
     if (messagesList && messagesList.length > 0 && !messagesListRes.isLoading) {
       scrollToBottom();
     }
-  }, [messagesList, messagesListRes.isLoading]);
+  }, [messagesList, messagesListRes.isLoading, props.isResponding]);
 
   // Also scroll when the component first mounts with existing messages
   useEffect(() => {
@@ -97,7 +109,7 @@ export default function ChatWindowMessages() {
 
   return (
     <ScrollArea
-      h={`calc(100vh - ${headerHeight + pad}px)`}
+      h={`calc(100vh - ${occupiedHeight}px)`}
       viewportRef={scrollAreaViewportRef}
     >
       <Stack p="md">
@@ -107,6 +119,23 @@ export default function ChatWindowMessages() {
             key={`message-${message.content}-${message.createdAt}-${idx}`}
           />
         ))}
+        {props.isResponding &&
+          props.respondingMessage &&
+          props.respondingMessage?.length > 0 && (
+            <ChatWindowMessage
+              role="user"
+              content={props.respondingMessage}
+              createdAt={new Date().toISOString()}
+            />
+          )}
+        {props.isResponding && (
+          <ChatWindowMessage
+            role="assistant"
+            content=""
+            isLoading={true}
+            createdAt={new Date().toISOString()}
+          />
+        )}
       </Stack>
     </ScrollArea>
   );
