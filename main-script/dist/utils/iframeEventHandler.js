@@ -1,6 +1,7 @@
 import { IFRAME_SRC } from "../consts.js";
 import chatProviderListSessionMessagesEventHandler from "../eventHandlers/chatProvider/listSessionMessages.js";
 import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
+import chatProviderSendMessageEventHandler from "../eventHandlers/chatProvider/sendMessage.js";
 import initEventHandler from "../eventHandlers/init.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import logger from "./logger.js";
@@ -22,6 +23,9 @@ const iframeEventHandler = (event) => {
             break;
         case "chatProviderListSessionMessages":
             chatProviderListSessionMessagesEventHandler(event.data.data);
+            break;
+        case "chatProviderSendMessage":
+            chatProviderSendMessageEventHandler(event.data.data);
             break;
         default:
             logger.warn(`Unhandled event type: ${eventType}`, event.data.data);

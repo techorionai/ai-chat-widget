@@ -48,7 +48,6 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
           if (!isNewSession) {
             sendEventToMain("chatProviderListSessionMessages", {
               sessionId: sessionId || "new",
-              queryKey,
             });
           }
           return {

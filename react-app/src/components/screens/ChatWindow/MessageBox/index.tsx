@@ -12,6 +12,7 @@ import { AI_CHAT_WINDOW_MESSAGE_BOX_ID } from "../../../../consts/elementIds";
 import { useForm } from "@mantine/form";
 import { useParams } from "react-router";
 import isSessionClosed from "../../../../utils/isSessionClosed";
+import sendEventToMain from "../../../../utils/sendEvent";
 
 interface IChatWindowMessageBoxProps {
   onMessageSubmit: (message: string) => void;
@@ -40,6 +41,11 @@ export default function ChatWindowMessageBox(
     if (form.validate().hasErrors) return;
     props.onMessageSubmit(form.values.message);
     form.reset();
+
+    sendEventToMain("chatProviderSendMessage", {
+      sessionId: sessionId || "new",
+      content: form.values.message,
+    });
   };
 
   if (isClosedSession) {

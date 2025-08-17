@@ -68,7 +68,6 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   }: DataOrError<ChatProviderListSessionMessagesMessage[]> & {
     sessionId: string;
   }) => {
-    logToIframe(`sessionId ${sessionId} data ${JSON.stringify(data)}`);
     const queryKey = CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY(
       sessionId || "new"
     );
@@ -92,6 +91,9 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
           break;
         case "chatProviderListSessionMessages":
           listSessionMessagesEventHandler(event.data?.data);
+          break;
+        case "chatProviderSendMessage":
+          // Handled at the component level
           break;
         default:
           console.warn(`Unhandled event type: ${eventType}`, event.data);
