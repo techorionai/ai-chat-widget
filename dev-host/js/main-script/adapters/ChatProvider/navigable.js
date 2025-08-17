@@ -85,6 +85,7 @@ class NavigableChatProvider {
                     identifier: this.userId,
                     new: newSession,
                     message: options.content,
+                    markdown: true,
                 },
                 headers: {
                     "x-embed-id": this.embedId || "",
