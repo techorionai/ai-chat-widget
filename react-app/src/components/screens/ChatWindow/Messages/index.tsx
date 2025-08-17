@@ -66,20 +66,22 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
   });
 
   const scrollToBottom = () => {
-    // Use requestAnimationFrame to ensure DOM has updated
-    requestAnimationFrame(() => {
-      if (scrollAreaViewportRef.current) {
-        const viewport = scrollAreaViewportRef.current;
-        logToIframe(
-          `Scrolling to bottom of messages list for session ${sessionId}`,
-          viewport.scrollHeight
-        );
-        viewport.scrollTo({
-          top: viewport.scrollHeight,
-          behavior: "smooth", // Optional: adds smooth scrolling animation
-        });
-      }
-    });
+    setTimeout(() => {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        if (scrollAreaViewportRef.current) {
+          const viewport = scrollAreaViewportRef.current;
+          logToIframe(
+            `Scrolling to bottom of messages list for session ${sessionId}`,
+            viewport.scrollHeight
+          );
+          viewport.scrollTo({
+            top: viewport.scrollHeight,
+            behavior: "smooth", // Optional: adds smooth scrolling animation
+          });
+        }
+      });
+    }, 100);
   };
 
   const {
