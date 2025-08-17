@@ -53,7 +53,16 @@ export default function ChatWindowMessageBox(
   }
 
   return (
-    <Box id={AI_CHAT_WINDOW_MESSAGE_BOX_ID} p="md" pt="0px">
+    <Box
+      id={AI_CHAT_WINDOW_MESSAGE_BOX_ID}
+      p="md"
+      pt="0px"
+      // Uncomment the following lines if you want the message box to be fixed at the bottom
+      // pos="fixed"
+      // bottom={0}
+      // left={0}
+      // right={0}
+    >
       <Paper shadow="xs" radius="lg" p="xs">
         <form onSubmit={onSubmit}>
           <Stack gap="xs" p="0px">
