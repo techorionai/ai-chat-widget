@@ -1,4 +1,4 @@
-import { ScrollArea, Stack } from "@mantine/core";
+import { Blockquote, ScrollArea, Stack } from "@mantine/core";
 import { useQueries } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY } from "../../../../consts/queryKeys";
@@ -20,6 +20,7 @@ import logToIframe from "../../../../utils/logger";
 interface IChatWindowMessagesProps {
   isResponding?: boolean;
   respondingMessage?: string;
+  respondingError?: string | null;
 }
 
 export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
@@ -135,6 +136,11 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
             isLoading={true}
             createdAt={new Date().toISOString()}
           />
+        )}
+        {props.respondingError && (
+          <Blockquote color="red" p="xs">
+            {props.respondingError}
+          </Blockquote>
         )}
       </Stack>
     </ScrollArea>

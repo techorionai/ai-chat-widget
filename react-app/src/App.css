@@ -3,6 +3,7 @@ body {
   font-family: "Geist", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  scroll-behavior: smooth;
 }
 
 a {

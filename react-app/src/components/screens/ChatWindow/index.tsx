@@ -12,6 +12,7 @@ export default function ChatWindow() {
     initialValues: {
       isResponding: false,
       message: "",
+      error: null as string | null,
     },
   });
 
@@ -26,6 +27,7 @@ export default function ChatWindow() {
       <ChatWindowMessages
         isResponding={form.values.isResponding}
         respondingMessage={form.values.message}
+        respondingError={form.values.error}
       />
       <ChatWindowMessageBox onMessageSubmit={onMessageSubmit} />
     </Container>

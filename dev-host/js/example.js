@@ -5,7 +5,8 @@ initAiChatWidget({
       avatars: [
         {
           name: "Navigable AI",
-          url: "https://www.navigable.ai/android-chrome-512x512.png",
+          // url: "https://www.navigable.ai/android-chrome-192x192.png",
+          url: "https://www.navigable.ai/logo/64.png",
         },
       ],
       maxShownAvatars: 2,

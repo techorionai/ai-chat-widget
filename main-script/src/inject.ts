@@ -33,6 +33,7 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
     iframe.style.borderRadius = "16px";
     iframe.style.boxShadow = "rgb(0 0 0 / 16%) 0px 0px 16px";
     iframe.style.zIndex = "9999";
+    iframe.style.transitionDuration = "300ms";
     iframe.allow = "clipboard-write";
   } catch (error) {
     logger.error("Error injecting widget:", error);
