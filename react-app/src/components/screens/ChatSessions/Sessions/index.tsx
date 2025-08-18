@@ -100,7 +100,7 @@ export default function SessionsList() {
           </Paper>
         </NavLink>
       ))}
-      <Box ta="center" mt="xl">
+      <Box ta="center" mt="xl" pb="xl">
         <Button
           rightSection={<IconSend2 size={18} />}
           mx="auto"
