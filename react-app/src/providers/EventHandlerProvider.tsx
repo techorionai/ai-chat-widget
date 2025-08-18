@@ -17,6 +17,7 @@ import {
   CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY,
   CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY,
 } from "../consts/queryKeys";
+import { useNavigate, useParams } from "react-router";
 
 // EventHandler context (could be expanded for more event features)
 const EventHandlerContext = createContext<null>(null);
@@ -24,6 +25,7 @@ const EventHandlerContext = createContext<null>(null);
 export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const navigate = useNavigate();
   const { setConfig } = useConfig();
   const queryClient = useQueryClient();
 
@@ -57,9 +59,12 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const listSessionsEventHandler = (
-    data: DataOrError<ChatProviderSession[]>
+    data: DataOrError<ChatProviderSession[]> & { newSession?: boolean }
   ) => {
     queryClient.setQueryData(CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY, () => data);
+    if (data.newSession && "data" in data) {
+      navigate(`/sessions/${data.data?.[0]?.id || "new"}`);
+    }
   };
 
   const listSessionMessagesEventHandler = ({
@@ -67,10 +72,15 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
     ...data
   }: DataOrError<ChatProviderListSessionMessagesMessage[]> & {
     sessionId: string;
+    loading?: boolean;
   }) => {
     const queryKey = CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY(
       sessionId || "new"
     );
+    if (sessionId === "new") {
+      sendEventToMain("chatProviderListSessions", { newSession: true });
+      data.loading = true;
+    }
     queryClient.setQueryData(queryKey, () => data);
   };
 
@@ -93,6 +103,9 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
           listSessionMessagesEventHandler(event.data?.data);
           break;
         case "chatProviderSendMessage":
+          // Handled at the component level
+          break;
+        case "chatProviderCreateSession":
           // Handled at the component level
           break;
         default:

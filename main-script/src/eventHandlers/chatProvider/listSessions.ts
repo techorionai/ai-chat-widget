@@ -3,7 +3,7 @@ import logger from "../../utils/logger.js";
 import sendEventToIframe from "../../utils/sendEvent.js";
 
 const chatProviderListSessionsEventHandler = async (
-  data: ChatProviderListSessionsOptions
+  data?: ChatProviderListSessionsOptions & { newSession?: boolean }
 ) => {
   try {
     if (!window.$aiChatWidget.chatProvider) {
@@ -14,7 +14,9 @@ const chatProviderListSessionsEventHandler = async (
       throw new Error("Chat provider does not support listing sessions.");
     }
 
-    const result = await window.$aiChatWidget.chatProvider?.listSessions(data);
+    const result = await window.$aiChatWidget.chatProvider?.listSessions(
+      data || {}
+    );
 
     if (!result) {
       throw new Error("An error occurred while listing sessions.");
@@ -23,6 +25,7 @@ const chatProviderListSessionsEventHandler = async (
     // Send the result back to the iframe
     sendEventToIframe("chatProviderListSessions", {
       data: result,
+      newSession: data?.newSession ? data?.newSession : false,
     });
   } catch (error) {
     logger.error("Error handling chatProviderListSessions event:", error);

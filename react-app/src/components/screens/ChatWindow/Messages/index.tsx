@@ -51,15 +51,12 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
             });
           }
           return {
-            loading: true,
-            data: {
-              sessionId: sessionId || "new",
-              messages: [],
-            } as {
-              sessionId: string;
-              messages: ChatProviderListSessionMessagesMessage[];
-            },
-          } as DataOrError<ChatProviderListSessionMessagesMessage[]>;
+            loading: sessionId === "new" ? false : true,
+            sessionId: sessionId || "new",
+            data: [] as ChatProviderListSessionMessagesMessage[],
+          } as DataOrError<ChatProviderListSessionMessagesMessage[]> & {
+            sessionId: string;
+          };
         },
       },
     ],

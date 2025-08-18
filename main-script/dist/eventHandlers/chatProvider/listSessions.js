@@ -8,13 +8,14 @@ const chatProviderListSessionsEventHandler = async (data) => {
         if (!window.$aiChatWidget.chatProvider.listSessions) {
             throw new Error("Chat provider does not support listing sessions.");
         }
-        const result = await window.$aiChatWidget.chatProvider?.listSessions(data);
+        const result = await window.$aiChatWidget.chatProvider?.listSessions(data || {});
         if (!result) {
             throw new Error("An error occurred while listing sessions.");
         }
         // Send the result back to the iframe
         sendEventToIframe("chatProviderListSessions", {
             data: result,
+            newSession: data?.newSession ? data?.newSession : false,
         });
     }
     catch (error) {

@@ -129,7 +129,7 @@ export interface ChatProvider {
      * Optional: Create a new chat session.
      * @returns Promise resolving to the created session id.
      */
-    createSession?: <T>() => Promise<T | void>;
+    createSession?: () => Promise<string | void>;
     /**
      * List all messages in a given chat session.
      * @param options - Options for listing session messages.

@@ -1,4 +1,5 @@
 import { IFRAME_SRC } from "../consts.js";
+import chatProviderCreateSessionHandler from "../eventHandlers/chatProvider/createSession.js";
 import chatProviderListSessionMessagesEventHandler from "../eventHandlers/chatProvider/listSessionMessages.js";
 import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
 import chatProviderSendMessageEventHandler from "../eventHandlers/chatProvider/sendMessage.js";
@@ -36,6 +37,9 @@ const iframeEventHandler = (event: MessageEvent<any>) => {
       break;
     case "closeWidget":
       closeWidgetHandler();
+      break;
+    case "chatProviderCreateSession":
+      chatProviderCreateSessionHandler();
       break;
     default:
       logger.warn(`Unhandled event type: ${eventType}`, event.data.data);
