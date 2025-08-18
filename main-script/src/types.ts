@@ -47,6 +47,7 @@ export interface ChatWidgetConfig {
   chatWindow?: ChatWindowConfig;
   chatProvider?: ChatProvider;
   actionsMap?: Record<string, Function | string>;
+  homeScreenConfig?: HomeScreenConfig;
 }
 
 export interface ChatWindowConfig {
@@ -86,6 +87,12 @@ export interface ChatWidgetDefaultColors {
 export interface ChatWidgetDefaultColorPair {
   bg?: string;
   color?: string;
+}
+
+export interface HomeScreenConfig {
+  header?: string;
+  header2?: string;
+  subheading?: string;
 }
 
 /**
