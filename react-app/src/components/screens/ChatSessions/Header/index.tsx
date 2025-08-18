@@ -1,6 +1,7 @@
 import { Box, Container, Group, Title } from "@mantine/core";
 import useConfigColors from "../../../../hooks/useConfigColors";
 import ChatSessionsHeaderCloseButton from "./CloseButton";
+import { AI_CHAT_WINDOW_SESSIONS_HEADER_ID } from "../../../../consts/elementIds";
 
 export default function ChatSessionsHeader() {
   const { headerBg, headerColor, borderColor } = useConfigColors();
@@ -14,6 +15,7 @@ export default function ChatSessionsHeader() {
       style={{
         borderBottom: `2px solid ${borderColor}`,
       }}
+      id={AI_CHAT_WINDOW_SESSIONS_HEADER_ID}
     >
       <Group justify="space-between" align="center">
         <Box w="27px" h="27px"></Box>{" "}
