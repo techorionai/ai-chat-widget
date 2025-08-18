@@ -156,8 +156,6 @@ export interface ChatProviderSendMessageOptions {
  * If multi-session is enabled, the provider should implement session management methods.
  */
 export interface ChatProvider {
-  multiSession: boolean;
-
   /**
    * Optional: List all chat sessions for a user.
    * @param options - Options for listing sessions.
@@ -393,7 +391,4 @@ export interface NavigableChatProviderOptions {
 
   /** Optional user ID to initialize the provider with. If not provided, UUID v7 is used. */
   userId?: string;
-
-  /** Optional flag to toggle support for multiple chat sessions. */
-  multiSession?: boolean;
 }

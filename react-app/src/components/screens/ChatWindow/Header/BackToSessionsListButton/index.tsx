@@ -9,10 +9,6 @@ export default function ChatWindowHeaderBackToSessionsListButton() {
   const { headerColor } = useConfigColors();
   const navigate = useNavigate();
 
-  if (!config.chatProvider?.multiSession) {
-    return null;
-  }
-
   return (
     <ActionIcon
       variant="subtle"

@@ -4,7 +4,6 @@ import generateTULIP from "../../utils/tulip.js";
 // const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
 const API_ENDPOINT = "http://localhost:3002/embed/v1";
 class NavigableChatProvider {
-    multiSession = true;
     apiMode = "unknown";
     embedId = undefined;
     userId = generateTULIP();
@@ -30,9 +29,6 @@ class NavigableChatProvider {
         }
         if (!options?.embedId) {
             throw new Error("Please provide an embedId or proxy API config to use NavigableChatProvider.");
-        }
-        if (options?.multiSession !== undefined) {
-            this.multiSession = Boolean(options.multiSession);
         }
     }
     async listSessionMessages(options) {

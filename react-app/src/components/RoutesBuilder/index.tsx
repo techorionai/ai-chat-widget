@@ -14,21 +14,13 @@ export default function RoutesBuilder() {
     );
   }
 
-  if (config.chatProvider.multiSession) {
-    return (
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="sessions">
-          <Route index element={<ChatSessions />} />
-          <Route path=":sessionId" element={<ChatWindow />} />
-        </Route>
-      </Routes>
-    );
-  }
-
   return (
     <Routes>
-      <Route index element={<ChatWindow />} />
+      <Route index element={<Home />} />
+      <Route path="sessions">
+        <Route index element={<ChatSessions />} />
+        <Route path=":sessionId" element={<ChatWindow />} />
+      </Route>
     </Routes>
   );
 }

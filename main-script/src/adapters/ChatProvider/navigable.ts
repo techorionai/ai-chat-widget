@@ -17,7 +17,6 @@ import generateTULIP from "../../utils/tulip.js";
 const API_ENDPOINT = "http://localhost:3002/embed/v1";
 
 class NavigableChatProvider implements ChatProvider {
-  multiSession: boolean = true;
   private apiMode: "unknown" | "embed" | "proxy-api" = "unknown";
   private embedId?: string | undefined = undefined;
   userId: string = generateTULIP();
@@ -55,10 +54,6 @@ class NavigableChatProvider implements ChatProvider {
       throw new Error(
         "Please provide an embedId or proxy API config to use NavigableChatProvider."
       );
-    }
-
-    if (options?.multiSession !== undefined) {
-      this.multiSession = Boolean(options.multiSession);
     }
   }
 
