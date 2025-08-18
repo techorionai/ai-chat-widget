@@ -7,6 +7,9 @@ declare global {
             sendEvent: sendMainEventFn;
             initialConfig?: ChatWidgetConfig;
             chatProvider?: ChatProvider;
+            toggle: () => void;
+            open: () => void;
+            close: () => void;
         };
         initAiChatWidget: (config: ChatWidgetConfig) => void;
         NavigableChatProvider: typeof NavigableChatProvider;

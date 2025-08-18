@@ -3,6 +3,7 @@ import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
 import { ChatWidgetConfig } from "./types.js";
 import sendEventToIframe from "./utils/sendEvent.js";
 import logger from "./utils/logger.js";
+import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 
 export function injectAiChatWidget(config?: ChatWidgetConfig) {
   try {
@@ -17,6 +18,9 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
         sendEvent: sendEventToIframe,
         initialConfig: config,
         chatProvider: config?.chatProvider,
+        toggle: toggleWidget,
+        open: openWidget,
+        close: closeWidget,
       };
       initIframeEventLogger();
     }

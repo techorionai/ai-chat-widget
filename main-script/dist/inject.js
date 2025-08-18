@@ -2,6 +2,7 @@ import { IFRAME_ID, IFRAME_SRC } from "./consts.js";
 import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
 import sendEventToIframe from "./utils/sendEvent.js";
 import logger from "./utils/logger.js";
+import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 export function injectAiChatWidget(config) {
     try {
         // Use existing iframe if present, else create
@@ -15,6 +16,9 @@ export function injectAiChatWidget(config) {
                 sendEvent: sendEventToIframe,
                 initialConfig: config,
                 chatProvider: config?.chatProvider,
+                toggle: toggleWidget,
+                open: openWidget,
+                close: closeWidget,
             };
             initIframeEventLogger();
         }
