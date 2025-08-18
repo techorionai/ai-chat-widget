@@ -9,7 +9,6 @@ import {
   NavigableChatProviderOptions,
   ToolCall,
 } from "../../types.js";
-import logger from "../../utils/logger.js";
 import navigableResponseHandler from "../../utils/navigableResponseHandler.js";
 import request from "../../utils/request.js";
 import generateTULIP from "../../utils/tulip.js";
