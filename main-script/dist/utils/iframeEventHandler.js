@@ -2,6 +2,7 @@ import { IFRAME_SRC } from "../consts.js";
 import chatProviderListSessionMessagesEventHandler from "../eventHandlers/chatProvider/listSessionMessages.js";
 import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
 import chatProviderSendMessageEventHandler from "../eventHandlers/chatProvider/sendMessage.js";
+import closeWidgetHandler from "../eventHandlers/closeWidget.js";
 import initEventHandler from "../eventHandlers/init.js";
 import runActionEventHandler from "../eventHandlers/runAction.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
@@ -30,6 +31,9 @@ const iframeEventHandler = (event) => {
             break;
         case "runAction":
             runActionEventHandler(event.data.data);
+            break;
+        case "closeWidget":
+            closeWidgetHandler();
             break;
         default:
             logger.warn(`Unhandled event type: ${eventType}`, event.data.data);

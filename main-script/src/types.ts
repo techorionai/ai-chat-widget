@@ -22,7 +22,12 @@ export type sendIframeEventFn = (
 ) => void;
 
 /** Events sent from the iframe */
-export type EventTypeIframe = CommonEventTypes | "init" | "LOG" | "runAction";
+export type EventTypeIframe =
+  | CommonEventTypes
+  | "init"
+  | "LOG"
+  | "runAction"
+  | "closeWidget";
 
 export type EventHandler = <T extends any>(
   data: MessageEvent<T>["data"]

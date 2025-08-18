@@ -5,6 +5,7 @@ import ChatWindowHeaderTitle from "./Title";
 import ChatWindowHeaderToggleExpandButton from "./ToggleExpandButton";
 import ChatWindowHeaderBackToSessionsListButton from "./BackToSessionsListButton";
 import { AI_CHAT_WINDOW_HEADER_ID } from "../../../../consts/elementIds";
+import ChatWindowHeaderCloseButton from "./CloseButton";
 
 export default function ChatWindowHeader() {
   const { headerBg, headerColor, borderColor } = useConfigColors();
@@ -26,8 +27,9 @@ export default function ChatWindowHeader() {
           <ChatWindowHeaderAvatar />
           <ChatWindowHeaderTitle />
         </Group>
-        <Group align="center">
+        <Group align="center" gap="xs">
           <ChatWindowHeaderToggleExpandButton />
+          <ChatWindowHeaderCloseButton />
         </Group>
       </Group>
     </Container>
