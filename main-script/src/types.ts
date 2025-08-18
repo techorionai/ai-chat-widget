@@ -22,7 +22,7 @@ export type sendIframeEventFn = (
 ) => void;
 
 /** Events sent from the iframe */
-export type EventTypeIframe = CommonEventTypes | "init" | "LOG";
+export type EventTypeIframe = CommonEventTypes | "init" | "LOG" | "runAction";
 
 export type EventHandler = <T extends any>(
   data: MessageEvent<T>["data"]
@@ -41,6 +41,7 @@ export interface ChatWidgetConfig {
   debug?: boolean;
   chatWindow?: ChatWindowConfig;
   chatProvider?: ChatProvider;
+  actionsMap?: Record<string, Function | string>;
 }
 
 export interface ChatWindowConfig {
@@ -131,6 +132,8 @@ export interface ChatProviderSendMessageOptions {
   sessionId?: string;
   /** The message content to send. */
   content: string;
+  /** List of navigation actions that the agent is allowed to use. Use this to enable the agent to suggest actions for the user to take. */
+  enabledActions?: string[];
 }
 
 /**

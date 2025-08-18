@@ -2,6 +2,7 @@ import {
   ChatProviderListSessionsOptions,
   ChatProviderSendMessageOptions,
 } from "../../types.js";
+import getEnabledActions from "../../utils/getEnabledActions.js";
 import logger from "../../utils/logger.js";
 import sendEventToIframe from "../../utils/sendEvent.js";
 
@@ -17,6 +18,8 @@ const chatProviderSendMessageEventHandler = async (
       throw new Error("Chat provider has not implemented sending messages.");
     }
 
+    const enabledActions = getEnabledActions();
+    data.enabledActions = enabledActions;
     const result = await window.$aiChatWidget.chatProvider?.sendMessage(data);
 
     if (!result) {

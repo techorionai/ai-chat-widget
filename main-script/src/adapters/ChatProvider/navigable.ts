@@ -129,6 +129,7 @@ class NavigableChatProvider implements ChatProvider {
           new: newSession,
           message: options.content,
           markdown: true,
+          configuredActions: options.enabledActions || [],
         },
         headers: {
           "x-embed-id": this.embedId || "",

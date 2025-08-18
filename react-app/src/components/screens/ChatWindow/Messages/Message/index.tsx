@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Group,
   Loader,
   Paper,
@@ -13,6 +14,7 @@ import useConfigColors from "../../../../../hooks/useConfigColors";
 import ChatWindowHeaderAvatar from "../../Header/Avatar";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
+import sendEventToMain from "../../../../../utils/sendEvent";
 
 interface IChatWindowMessageProps
   extends ChatProviderListSessionMessagesMessage {
@@ -21,13 +23,17 @@ interface IChatWindowMessageProps
 }
 
 export default function ChatWindowMessage(props: IChatWindowMessageProps) {
-  const { colorScheme } = useConfigColors();
-
-  const [htmlContent, setHtmlContent] = useState<string>();
-
   const isUser = props.role === "user";
   const isAgent = props.role === "assistant";
   const isTool = props.role === "tool";
+  const suggestedActions =
+    props.suggestedActions && props.suggestedActions?.length > 0
+      ? [...new Set(props.suggestedActions)]
+      : [];
+
+  const { colorScheme } = useConfigColors();
+
+  const [htmlContent, setHtmlContent] = useState<string>();
 
   useEffect(() => {
     const markdownToHtml = async () => {
@@ -79,6 +85,23 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
               <Text>{props.content}</Text>
             )}
           </Paper>
+          {suggestedActions.length > 0 && (
+            <Group gap="3px">
+              {suggestedActions.map((action, idx) => (
+                <Button
+                  key={`action-${action}-idx-${idx}`}
+                  variant="light"
+                  onClick={() => {
+                    sendEventToMain("runAction", {
+                      name: action,
+                    });
+                  }}
+                >
+                  {action}
+                </Button>
+              ))}
+            </Group>
+          )}
           {!props.isLoading && (
             <Text
               size="xs"

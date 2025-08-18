@@ -5,7 +5,11 @@ const initEventHandler = (data) => {
         if (!window.$aiChatWidget.initialConfig) {
             throw new Error("Chat widget initial config is not set.");
         }
-        sendEventToIframe("set_config", window.$aiChatWidget.initialConfig);
+        const safeInitialConfig = {
+            ...window.$aiChatWidget.initialConfig,
+            actionsMap: JSON.parse(JSON.stringify(window.$aiChatWidget.initialConfig.actionsMap || {})),
+        };
+        sendEventToIframe("set_config", safeInitialConfig);
     }
     catch (error) {
         logger.error(error);

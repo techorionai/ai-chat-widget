@@ -23,4 +23,7 @@ initAiChatWidget({
     embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
     userId: "david@techorionai.com",
   }),
+  actionsMap: {
+    "Go to Support Portal": () => alert("Navigating to Support Portal..."),
+  },
 });
