@@ -1,6 +1,6 @@
 import { UseQueryResult } from "@tanstack/react-query";
 import { DataOrError } from "../types/mainProcess";
-import { Container, Center, Loader, Text } from "@mantine/core";
+import { Container, Center, Loader, Text, MantineSize } from "@mantine/core";
 
 interface Result<T> {
   component: React.ReactNode;
@@ -9,7 +9,10 @@ interface Result<T> {
 }
 
 const getQueryDataOrError = <T,>(
-  useQueryResult: UseQueryResult<DataOrError<T>, Error>
+  useQueryResult: UseQueryResult<DataOrError<T>, Error>,
+  options?: {
+    containerSize?: MantineSize | string;
+  }
 ): Result<T> => {
   const result: Result<T> = {
     component: null,
@@ -21,7 +24,7 @@ const getQueryDataOrError = <T,>(
 
   if (!useQueryResult.data) {
     result.component = (
-      <Container>
+      <Container h={options?.containerSize}>
         <Text c="red">{UNEXPECTED_ERROR}</Text>
       </Container>
     );
@@ -34,7 +37,7 @@ const getQueryDataOrError = <T,>(
     useQueryResult.data.loading
   ) {
     result.component = (
-      <Center py="xl">
+      <Center py="xl" h={options?.containerSize}>
         <Loader />
       </Center>
     );
@@ -43,7 +46,7 @@ const getQueryDataOrError = <T,>(
 
   if (useQueryResult.data && "error" in useQueryResult.data) {
     result.component = (
-      <Container>
+      <Container h={options?.containerSize}>
         <Text c="red">{useQueryResult.data.error}</Text>
       </Container>
     );
@@ -55,7 +58,7 @@ const getQueryDataOrError = <T,>(
     !useQueryResult.data
   ) {
     result.component = (
-      <Container>
+      <Container h={options?.containerSize}>
         <Text c="red">{UNEXPECTED_ERROR}</Text>
       </Container>
     );

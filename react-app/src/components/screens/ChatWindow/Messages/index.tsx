@@ -85,7 +85,9 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
     component: Component,
     hasError,
     data: messagesList,
-  } = getQueryDataOrError(messagesListRes);
+  } = getQueryDataOrError(messagesListRes, {
+    containerSize: `calc(100vh - ${occupiedHeight}px)`,
+  });
 
   // Scroll when messages change and data is actually loaded
   useEffect(() => {
