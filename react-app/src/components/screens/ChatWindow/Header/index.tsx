@@ -3,7 +3,7 @@ import useConfigColors from "../../../../hooks/useConfigColors";
 import ChatWindowHeaderAvatar from "./Avatar";
 import ChatWindowHeaderTitle from "./Title";
 import ChatWindowHeaderToggleExpandButton from "./ToggleExpandButton";
-import ChatWindowHeaderBackToSessionsListButton from "./BackToSessionsListButton";
+import ChatWindowHeaderBackButton from "./BackButton";
 import { AI_CHAT_WINDOW_HEADER_ID } from "../../../../consts/elementIds";
 import ChatWindowHeaderCloseButton from "./CloseButton";
 
@@ -23,7 +23,7 @@ export default function ChatWindowHeader() {
     >
       <Group justify="space-between" align="center">
         <Group align="center">
-          <ChatWindowHeaderBackToSessionsListButton />
+          <ChatWindowHeaderBackButton />
           <ChatWindowHeaderAvatar />
           <ChatWindowHeaderTitle />
         </Group>
