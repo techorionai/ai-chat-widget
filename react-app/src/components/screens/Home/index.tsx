@@ -1,8 +1,9 @@
-import { Container } from "@mantine/core";
-import NavFooter from "../../NavFooter";
+import { Box, Container, Stack } from "@mantine/core";
+import NavFooter, { NavFooterHeight } from "../../NavFooter";
 import HomeHeader from "./Header";
 import useConfigColors from "../../../hooks/useConfigColors";
 import HomeHeadings from "./Headings";
+import SendUsAMessageCard from "./SendUsAMessageCard";
 
 export default function Home() {
   const { gradientColor } = useConfigColors();
@@ -16,8 +17,13 @@ export default function Home() {
         background: gradientColor,
       }}
     >
-      <HomeHeader />
-      <HomeHeadings />
+      <Box pb={`${NavFooterHeight}px`}>
+        <HomeHeader />
+        <Stack gap="lg">
+          <HomeHeadings />
+          <SendUsAMessageCard />
+        </Stack>
+      </Box>
       <NavFooter />
     </Container>
   );

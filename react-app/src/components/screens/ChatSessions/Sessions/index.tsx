@@ -27,6 +27,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import useElementSizeById from "../../../../hooks/useElementSizeById";
 import { AI_CHAT_WINDOW_SESSIONS_HEADER_ID } from "../../../../consts/elementIds";
+import { NavFooterHeight } from "../../../NavFooter";
 
 export default function SessionsList() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function SessionsList() {
   const { height: headerHeight } = useElementSizeById(
     AI_CHAT_WINDOW_SESSIONS_HEADER_ID
   );
-  const occupiedHeight = headerHeight + pad;
+  const occupiedHeight = headerHeight + pad + NavFooterHeight;
 
   const [sessionsListRes] = useQueries({
     queries: [

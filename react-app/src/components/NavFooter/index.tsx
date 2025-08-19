@@ -1,11 +1,9 @@
 import { Box, Group, Paper, Text, ThemeIcon } from "@mantine/core";
-import {
-  IconHome2,
-  IconMessageChatbot,
-  IconMessages,
-} from "@tabler/icons-react";
+import { IconHome2, IconMessageChatbot } from "@tabler/icons-react";
 import { NavLink, useLocation } from "react-router";
 import useConfigColors from "../../hooks/useConfigColors";
+
+export const NavFooterHeight = 101;
 
 export default function NavFooter() {
   const location = useLocation();

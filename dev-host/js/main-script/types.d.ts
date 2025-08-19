@@ -61,9 +61,10 @@ export interface HomeScreenConfig {
     avatars?: ChatWidgetHeaderAvatarConfig[];
     heading?: string;
     heading2?: string;
-    hideSendUsAMessage?: boolean;
+    sendUsAMessageConfig?: SendUsAMessageConfig;
 }
 export interface SendUsAMessageConfig {
+    hidden?: boolean;
     title?: string;
     description?: string;
 }
