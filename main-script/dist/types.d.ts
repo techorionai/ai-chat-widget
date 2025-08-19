@@ -57,9 +57,36 @@ export interface ChatWidgetDefaultColorPair {
     color?: string;
 }
 export interface HomeScreenConfig {
-    header?: string;
-    header2?: string;
-    subheading?: string;
+    logoUrl?: string;
+    avatars?: ChatWidgetHeaderAvatarConfig[];
+    heading?: string;
+    heading2?: string;
+    hideSendUsAMessage?: boolean;
+}
+export interface SendUsAMessageConfig {
+    title?: string;
+    description?: string;
+}
+export interface ButtonCardConfig {
+    description: string;
+    actionName: string;
+}
+export interface ImageCardConfig {
+    imageUrl: string;
+    description: string;
+    actionName: string;
+}
+export interface LinkCardConfig {
+    title: string;
+    actionName: string;
+}
+export interface LinkGroupCardConfig {
+    title: string;
+    links: LinkCardConfig[];
+    ctaButton?: {
+        text: string;
+        actionName: string;
+    };
 }
 /**
  * Options for listing chat sessions for a user.

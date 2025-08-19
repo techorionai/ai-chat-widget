@@ -1,10 +1,8 @@
 import { useConfig } from "../../../../../providers/ConfigProvider";
 import Avatars from "../../../../Avatars";
 
-export default function ChatWindowHeaderAvatar() {
+export default function HomeHeaderAvatar() {
   const { config } = useConfig();
-
-  const maxShownAvatars = config.chatWindow?.header?.maxShownAvatars || 2;
 
   if (!config.chatWindow?.header?.avatars?.length) {
     return null;
@@ -13,7 +11,7 @@ export default function ChatWindowHeaderAvatar() {
   return (
     <Avatars
       avatars={config.chatWindow.header.avatars}
-      maxShownAvatars={maxShownAvatars}
+      maxShownAvatars={config.chatWindow.header.maxShownAvatars || 4}
     />
   );
 }

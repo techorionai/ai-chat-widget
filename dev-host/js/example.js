@@ -26,6 +26,9 @@ initAiChatWidget({
     // "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
     // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Link to handle action
   },
+  homeScreenConfig: {
+    logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
+  },
 });
 
 document.getElementById("toggle-btn").addEventListener("click", () => {

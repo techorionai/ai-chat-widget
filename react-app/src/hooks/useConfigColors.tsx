@@ -1,10 +1,12 @@
-import { useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/core";
 import { useConfig } from "../providers/ConfigProvider";
 import { useEffect, useState } from "react";
+import logToIframe from "../utils/logger";
 
 export default function useConfigColors() {
   const { config } = useConfig();
   const { colorScheme } = useMantineColorScheme();
+  const { primaryColor, colors } = useMantineTheme();
 
   const [bg, setBg] = useState<string | undefined>("white");
   const [color, setColor] = useState<string | undefined>("black");
@@ -13,6 +15,9 @@ export default function useConfigColors() {
   const [borderColor, setBorderColor] = useState<string | undefined>(
     "rgba(245, 245, 245, 1)"
   );
+  const [gradientColor, setGradientColor] = useState<string | undefined>(
+    "white"
+  );
 
   useEffect(() => {
     getBg();
@@ -20,6 +25,7 @@ export default function useConfigColors() {
     getHeaderBg();
     getHeaderColor();
     getBorderColor();
+    getGradientColor();
   }, [config, colorScheme]);
 
   const getBg = () => {
@@ -61,12 +67,25 @@ export default function useConfigColors() {
     return borderColor;
   };
 
+  const getGradientColor = () => {
+    // linear-gradient(180deg, ${primaryColor} 0%, ${theme is light ? white : black} 100%);
+    const gradientColor =
+      colorScheme === "light"
+        ? `linear-gradient(180deg, ${colors[primaryColor][0]} 0%, white 100%)`
+        : `linear-gradient(180deg, ${primaryColor} 0%, black 100%)`;
+    setGradientColor(gradientColor);
+    logToIframe(`gradientColor: ${gradientColor}`);
+    return gradientColor;
+  };
+
   return {
     bg,
     color,
     headerBg,
     headerColor,
     borderColor,
+    gradientColor,
     colorScheme,
+    primaryColor,
   };
 }
