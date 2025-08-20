@@ -16,6 +16,7 @@ initAiChatWidget({
       // bg: "blue",
       // color: "white",
     },
+    // expanded: true,
     // disallowExpand: true,
   },
   chatProvider: new NavigableChatProvider({

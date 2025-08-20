@@ -3,6 +3,7 @@ import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
 import sendEventToIframe from "./utils/sendEvent.js";
 import logger from "./utils/logger.js";
 import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
+import { defaultExpandedSize, defaultNormalSize, } from "./eventHandlers/toggleExpand.js";
 export function injectAiChatWidget(config) {
     try {
         // Use existing iframe if present, else create
@@ -27,9 +28,15 @@ export function injectAiChatWidget(config) {
         iframe.style.position = "fixed";
         iframe.style.bottom = "24px";
         iframe.style.right = "24px";
-        iframe.style.width = "400px";
+        if (!config?.chatWindow?.expanded) {
+            iframe.style.width = defaultNormalSize.width;
+            iframe.style.height = defaultNormalSize.height;
+        }
+        else {
+            iframe.style.width = defaultExpandedSize.width;
+            iframe.style.height = defaultExpandedSize.height;
+        }
         iframe.style.maxWidth = "calc(100vw - 48px)";
-        iframe.style.height = "704px";
         iframe.style.maxHeight = "calc(100vh - 48px)";
         iframe.style.border = "none";
         iframe.style.borderRadius = "16px";
