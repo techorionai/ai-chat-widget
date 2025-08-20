@@ -6,6 +6,7 @@ import chatProviderSendMessageEventHandler from "../eventHandlers/chatProvider/s
 import closeWidgetHandler from "../eventHandlers/closeWidget.js";
 import initEventHandler from "../eventHandlers/init.js";
 import runActionEventHandler from "../eventHandlers/runAction.js";
+import runHomeCardAction from "../eventHandlers/runHomeCardAction.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import { EventTypeIframe } from "../types.js";
 import logger from "./logger.js";
@@ -40,6 +41,9 @@ const iframeEventHandler = (event: MessageEvent<any>) => {
       break;
     case "chatProviderCreateSession":
       chatProviderCreateSessionHandler();
+      break;
+    case "runHomeCardAction":
+      runHomeCardAction(event.data.data);
       break;
     default:
       logger.warn(`Unhandled event type: ${eventType}`, event.data.data);

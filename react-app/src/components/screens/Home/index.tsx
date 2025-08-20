@@ -4,6 +4,7 @@ import HomeHeader from "./Header";
 import useConfigColors from "../../../hooks/useConfigColors";
 import HomeHeadings from "./Headings";
 import SendUsAMessageCard from "./SendUsAMessageCard";
+import HomeCardsBuilder from "./CardsBuilder";
 
 export default function Home() {
   const { gradientColor } = useConfigColors();
@@ -19,9 +20,10 @@ export default function Home() {
     >
       <Box pb={`${NavFooterHeight}px`}>
         <HomeHeader />
-        <Stack gap="lg">
+        <Stack gap="sm">
           <HomeHeadings />
           <SendUsAMessageCard />
+          <HomeCardsBuilder />
         </Stack>
       </Box>
       <NavFooter />

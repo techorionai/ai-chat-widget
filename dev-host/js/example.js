@@ -28,6 +28,34 @@ initAiChatWidget({
   },
   homeScreenConfig: {
     logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
+    additionalCards: [
+      {
+        type: "button",
+        config: {
+          title: "Title (Optional)",
+          description: "This is a description for the button card.",
+          action: "/",
+        },
+      },
+      {
+        type: "image",
+        config: {
+          imageUrl:
+            "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png",
+          title: "Image Card Title (Optional)",
+          description: "This is a description for the image card.",
+          action: "/",
+        },
+      },
+      {
+        type: "link",
+        config: {
+          title: "Title (Optional)",
+          description: "This is a description for the link card.",
+          action: "/",
+        },
+      },
+    ],
   },
 });
 

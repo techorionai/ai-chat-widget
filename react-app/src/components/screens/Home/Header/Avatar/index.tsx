@@ -4,14 +4,11 @@ import Avatars from "../../../../Avatars";
 export default function HomeHeaderAvatar() {
   const { config } = useConfig();
 
-  if (!config.chatWindow?.header?.avatars?.length) {
+  if (!config.homeScreenConfig?.avatars?.length) {
     return null;
   }
 
   return (
-    <Avatars
-      avatars={config.chatWindow.header.avatars}
-      maxShownAvatars={config.chatWindow.header.maxShownAvatars || 4}
-    />
+    <Avatars avatars={config.homeScreenConfig?.avatars} maxShownAvatars={3} />
   );
 }

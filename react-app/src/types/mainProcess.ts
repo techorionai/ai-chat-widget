@@ -27,7 +27,8 @@ export type EventTypeIframe =
   | "init"
   | "LOG"
   | "runAction"
-  | "closeWidget";
+  | "closeWidget"
+  | "runHomeCardAction";
 
 export type EventHandler = <T extends any>(
   data: MessageEvent<T>["data"]
@@ -95,7 +96,13 @@ export interface HomeScreenConfig {
   heading?: string;
   heading2?: string;
   sendUsAMessageConfig?: SendUsAMessageConfig;
+  additionalCards?: AdditionalCardConfig[];
 }
+
+export type AdditionalCardConfig =
+  | { type: "button"; config: ButtonCardConfig }
+  | { type: "image"; config: ImageCardConfig }
+  | { type: "link"; config: LinkCardConfig };
 
 export interface SendUsAMessageConfig {
   hidden?: boolean;
@@ -104,28 +111,23 @@ export interface SendUsAMessageConfig {
 }
 
 export interface ButtonCardConfig {
+  title?: string;
   description: string;
-  actionName: string;
+  buttonText: string;
+  action: Function | string;
 }
 
 export interface ImageCardConfig {
   imageUrl: string;
+  title?: string;
   description: string;
-  actionName: string;
+  action: Function | string;
 }
 
 export interface LinkCardConfig {
-  title: string;
-  actionName: string;
-}
-
-export interface LinkGroupCardConfig {
-  title: string;
-  links: LinkCardConfig[];
-  ctaButton?: {
-    text: string;
-    actionName: string;
-  };
+  title?: string;
+  description: string;
+  action: Function | string;
 }
 
 /**

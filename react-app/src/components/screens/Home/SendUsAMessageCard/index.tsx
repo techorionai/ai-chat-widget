@@ -69,14 +69,14 @@ export default function SendUsAMessageCard() {
         onClick={onCreateSession}
       >
         <Group justify="space-between" align="center">
-          <Box>
+          <Box maw="80%">
             <Text fz="sm" fw="bold">
               {config.homeScreenConfig?.sendUsAMessageConfig?.title ??
                 "Send us a message"}
             </Text>
             <Text fz="sm">
               {config.homeScreenConfig?.sendUsAMessageConfig?.description ??
-                "Get instant support from our AI assistant."}
+                "Get instant support with AI assistance"}
             </Text>
           </Box>
           <ThemeIcon variant="transparent">

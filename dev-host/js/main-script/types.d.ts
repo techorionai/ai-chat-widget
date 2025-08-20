@@ -7,7 +7,7 @@ export type EventTypeMain = CommonEventTypes | "set_config";
 /** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (type: EventTypeIframe, data?: Record<string, any>) => void;
 /** Events sent from the iframe */
-export type EventTypeIframe = CommonEventTypes | "init" | "LOG" | "runAction" | "closeWidget";
+export type EventTypeIframe = CommonEventTypes | "init" | "LOG" | "runAction" | "closeWidget" | "runHomeCardAction";
 export type EventHandler = <T extends any>(data: MessageEvent<T>["data"]) => void;
 export type DataOrError<T> = DataResponse<T> | {
     error: string;
@@ -62,32 +62,39 @@ export interface HomeScreenConfig {
     heading?: string;
     heading2?: string;
     sendUsAMessageConfig?: SendUsAMessageConfig;
+    additionalCards?: AdditionalCardConfig[];
 }
+export type AdditionalCardConfig = {
+    type: "button";
+    config: ButtonCardConfig;
+} | {
+    type: "image";
+    config: ImageCardConfig;
+} | {
+    type: "link";
+    config: LinkCardConfig;
+};
 export interface SendUsAMessageConfig {
     hidden?: boolean;
     title?: string;
     description?: string;
 }
 export interface ButtonCardConfig {
+    title?: string;
     description: string;
-    actionName: string;
+    buttonText: string;
+    action: Function | string;
 }
 export interface ImageCardConfig {
     imageUrl: string;
+    title?: string;
     description: string;
-    actionName: string;
+    action: Function | string;
 }
 export interface LinkCardConfig {
-    title: string;
-    actionName: string;
-}
-export interface LinkGroupCardConfig {
-    title: string;
-    links: LinkCardConfig[];
-    ctaButton?: {
-        text: string;
-        actionName: string;
-    };
+    title?: string;
+    description: string;
+    action: Function | string;
 }
 /**
  * Options for listing chat sessions for a user.
