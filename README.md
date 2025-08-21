@@ -45,6 +45,7 @@ The chat widget offers extensive theme and color customization through its confi
 
 - **primaryColor**: Your brand hex color OR Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
 - **colorScheme**: `"light"` or `"dark"`
+- **mantineThemeOverride**: Custom Mantine theme override object (see [Mantine theming](https://mantine.dev/theming/theme-override/))
 - **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value)
 - **colors**: Custom colors for widget background and text (see below)
 - **assistantMessage** / **userMessage**: Custom colors for assistant/user messages, supporting light/dark mode
@@ -58,6 +59,9 @@ chatWindow: {
   defaults: {
     primaryColor: "violet",
     colorScheme: "dark",
+    mantineThemeOverride: {
+      // Custom Mantine theme overrides
+    },
     messageRadius: "lg",
     colors: {
       light: { bg: "#f8f9fa", color: "#222" },
@@ -220,6 +224,7 @@ initAiChatWidget({
 The widget is configured via a `ChatWidgetConfig` object. Key options:
 
 - **debug**: Enable console logs (`true`/`false`).
+- **widgetButton**: Custom HTML for the widget button (see [Custom Widget Button](#custom-widget-button)).
 - **chatWindow**: Customize chat window appearance and behavior.
   - `defaults`: Colors, color scheme, message radius, etc.
   - `header`: Avatars, title, background, and text color.
@@ -232,6 +237,29 @@ The widget is configured via a `ChatWidgetConfig` object. Key options:
 - **sessionsListConfig**: Customize chat sessions list (title, new session button).
 
 See [`main-script/src/types.ts:50`](main-script/src/types.ts:50) for full type definitions.
+
+## Custom Widget Button
+
+You can override the default widget button by providing your own HTML using the `widgetButton` option in `ChatWidgetConfig`. This allows full control over the button's appearance, accessibility, and behavior.
+
+**Example:**
+
+```js
+initAiChatWidget({
+  widgetButton: `<button id="override-widget-button" aria-label="Open assistant" style="background-color: #000; color: #fff; border-radius: 50%; border: none; position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-bolt"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M19 16l-2 3h4l-2 3" /></svg>
+  </button>`,
+  // ...other config
+});
+```
+
+**Usage Notes:**
+
+- The HTML string is injected directly, so you can use any valid HTML and inline styles.
+- Make sure your button includes an accessible label (`aria-label`) and is positioned as desired.
+- You can add event listeners to your custom button if needed.
+
+Refer to [`dev-host/js/example.js:3`](dev-host/js/example.js:3) for a real-world example.
 
 ## Widget Controls & Event Handling
 
