@@ -97,3 +97,24 @@ document.getElementById("open-btn").addEventListener("click", () => {
 document.getElementById("close-btn").addEventListener("click", () => {
   window.$aiChatWidget.close();
 });
+
+document
+  .getElementById("toggle-color-scheme-btn")
+  .addEventListener("click", () => {
+    // Get the current color scheme
+    console.log("Current color scheme:", window.$aiChatWidget.colorScheme);
+    // Functionally
+    const colorScheme = window.$aiChatWidget.getColorScheme();
+    console.log("Current color scheme from function:", colorScheme);
+
+    // Toggle the color scheme
+    window.$aiChatWidget.toggleColorScheme();
+  });
+
+document.getElementById("light-mode-btn").addEventListener("click", () => {
+  window.$aiChatWidget.toggleColorScheme("light");
+});
+
+document.getElementById("dark-mode-btn").addEventListener("click", () => {
+  window.$aiChatWidget.toggleColorScheme("dark");
+});

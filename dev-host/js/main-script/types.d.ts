@@ -3,7 +3,7 @@ type CommonEventTypes = "toggleExpand" | "chatProviderListSessions" | "chatProvi
 /** Function to send an event from the main script to the iframe */
 export type sendMainEventFn = (type: EventTypeMain, data?: Record<string, any>) => void;
 /** Events sent from the main script */
-export type EventTypeMain = CommonEventTypes | "set_config";
+export type EventTypeMain = CommonEventTypes | "set_config" | "toggleColorScheme";
 /** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (type: EventTypeIframe, data?: Record<string, any>) => void;
 /** Events sent from the iframe */

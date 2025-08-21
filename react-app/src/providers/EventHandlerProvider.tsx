@@ -94,6 +94,14 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
     queryClient.setQueryData(queryKey, () => data);
   };
 
+  const toggleColorSchemeEventHandler = (data: {
+    colorScheme?: "light" | "dark";
+  }) => {
+    if (data.colorScheme && ["light", "dark"].includes(data.colorScheme)) {
+      setColorScheme(data.colorScheme);
+    }
+  };
+
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== PARENT_ORIGIN) return;
@@ -117,6 +125,9 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
           break;
         case "chatProviderCreateSession":
           // Handled at the component level
+          break;
+        case "toggleColorScheme":
+          toggleColorSchemeEventHandler(event.data?.data);
           break;
         default:
           console.warn(`Unhandled event type: ${eventType}`, event.data);

@@ -1,6 +1,8 @@
 import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
 import { injectAiChatWidget } from "./inject.js";
 import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
+import toggleColorScheme from "../../dev-host/js/main-script/utils/toggleColorScheme";
+import { getColorScheme } from "./utils/toggleColorScheme";
 
 // Extend the Window interface to $aiChatWidget & initAiChatWidget
 declare global {
@@ -13,6 +15,9 @@ declare global {
       toggle: () => void;
       open: () => void;
       close: () => void;
+      colorScheme: "light" | "dark";
+      toggleColorScheme: (colorScheme?: "light" | "dark") => void;
+      getColorScheme: () => "light" | "dark";
     };
     initAiChatWidget: (config: ChatWidgetConfig) => void;
     NavigableChatProvider: typeof NavigableChatProvider;

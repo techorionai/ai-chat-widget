@@ -5,6 +5,10 @@ import sendEventToIframe from "./utils/sendEvent.js";
 import logger from "./utils/logger.js";
 import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 import {
+  getColorScheme,
+  toggleColorScheme,
+} from "./utils/toggleColorScheme.js";
+import {
   defaultExpandedSize,
   defaultNormalSize,
 } from "./eventHandlers/toggleExpand.js";
@@ -25,6 +29,9 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
         toggle: toggleWidget,
         open: openWidget,
         close: closeWidget,
+        colorScheme: config?.chatWindow?.defaults?.colorScheme ?? "light",
+        toggleColorScheme: toggleColorScheme,
+        getColorScheme: getColorScheme,
       };
       initIframeEventLogger();
     }

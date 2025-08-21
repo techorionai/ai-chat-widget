@@ -13,7 +13,10 @@ export type sendMainEventFn = (
 ) => void;
 
 /** Events sent from the main script */
-export type EventTypeMain = CommonEventTypes | "set_config";
+export type EventTypeMain =
+  | CommonEventTypes
+  | "set_config"
+  | "toggleColorScheme";
 
 /** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (
