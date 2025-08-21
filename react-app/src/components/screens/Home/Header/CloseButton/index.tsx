@@ -14,6 +14,7 @@ export default function HomeHeaderCloseButton() {
       right="2.25rem"
       variant="subtle"
       color="gray"
+      style={{ zIndex: 1000 }}
       onClick={handleCloseWidget}
     >
       <IconX className="action-icon" />
