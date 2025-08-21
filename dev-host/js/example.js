@@ -3,6 +3,27 @@ initAiChatWidget({
   chatWindow: {
     defaults: {
       colorScheme: "light", // or "dark"
+      // messageRadius: "lg", // or "xs" | "sm" | "md" | "lg" | "xl" | string (border-radius CSS value)
+      // assistantMessage: {
+      //   light: {
+      //     bg: "blue",
+      //     color: "white",
+      //   },
+      //   dark: {
+      //     bg: "blue",
+      //     color: "white",
+      //   },
+      // },
+      // userMessage: {
+      //   light: {
+      //     bg: "black",
+      //     color: "white",
+      //   },
+      //   dark: {
+      //     bg: "white",
+      //     color: "black",
+      //   },
+      // },
     },
     header: {
       avatars: [
