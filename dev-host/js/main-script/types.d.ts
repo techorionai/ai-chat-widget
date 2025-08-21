@@ -29,6 +29,12 @@ export interface ChatWindowConfig {
     header?: ChatWindowHeaderConfig;
     expanded?: boolean;
     disallowExpand?: boolean;
+    welcomeMessage?: ChatWindowWelcomeMessageConfig;
+}
+export interface ChatWindowWelcomeMessageConfig {
+    message?: string;
+    actions?: string[];
+    infoText?: string;
 }
 export interface ChatWindowHeaderConfig {
     avatars?: ChatWidgetHeaderAvatarConfig[];

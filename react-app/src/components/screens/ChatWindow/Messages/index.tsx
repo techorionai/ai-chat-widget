@@ -1,21 +1,22 @@
-import { Blockquote, ScrollArea, Stack } from "@mantine/core";
+import { Blockquote, ScrollArea, Stack, Text } from "@mantine/core";
 import { useQueries } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import {
+  AI_CHAT_WINDOW_HEADER_ID,
+  AI_CHAT_WINDOW_MESSAGE_BOX_ID,
+} from "../../../../consts/elementIds";
 import { CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY } from "../../../../consts/queryKeys";
+import useElementSizeById from "../../../../hooks/useElementSizeById";
+import { useConfig } from "../../../../providers/ConfigProvider";
 import {
   ChatProviderListSessionMessagesMessage,
   DataOrError,
 } from "../../../../types/mainProcess";
 import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
+import logToIframe from "../../../../utils/logger";
 import sendEventToMain from "../../../../utils/sendEvent";
 import ChatWindowMessage from "./Message";
-import useElementSizeById from "../../../../hooks/useElementSizeById";
-import {
-  AI_CHAT_WINDOW_HEADER_ID,
-  AI_CHAT_WINDOW_MESSAGE_BOX_ID,
-} from "../../../../consts/elementIds";
-import { useEffect, useRef } from "react";
-import logToIframe from "../../../../utils/logger";
 
 interface IChatWindowMessagesProps {
   isResponding?: boolean;
@@ -26,6 +27,7 @@ interface IChatWindowMessagesProps {
 export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
   const { sessionId } = useParams();
   const isNewSession = sessionId === "new" || !sessionId;
+  const { config } = useConfig();
 
   const queryKey = CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY(
     isNewSession ? "new" : (sessionId as string)
@@ -114,6 +116,21 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
       viewportRef={scrollAreaViewportRef}
     >
       <Stack p="md">
+        {config?.chatWindow?.welcomeMessage &&
+          config?.chatWindow?.welcomeMessage?.infoText && (
+            <Text size="sm" c="gray" ta="center" px="md">
+              {config.chatWindow.welcomeMessage.infoText}
+            </Text>
+          )}
+        {config?.chatWindow?.welcomeMessage &&
+          config?.chatWindow?.welcomeMessage?.message && (
+            <ChatWindowMessage
+              role="assistant"
+              content={config.chatWindow.welcomeMessage.message}
+              createdAt={new Date().toISOString()}
+              suggestedActions={config.chatWindow.welcomeMessage.actions}
+            />
+          )}
         {messagesList.map((message, idx) => (
           <ChatWindowMessage
             {...message}

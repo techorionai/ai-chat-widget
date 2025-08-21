@@ -18,6 +18,18 @@ initAiChatWidget({
     },
     // expanded: true,
     // disallowExpand: true,
+    welcomeMessage: {
+      message:
+        "Hello! I'm Navi, your AI assistant. How can I help you today? I can guide you through the Navigable AI platform by suggesting actions.",
+      actions: [
+        "Go to Sign Up",
+        "Go to Log In",
+        "Go to Pricing",
+        "Go to Support Portal",
+      ],
+      infoText:
+        "We help improve and scale your customer support with the power of specialized AI agents.",
+    },
   },
   chatProvider: new NavigableChatProvider({
     embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
