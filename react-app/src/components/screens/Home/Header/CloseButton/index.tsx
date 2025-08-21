@@ -8,7 +8,14 @@ export default function HomeHeaderCloseButton() {
   };
 
   return (
-    <ActionIcon variant="transparent" color="gray" onClick={handleCloseWidget}>
+    <ActionIcon
+      pos="fixed"
+      top="2.25rem"
+      right="2.25rem"
+      variant="subtle"
+      color="gray"
+      onClick={handleCloseWidget}
+    >
       <IconX className="action-icon" />
     </ActionIcon>
   );

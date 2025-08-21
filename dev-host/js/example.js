@@ -147,3 +147,5 @@ document.getElementById("light-mode-btn").addEventListener("click", () => {
 document.getElementById("dark-mode-btn").addEventListener("click", () => {
   window.$aiChatWidget.toggleColorScheme("dark");
 });
+
+window.$aiChatWidget.open();

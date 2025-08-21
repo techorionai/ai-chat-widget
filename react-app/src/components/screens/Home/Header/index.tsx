@@ -10,7 +10,7 @@ export default function HomeHeader() {
       justify="space-between"
       align="center"
       id={AI_CHAT_WINDOW_HOME_HEADER_ID}
-      p="xl"
+      mb="4rem"
     >
       <Group>
         <HomeHeaderLogo />
