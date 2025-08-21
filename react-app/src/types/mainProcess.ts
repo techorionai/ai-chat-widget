@@ -121,6 +121,8 @@ export interface ChatWidgetHeaderTitleConfig {
 export interface ChatWidgetDefaults {
   /** Default colors for the chat widget */
   colors?: ChatWidgetDefaultColors;
+  /** Default color scheme for the chat widget */
+  colorScheme?: "light" | "dark";
 }
 
 export interface ChatWidgetDefaultColors {

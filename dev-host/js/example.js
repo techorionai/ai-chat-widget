@@ -1,6 +1,9 @@
 initAiChatWidget({
   debug: true,
   chatWindow: {
+    defaults: {
+      colorScheme: "light", // or "dark"
+    },
     header: {
       avatars: [
         {

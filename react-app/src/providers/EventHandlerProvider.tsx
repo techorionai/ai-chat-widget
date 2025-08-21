@@ -18,6 +18,7 @@ import {
   CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY,
 } from "../consts/queryKeys";
 import { useNavigate, useParams } from "react-router";
+import { useMantineColorScheme } from "@mantine/core";
 
 // EventHandler context (could be expanded for more event features)
 const EventHandlerContext = createContext<null>(null);
@@ -28,9 +29,18 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   const navigate = useNavigate();
   const { setConfig } = useConfig();
   const queryClient = useQueryClient();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   const setConfigEventHandler = (data: ChatWidgetConfig = {}) => {
     setConfig((prev) => merge({}, prev, data));
+    if (
+      data.chatWindow?.defaults?.colorScheme &&
+      ["light", "dark"].includes(data.chatWindow.defaults.colorScheme)
+    ) {
+      if (data.chatWindow.defaults.colorScheme !== colorScheme) {
+        setColorScheme(data.chatWindow.defaults.colorScheme);
+      }
+    }
   };
 
   const toggleExpandEventHandler = (data: {

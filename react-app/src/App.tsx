@@ -19,15 +19,15 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <ConfigProvider>
-      <QueryClientProvider client={queryClient}>
-        <EventHandlerProvider>
-          <MantineProvider theme={theme} defaultColorScheme="light">
+    <MantineProvider theme={theme} defaultColorScheme="light">
+      <ConfigProvider>
+        <QueryClientProvider client={queryClient}>
+          <EventHandlerProvider>
             <AppContent />
-          </MantineProvider>
-        </EventHandlerProvider>
-      </QueryClientProvider>
-    </ConfigProvider>
+          </EventHandlerProvider>
+        </QueryClientProvider>
+      </ConfigProvider>
+    </MantineProvider>
   );
 }
 
