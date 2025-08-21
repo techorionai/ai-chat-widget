@@ -93,14 +93,16 @@ export interface ChatWidgetHeaderTitleConfig {
 export interface ChatWidgetDefaults {
     /** Default colors for the chat widget */
     colors?: ChatWidgetDefaultColors;
+    /** Default color scheme for the chat widget */
+    colorScheme?: "light" | "dark";
+    /** Primary Color for the chat widget. One of the following. Default is blue */
+    primaryColor?: "dark" | "gray" | "red" | "pink" | "grape" | "violet" | "indigo" | "blue" | "cyan" | "green" | "lime" | "yellow" | "orange" | "teal";
     /** Border/Corner radius for each message. Can be one of the predefined sizes or a custom CSS value for border-radius property. */
     messageRadius?: "xs" | "sm" | "md" | "lg" | "xl" | string;
     /** Default colors for the chat widget messages from the assistant */
     assistantMessage?: ChatWidgetDefaultColors;
     /** Default colors for the chat widget messages from the user */
     userMessage?: ChatWidgetDefaultColors;
-    /** Default color scheme for the chat widget */
-    colorScheme?: "light" | "dark";
 }
 export interface ChatWidgetDefaultColors {
     /** Default colors for light mode */

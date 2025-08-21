@@ -8,6 +8,7 @@ import { ConfigProvider } from "./providers/ConfigProvider";
 import { EventHandlerProvider } from "./providers/EventHandlerProvider";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import MantineWrapperProvider from "./providers/MantineWrapperProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,15 +20,15 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <MantineProvider theme={theme} defaultColorScheme="light">
-      <ConfigProvider>
+    <ConfigProvider>
+      <MantineWrapperProvider>
         <QueryClientProvider client={queryClient}>
           <EventHandlerProvider>
             <AppContent />
           </EventHandlerProvider>
         </QueryClientProvider>
-      </ConfigProvider>
-    </MantineProvider>
+      </MantineWrapperProvider>
+    </ConfigProvider>
   );
 }
 

@@ -2,6 +2,7 @@ initAiChatWidget({
   debug: true,
   chatWindow: {
     defaults: {
+      primaryColor: "orange", // One of the predefined colors or a hex color value
       colorScheme: "light", // or "dark"
       // messageRadius: "lg", // or "xs" | "sm" | "md" | "lg" | "xl" | string (border-radius CSS value)
       // assistantMessage: {
