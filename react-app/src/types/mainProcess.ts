@@ -50,6 +50,8 @@ export interface DataResponse<T> {
 export interface ChatWidgetConfig {
   /** Set to true to view logs in the console */
   debug?: boolean;
+  /** HTML for the widget button. Override the default button */
+  widgetButton?: string;
   /** Configuration for the chat window, where users send messages */
   chatWindow?: ChatWindowConfig;
   /** Interface for a chat provider adapter. */

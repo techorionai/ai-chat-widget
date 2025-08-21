@@ -1,17 +1,17 @@
-import { IFRAME_ID, IFRAME_SRC } from "./consts.js";
-import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
-import { ChatWidgetConfig } from "./types.js";
-import sendEventToIframe from "./utils/sendEvent.js";
-import logger from "./utils/logger.js";
-import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
-import {
-  getColorScheme,
-  toggleColorScheme,
-} from "./utils/toggleColorScheme.js";
+import { IFRAME_ID, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
 import {
   defaultExpandedSize,
   defaultNormalSize,
 } from "./eventHandlers/toggleExpand.js";
+import { ChatWidgetConfig } from "./types.js";
+import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
+import logger from "./utils/logger.js";
+import sendEventToIframe from "./utils/sendEvent.js";
+import {
+  getColorScheme,
+  toggleColorScheme,
+} from "./utils/toggleColorScheme.js";
+import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 
 export function injectAiChatWidget(config?: ChatWidgetConfig) {
   try {
@@ -36,10 +36,10 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
       initIframeEventLogger();
     }
     iframe.src = IFRAME_SRC;
-    iframe.style.display = "block";
+    iframe.style.display = "none";
     iframe.style.position = "fixed";
-    iframe.style.bottom = "24px";
-    iframe.style.right = "24px";
+    iframe.style.bottom = "1.5rem";
+    iframe.style.right = "1.5rem";
     if (!config?.chatWindow?.expanded) {
       iframe.style.width = defaultNormalSize.width;
       iframe.style.height = defaultNormalSize.height;
@@ -56,6 +56,13 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
     iframe.style.zIndex = "9999";
     iframe.style.transitionDuration = "300ms";
     iframe.allow = "clipboard-write";
+
+    const button = document.createElement("div");
+    button.innerHTML = config?.widgetButton || WIDGET_BUTTON;
+    button.addEventListener("click", () => {
+      toggleWidget();
+    });
+    document.body.appendChild(button);
   } catch (error) {
     logger.error("Error injecting widget:", error);
   }
