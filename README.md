@@ -31,7 +31,90 @@ initAiChatWidget({
 });
 ```
 
-The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`). For advanced customization, see the sections below.
+Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`). For advanced customization, see the sections below.
+
+## Theme and Color Customization
+
+The chat widget offers extensive theme and color customization through its configuration options. You can control colors, appearance, and layout for both light and dark modes.
+
+### Chat Window Theme (`chatWindow.defaults`)
+
+- **primaryColor**: Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
+- **colorScheme**: `"light"` or `"dark"`
+- **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value)
+- **colors**: Custom colors for widget background and text (see below)
+- **assistantMessage** / **userMessage**: Custom colors for assistant/user messages, supporting light/dark mode
+
+**Note:** All `bg` and `color` properties throughout the widget (including `chatWindow.defaults`, `assistantMessage`, `userMessage`, header, and home screen) support both predefined color names (e.g., `"blue"`, `"violet"`, `"gray"`, etc.) and hex codes (e.g., `"#22223b"`, `"#fff"`), as well as standard CSS color values.
+
+#### Example
+
+```js
+chatWindow: {
+  defaults: {
+    primaryColor: "violet",
+    colorScheme: "dark",
+    messageRadius: "lg",
+    colors: {
+      light: { bg: "#f8f9fa", color: "#222" },
+      dark: { bg: "#22223b", color: "#fff" }
+    },
+    assistantMessage: {
+      light: { bg: "#e0e7ff", color: "#3730a3" },
+      dark: { bg: "#3730a3", color: "#e0e7ff" }
+    },
+    userMessage: {
+      light: { bg: "#fffbe6", color: "#92400e" },
+      dark: { bg: "#92400e", color: "#fffbe6" }
+    }
+  }
+}
+```
+
+### Chat Window Header (`chatWindow.header`)
+
+- **bg**: Header background color (applies to both light and dark modes)
+- **color**: Header text color
+
+#### Example
+
+```js
+header: {
+  bg: "#22223b",
+  color: "#fff"
+}
+```
+
+### Home Screen Background (`homeScreenConfig.bgColor`)
+
+- **type**: `"plain"`, `"custom"`, or `"default"`
+- **background**: Custom CSS background (if `type` is `"custom"`)
+
+#### Example
+
+```js
+homeScreenConfig: {
+  bgColor: {
+    type: "custom",
+    background: "linear-gradient(135deg, #f0f4f8, #e0e7ed)"
+  }
+}
+```
+
+### Switching Color Schemes
+
+You can toggle between light and dark modes programmatically:
+
+```js
+window.$aiChatWidget.toggleColorScheme("light");
+window.$aiChatWidget.toggleColorScheme("dark");
+```
+
+### Tips
+
+- Use hex, rgb, or CSS color values for maximum flexibility.
+- Combine predefined theme colors with custom overrides for unique branding.
+- All color options support both light and dark modes for accessibility.
 
 ---
 
