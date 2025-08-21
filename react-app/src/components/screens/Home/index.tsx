@@ -30,8 +30,8 @@ export default function Home() {
       }}
       p={0}
     >
-      <ScrollArea h={`calc(100vh - ${occupiedHeight}px)`} p="xl" pb="0px">
-        <Box pb={`${NavFooterHeight}px`}>
+      <ScrollArea h={`calc(100vh - ${occupiedHeight}px)`}>
+        <Box p="xl">
           <Stack gap="sm">
             <HomeHeader />
             <HomeHeadings />
