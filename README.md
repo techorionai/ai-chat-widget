@@ -4,7 +4,11 @@ A highly customizable chat widget for web applications, supporting integration w
 
 This widget is designed to provide a seamless chat experience, with extensive theming options, easy integration, and support for both light and dark modes.
 
----
+## Powered by
+
+- [Mantine UI](https://mantine.dev/) (theming & UI)
+- [react-router](https://reactrouter.com/)
+- [@tanstack/react-query](https://tanstack.com/query/latest)
 
 ## Table of Contents
 
@@ -18,8 +22,6 @@ This widget is designed to provide a seamless chat experience, with extensive th
 - Implementing a Custom ChatProvider (Connect to Any LLM)
 - References
 
----
-
 ## Quickstart with Navigable AI
 
 Get started with the minimal setup:
@@ -28,12 +30,12 @@ Get started with the minimal setup:
 initAiChatWidget({
   chatProvider: new NavigableChatProvider({
     embedId: "YOUR_EMBED_ID",
-    userId: "USER_ID",
+    userId: "USER_ID", // Optional, can be used to identify the user
   }),
 });
 ```
 
-Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`). For advanced customization, see the sections below.
+Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, see the sections below.
 
 ## Theme and Color Customization
 
@@ -118,12 +120,6 @@ window.$aiChatWidget.toggleColorScheme("dark");
 - Combine predefined theme colors with custom overrides for unique branding.
 - All color options support both light and dark modes for accessibility.
 
----
-
-## Introduction
-
----
-
 ## Installation / Embedding
 
 Include the main script in your HTML and initialize the widget:
@@ -154,8 +150,6 @@ Include the main script in your HTML and initialize the widget:
 ```
 
 See [`dev-host/js/example.js:1`](dev-host/js/example.js:1) for a complete example.
-
----
 
 ## Initialization Example
 
@@ -221,8 +215,6 @@ initAiChatWidget({
 });
 ```
 
----
-
 ## Configuration Options
 
 The widget is configured via a `ChatWidgetConfig` object. Key options:
@@ -235,13 +227,11 @@ The widget is configured via a `ChatWidgetConfig` object. Key options:
   - `welcomeMessage`: Initial message, actions, info text.
   - `hideAssistantMessageAvatar`, `hideUserMessageAvatar`: Hide avatars in messages.
 - **chatProvider**: Adapter for chat backend (e.g., `NavigableChatProvider` or custom).
-- **actionsMap**: Map action names to functions or URLs.
+- **actionsMap**: Map action names to functions or URLs. Used for handling agent-suggested actions.
 - **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
 - **sessionsListConfig**: Customize chat sessions list (title, new session button).
 
 See [`main-script/src/types.ts:50`](main-script/src/types.ts:50) for full type definitions.
-
----
 
 ## Widget Controls & Event Handling
 
@@ -264,8 +254,6 @@ document.getElementById("toggle-btn").addEventListener("click", () => {
 
 See [`dev-host/js/example.js:113`](dev-host/js/example.js:113) for more examples.
 
----
-
 ## Customization Tips & Advanced Usage
 
 - **Appearance**: Customize colors, avatars, header, and message radius via `chatWindow.defaults` and `chatWindow.header`.
@@ -276,8 +264,6 @@ See [`dev-host/js/example.js:113`](dev-host/js/example.js:113) for more examples
 - **Chat Provider**: Integrate with your backend by implementing the `ChatProvider` interface.
 - **Dark/Light Mode**: Support both color schemes and toggle programmatically.
 
----
-
 ## Implementing a Custom ChatProvider (Connect to Any LLM)
 
 To connect the chat widget to any LLM or backend, implement the [`ChatProvider`](main-script/src/types.ts:333) interface. **All four methods are required:**
@@ -286,6 +272,8 @@ To connect the chat widget to any LLM or backend, implement the [`ChatProvider`]
 - `createSession()`: Create a new chat session.
 - `listSessionMessages(options)`: Return messages for a session.
 - `sendMessage(options)`: Send a message and return the response.
+
+In case of any errors, simply throw an error.
 
 **Example:**
 
@@ -330,8 +318,6 @@ initAiChatWidget({
 ```
 
 See [`main-script/src/types.ts:333`](main-script/src/types.ts:333) for full interface details.
-
----
 
 ## References
 

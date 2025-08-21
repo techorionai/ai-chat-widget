@@ -4,6 +4,7 @@ initAiChatWidget({
     defaults: {
       primaryColor: "orange", // One of the predefined colors or a hex color value
       colorScheme: "light", // or "dark"
+      mantineThemeOverride: {}, // Mantine theme override for the chat widget. Refer: https://mantine.dev/theming/theme-object/
       // messageRadius: "lg", // or "xs" | "sm" | "md" | "lg" | "xl" | string (border-radius CSS value)
       // assistantMessage: {
       //   light: {
@@ -63,8 +64,11 @@ initAiChatWidget({
     userId: "david@techorionai.com",
   }),
   actionsMap: {
-    // "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
-    // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Link to handle action
+    "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
+    // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Alternatively, pass a link to handle action
+    "Go to Sign Up": () => alert("Navigating to Sign Up page..."),
+    "Go to Log In": () => alert("Navigating to Log In page..."),
+    "Go to Pricing": () => alert("Navigating to Pricing page..."),
   },
   homeScreenConfig: {
     bgColor: {
