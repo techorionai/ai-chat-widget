@@ -42,6 +42,8 @@ initAiChatWidget({
     },
     // expanded: true,
     // disallowExpand: true,
+    hideAssistantMessageAvatar: true, // Hide assistant avatar in messages
+    hideUserMessageAvatar: true, // Hide user avatar in messages
     welcomeMessage: {
       message:
         "Hello! I'm Navi, your AI assistant. How can I help you today? I can guide you through the Navigable AI platform by suggesting actions.",

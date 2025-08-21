@@ -78,6 +78,10 @@ export interface ChatWindowConfig {
   disallowExpand?: boolean;
   /** Welcome message configuration for the chat window */
   welcomeMessage?: ChatWindowWelcomeMessageConfig;
+  /** Hide assistant avatar in messages */
+  hideAssistantMessageAvatar?: boolean;
+  /** Hide user avatar in messages */
+  hideUserMessageAvatar?: boolean;
 }
 
 export interface ChatWindowWelcomeMessageConfig {

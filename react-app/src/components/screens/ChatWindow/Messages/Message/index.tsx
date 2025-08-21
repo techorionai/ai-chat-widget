@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Group,
@@ -91,7 +92,14 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
     >
       <Group justify={isUser ? "flex-end" : "flex-start"} align="flex-start">
         <Stack justify={isUser ? "flex-end" : "flex-start"} gap="4px">
-          {isAgent && <ChatWindowHeaderAvatar />}
+          {isAgent && !config.chatWindow?.hideAssistantMessageAvatar && (
+            <ChatWindowHeaderAvatar />
+          )}
+          {isUser && !config.chatWindow?.hideUserMessageAvatar && (
+            <Group justify="end">
+              <Avatar radius="xl" />
+            </Group>
+          )}
           <Paper
             shadow="xs"
             py="xs"
