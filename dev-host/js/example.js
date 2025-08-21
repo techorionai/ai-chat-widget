@@ -45,6 +45,7 @@ initAiChatWidget({
       // background: "linear-gradient(135deg, #f0f4f8, #e0e7ed)",
     },
     logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
+    logoUrlDark: "https://www.navigable.ai/logo/64.png",
     additionalCards: [
       {
         type: "button",

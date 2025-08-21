@@ -107,6 +107,8 @@ export interface HomeScreenConfig {
     bgColor?: HomeBgConfig;
     /** Logo URL for the home screen header */
     logoUrl?: string;
+    /** Logo URL for the home screen header (dark mode). Light mode logo is used by default. */
+    logoUrlDark?: string;
     /** Config for the avatars displayed in the header on the home screen */
     avatars?: ChatWidgetHeaderAvatarConfig[];
     /** First heading text displayed on the home screen */
@@ -299,5 +301,60 @@ export interface NavigableChatProviderOptions {
     embedId?: string;
     /** Optional user ID to initialize the provider with. If not provided, UUID v7 is used. */
     userId?: string;
+}
+export interface SharedSecretKeyConfig {
+    /**
+     * Shared secret key. Should be securely added on the client. Should be same as the one on your server.
+     */
+    sharedSecretKey: string;
+    /**
+     * Placement of the shared secret key in your request.
+     */
+    placement: "query" | "header";
+    /**
+     * Name of the shared secret key field in your request, wherever it is placed.
+     */
+    key: string;
+}
+export interface APIUrlConfig {
+    /**
+     * HTTP Method
+     */
+    method: HTTPMethods;
+    /**
+     * Full URL of the API endpoint
+     */
+    url: string;
+}
+export interface IChatSendMessageResponse {
+    statusCode: number;
+    success: boolean;
+    message: string;
+    errors?: Record<string, string>;
+    data: {
+        assistantMessage: string;
+        action: string | null;
+        identifier: string;
+        toolCalls: ToolCall[];
+    };
+}
+export interface IChatGetMessageResponse {
+    statusCode: number;
+    success: boolean;
+    message: string;
+    errors?: Record<string, string>;
+    data: IMessage[];
+}
+export interface IMessage {
+    sender: "USER" | "ASSISTANT" | "ASSISTANT-LOADING" | "ERROR" | "TOOL";
+    content: string;
+    new: boolean;
+    createdAt: Date;
+    action: string | null;
+}
+export interface RequestConfig extends APIUrlConfig {
+    headers?: Record<string, string>;
+    body?: Record<string, any>;
+    signaturePayload?: string;
 }
 export {};

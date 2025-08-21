@@ -22,7 +22,7 @@ export default function App() {
     <ConfigProvider>
       <QueryClientProvider client={queryClient}>
         <EventHandlerProvider>
-          <MantineProvider theme={theme} defaultColorScheme="dark">
+          <MantineProvider theme={theme} defaultColorScheme="light">
             <AppContent />
           </MantineProvider>
         </EventHandlerProvider>

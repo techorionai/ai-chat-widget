@@ -107,6 +107,8 @@ export interface HomeScreenConfig {
     bgColor?: HomeBgConfig;
     /** Logo URL for the home screen header */
     logoUrl?: string;
+    /** Logo URL for the home screen header (dark mode). Light mode logo is used by default. */
+    logoUrlDark?: string;
     /** Config for the avatars displayed in the header on the home screen */
     avatars?: ChatWidgetHeaderAvatarConfig[];
     /** First heading text displayed on the home screen */
@@ -283,6 +285,23 @@ export interface ChatProvider {
 }
 export type HTTPMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
 export type AgentFunction = (args?: Record<string, any>) => Promise<string | boolean> | ((args?: Record<string, any>) => string | boolean);
+export interface ToolCall {
+    id: string;
+    type: string;
+    function: {
+        name: string;
+        /**
+         * JSON string of arguments
+         */
+        arguments: string;
+    };
+}
+export interface NavigableChatProviderOptions {
+    /** Navigable AI Embed ID for the chat provider. */
+    embedId?: string;
+    /** Optional user ID to initialize the provider with. If not provided, UUID v7 is used. */
+    userId?: string;
+}
 export interface SharedSecretKeyConfig {
     /**
      * Shared secret key. Should be securely added on the client. Should be same as the one on your server.
@@ -306,17 +325,6 @@ export interface APIUrlConfig {
      * Full URL of the API endpoint
      */
     url: string;
-}
-export interface ToolCall {
-    id: string;
-    type: string;
-    function: {
-        name: string;
-        /**
-         * JSON string of arguments
-         */
-        arguments: string;
-    };
 }
 export interface IChatSendMessageResponse {
     statusCode: number;
@@ -348,11 +356,5 @@ export interface RequestConfig extends APIUrlConfig {
     headers?: Record<string, string>;
     body?: Record<string, any>;
     signaturePayload?: string;
-}
-export interface NavigableChatProviderOptions {
-    /** Navigable AI Embed ID for the chat provider. */
-    embedId?: string;
-    /** Optional user ID to initialize the provider with. If not provided, UUID v7 is used. */
-    userId?: string;
 }
 export {};
