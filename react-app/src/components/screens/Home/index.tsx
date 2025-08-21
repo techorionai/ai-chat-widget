@@ -7,8 +7,10 @@ import SendUsAMessageCard from "./SendUsAMessageCard";
 import HomeCardsBuilder from "./CardsBuilder";
 import useElementSizeById from "../../../hooks/useElementSizeById";
 import { AI_CHAT_WINDOW_HOME_HEADER_ID } from "../../../consts/elementIds";
+import { useConfig } from "../../../providers/ConfigProvider";
 
 export default function Home() {
+  const { config } = useConfig();
   const { gradientColor } = useConfigColors();
   const { height: headerHeight } = useElementSizeById(
     AI_CHAT_WINDOW_HOME_HEADER_ID
@@ -16,12 +18,20 @@ export default function Home() {
 
   const occupiedHeight = headerHeight + NavFooterHeight;
 
+  const bgType = config?.homeScreenConfig?.bgColor?.type || "default";
+  const customBg = config?.homeScreenConfig?.bgColor?.background;
+
   return (
     <Container
       fluid
       h="100vh"
       style={{
-        background: gradientColor,
+        background:
+          bgType === "custom"
+            ? customBg
+            : bgType === "default"
+            ? gradientColor
+            : undefined,
       }}
       p={0}
     >

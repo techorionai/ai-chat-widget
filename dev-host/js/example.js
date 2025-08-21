@@ -40,6 +40,10 @@ initAiChatWidget({
     // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Link to handle action
   },
   homeScreenConfig: {
+    bgColor: {
+      // type: "custom", // Or "plain" or "default"
+      // background: "linear-gradient(135deg, #f0f4f8, #e0e7ed)",
+    },
     logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
     additionalCards: [
       {

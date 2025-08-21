@@ -99,12 +99,18 @@ export interface ChatWidgetDefaultColorPair {
 }
 
 export interface HomeScreenConfig {
+  bgColor?: HomeBgConfig;
   logoUrl?: string;
   avatars?: ChatWidgetHeaderAvatarConfig[];
   heading?: string;
   heading2?: string;
   sendUsAMessageConfig?: SendUsAMessageConfig;
   additionalCards?: AdditionalCardConfig[];
+}
+
+export interface HomeBgConfig {
+  type?: "plain" | "custom" | "default";
+  background?: string;
 }
 
 export type AdditionalCardConfig =
@@ -326,113 +332,6 @@ export interface RequestConfig extends APIUrlConfig {
   headers?: Record<string, string>;
   body?: Record<string, any>;
   signaturePayload?: string;
-}
-
-export interface NavigableAIOptions {
-  /**
-   * HTML id of the div to render the chat window.
-   */
-  id?: string;
-  /**
-   * Your agent embed ID.
-   */
-  embedId?: string;
-  /**
-   * Unique identifier of your user.
-   */
-  identifier?: string;
-  /**
-   * Configuration for the shared secret key.
-   */
-  sharedSecretKeyConfig?: SharedSecretKeyConfig;
-  /**
-   * Enable markdown in the chat window. This will dynamically import showdown to convert markdown to HTML.
-   */
-  markdown?: boolean;
-  /**
-   * Configuration for your Navigable AI proxy API endpoints.
-   */
-  apiConfig?: {
-    /**
-     * Proxy API endpoint config for sending messages to the assistant.
-     */
-    sendMessage?: APIUrlConfig;
-    /**
-     * Proxy API endpoint config for getting the last 20 messages in the conversation.
-     */
-    getMessages?: APIUrlConfig;
-  };
-  /**
-   * Navigation actions to be suggested by the assistant.
-   */
-  actions?: Record<string, Function | string | null>;
-  /**
-   * Automatically run an action suggested by the assistant.
-   *
-   * @default false
-   */
-  autoRunActions?: boolean;
-  /**
-   * Functions that can be automated through the assistant. The function should return a string with a status message or simply true for success and false for error.
-   */
-  agentFunctions?: Record<string, AgentFunction>;
-  /**
-   * Default values for the chat window.
-   */
-  defaults?: {
-    /**
-     * Error message to be shown if the request fails.
-     */
-    error?: string;
-    /**
-     * Title of the chat window. Default is "Assistant".
-     */
-    title?: string;
-    /**
-     * Placeholder text for the input field.
-     */
-    inputPlaceholder?: string;
-    /**
-     * Logo for the chat window. HTML string. Default is a sparkles icon.
-     */
-    logo?: string;
-    /**
-     * Icon for the close button. HTML string. Default is a cross icon.
-     */
-    closeIcon?: string;
-    /**
-     * Icon for the send button. HTML string. Default is a send icon.
-     */
-    sendIcon?: string;
-    /**
-     * Loader for the chat window message when the assistant response is loading. HTML string. Default is a dots animation.
-     */
-    loader?: string;
-    /**
-     * Button for the chat window. HTML string. Default is a button.
-     */
-    widgetButton?: string;
-  };
-  /**
-   * Enable dark mode for the chat window.
-   */
-  darkTheme?: boolean;
-  /**
-   * Disable the widget button in the chat window. Default is false.
-   */
-  widgetButtonDisabled?: boolean;
-  /**
-   * Position of the widget button in the chat window. Default is "bottom-right".
-   */
-  widgetButtonPosition?: "bottom-right" | "bottom-left";
-  /**
-   * Default message to be shown when the user opens the chat window for the first time.
-   */
-  welcomeMessage?: string;
-  /**
-   * Default actions to suggest to the user when the user opens the chat window for the first time.
-   */
-  welcomeActions?: string[];
 }
 
 export interface NavigableChatProviderOptions {
