@@ -332,19 +332,19 @@ export interface ChatProviderSendMessageOptions {
  */
 export interface ChatProvider {
   /**
-   * Optional: List all chat sessions for a user.
+   * List all chat sessions for a user.
    * @param options - Options for listing sessions.
    * @returns Promise resolving to an array of chat sessions.
    */
-  listSessions?: (
+  listSessions: (
     options: ChatProviderListSessionsOptions
   ) => Promise<ChatProviderSession[]>;
 
   /**
-   * Optional: Create a new chat session.
+   * Create a new chat session.
    * @returns Promise resolving to the created session id.
    */
-  createSession?: () => Promise<string | void>;
+  createSession: () => Promise<string | void>;
 
   /**
    * List all messages in a given chat session.

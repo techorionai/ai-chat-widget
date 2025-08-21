@@ -157,7 +157,7 @@ class NavigableChatProvider implements ChatProvider {
     }
   }
 
-  async listSessions?(
+  async listSessions(
     options?: ChatProviderListSessionsOptions
   ): Promise<ChatProviderSession[]> {
     try {

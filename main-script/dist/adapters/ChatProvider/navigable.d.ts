@@ -11,7 +11,7 @@ declare class NavigableChatProvider implements ChatProvider {
     listSessionMessages(options: ChatProviderListSessionMessagesOptions): Promise<ChatProviderListSessionMessagesMessage[]>;
     createSession(): Promise<void>;
     sendMessage(options: ChatProviderSendMessageOptions): Promise<ChatProviderListSessionMessagesMessage>;
-    listSessions?(options?: ChatProviderListSessionsOptions): Promise<ChatProviderSession[]>;
+    listSessions(options?: ChatProviderListSessionsOptions): Promise<ChatProviderSession[]>;
 }
 export interface NavigableAPIResponse<T> {
     statusCode: number;
