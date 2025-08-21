@@ -29,7 +29,7 @@ export default function NavFooter() {
         <NavLink to="/">
           <Box ta="center">
             <ThemeIcon
-              variant="white"
+              variant="transparent"
               color={isHomeActive ? undefined : "gray"}
               size="xl"
             >
@@ -43,7 +43,7 @@ export default function NavFooter() {
         <NavLink to="/sessions">
           <Box ta="center">
             <ThemeIcon
-              variant="white"
+              variant="transparent"
               color={isSessionsActive ? undefined : "gray"}
               size="xl"
             >

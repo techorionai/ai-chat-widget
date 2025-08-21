@@ -68,11 +68,10 @@ export default function useConfigColors() {
   };
 
   const getGradientColor = () => {
-    // linear-gradient(180deg, ${primaryColor} 0%, ${theme is light ? white : black} 100%);
     const gradientColor =
       colorScheme === "light"
-        ? `linear-gradient(180deg, ${colors[primaryColor][0]} 0%, white 100%)`
-        : `linear-gradient(180deg, ${primaryColor} 0%, black 100%)`;
+        ? `linear-gradient(180deg, ${colors[primaryColor][0]} 0%, var(--mantine-color-body) 100%)`
+        : `linear-gradient(180deg, ${colors.dark[9]} 0%, ${colors.dark[7]} 75%, ${colors[primaryColor][9]} 100%)`;
     setGradientColor(gradientColor);
     logToIframe(`gradientColor: ${gradientColor}`);
     return gradientColor;
@@ -87,5 +86,6 @@ export default function useConfigColors() {
     gradientColor,
     colorScheme,
     primaryColor,
+    colorsMap: colors,
   };
 }

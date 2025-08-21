@@ -31,7 +31,7 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
       ? [...new Set(props.suggestedActions)]
       : [];
 
-  const { colorScheme } = useConfigColors();
+  const { colorScheme, primaryColor, colorsMap } = useConfigColors();
 
   const [htmlContent, setHtmlContent] = useState<string>();
 
@@ -67,8 +67,8 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
             bg={
               isUser
                 ? colorScheme === "dark"
-                  ? "gray.7"
-                  : "gray.7"
+                  ? colorsMap[primaryColor][7]
+                  : colorsMap[primaryColor][7]
                 : undefined
             }
             c={
