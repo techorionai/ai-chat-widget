@@ -23,6 +23,7 @@ export interface ChatWidgetConfig {
     chatProvider?: ChatProvider;
     actionsMap?: Record<string, Function | string>;
     homeScreenConfig?: HomeScreenConfig;
+    sessionsListConfig?: SessionsListConfig;
 }
 export interface ChatWindowConfig {
     defaults?: ChatWidgetDefaults;
@@ -101,6 +102,12 @@ export interface LinkCardConfig {
     title?: string;
     description: string;
     action: Function | string;
+}
+export interface SessionsListConfig {
+    title?: string;
+    newSessionButton?: {
+        text?: string;
+    };
 }
 /**
  * Options for listing chat sessions for a user.

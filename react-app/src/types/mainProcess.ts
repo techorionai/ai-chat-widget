@@ -49,6 +49,7 @@ export interface ChatWidgetConfig {
   chatProvider?: ChatProvider;
   actionsMap?: Record<string, Function | string>;
   homeScreenConfig?: HomeScreenConfig;
+  sessionsListConfig?: SessionsListConfig;
 }
 
 export interface ChatWindowConfig {
@@ -135,6 +136,13 @@ export interface LinkCardConfig {
   title?: string;
   description: string;
   action: Function | string;
+}
+
+export interface SessionsListConfig {
+  title?: string;
+  newSessionButton?: {
+    text?: string;
+  };
 }
 
 /**

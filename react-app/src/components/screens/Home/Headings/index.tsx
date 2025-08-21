@@ -4,7 +4,7 @@ import { useConfig } from "../../../../providers/ConfigProvider";
 export default function HomeHeadings() {
   const { config } = useConfig();
   return (
-    <Box mt="4rem">
+    <Box>
       <Title order={1} fz="h2" mb="xs">
         {config.homeScreenConfig?.heading ?? "Hello👋"}
       </Title>

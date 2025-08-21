@@ -2,8 +2,10 @@ import { Box, Container, Group, Title } from "@mantine/core";
 import useConfigColors from "../../../../hooks/useConfigColors";
 import ChatSessionsHeaderCloseButton from "./CloseButton";
 import { AI_CHAT_WINDOW_SESSIONS_HEADER_ID } from "../../../../consts/elementIds";
+import { useConfig } from "../../../../providers/ConfigProvider";
 
 export default function ChatSessionsHeader() {
+  const { config } = useConfig();
   const { headerBg, headerColor, borderColor } = useConfigColors();
 
   return (
@@ -21,7 +23,7 @@ export default function ChatSessionsHeader() {
         <Box w="27px" h="27px"></Box>{" "}
         {/* Placeholder to keep the title in the center */}
         <Title fz="lg" ta="center">
-          Messages
+          {config.sessionsListConfig?.title ?? "Messages"}
         </Title>
         <ChatSessionsHeaderCloseButton />
       </Group>

@@ -28,9 +28,11 @@ import { useDisclosure } from "@mantine/hooks";
 import useElementSizeById from "../../../../hooks/useElementSizeById";
 import { AI_CHAT_WINDOW_SESSIONS_HEADER_ID } from "../../../../consts/elementIds";
 import { NavFooterHeight } from "../../../NavFooter";
+import { useConfig } from "../../../../providers/ConfigProvider";
 
 export default function SessionsList() {
   const navigate = useNavigate();
+  const { config } = useConfig();
   const { borderColor } = useConfigColors();
 
   const form = useForm({
@@ -180,7 +182,8 @@ export default function SessionsList() {
             loading={form.values.newSessionLoading}
             disabled={form.values.newSessionLoading}
           >
-            Send us a message
+            {config.sessionsListConfig?.newSessionButton?.text ??
+              "Send us a message"}
           </Button>
           {form.values.newSessionError &&
             form.values.newSessionError?.length > 0 && (

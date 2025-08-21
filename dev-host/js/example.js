@@ -70,6 +70,12 @@ initAiChatWidget({
       },
     ],
   },
+  sessionsListConfig: {
+    // title: "Sessions",
+    // newSessionButton: {
+    //   text: "New Session",
+    // },
+  },
 });
 
 document.getElementById("toggle-btn").addEventListener("click", () => {

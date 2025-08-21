@@ -11,7 +11,9 @@ export default function ChatWindowHeaderTitle() {
   return (
     <Box>
       {config.chatWindow.header.title.title && (
-        <Title fz="md">{config.chatWindow.header.title.title}</Title>
+        <Title fz="md">
+          {config.chatWindow.header.title.title ?? "Assistant"}
+        </Title>
       )}
       {config.chatWindow.header.title.showOnlineSubtitle && (
         <Group>
