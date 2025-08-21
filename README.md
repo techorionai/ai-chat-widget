@@ -1,6 +1,8 @@
 # Navigable AI Chat Widget
 
-A highly customizable chat widget for web applications, supporting integration with any backend or LLM.
+A highly customizable chat widget for web applications, supporting integration with any backend or LLM via a custom provider.
+
+This widget is designed to provide a seamless chat experience, with extensive theming options, easy integration, and support for both light and dark modes.
 
 ---
 
@@ -39,7 +41,7 @@ The chat widget offers extensive theme and color customization through its confi
 
 ### Chat Window Theme (`chatWindow.defaults`)
 
-- **primaryColor**: Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
+- **primaryColor**: Your brand hex color OR Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
 - **colorScheme**: `"light"` or `"dark"`
 - **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value)
 - **colors**: Custom colors for widget background and text (see below)
@@ -119,8 +121,6 @@ window.$aiChatWidget.toggleColorScheme("dark");
 ---
 
 ## Introduction
-
-The Navigable AI Chat Widget enables you to add conversational AI to your website or app. It is fully configurable and can connect to any backend or LLM via a custom provider.
 
 ---
 
