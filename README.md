@@ -7,6 +7,7 @@ This widget is designed to provide a seamless chat experience, with extensive th
 ## Powered by
 
 - [Mantine UI](https://mantine.dev/) (theming & UI)
+- [Tabler Icons](https://tabler.io/icons) (icons)
 - [react-router](https://reactrouter.com/)
 - [@tanstack/react-query](https://tanstack.com/query/latest)
 
@@ -35,7 +36,7 @@ initAiChatWidget({
 });
 ```
 
-Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, see the sections below.
+Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
 
 ## Theme and Color Customization
 
