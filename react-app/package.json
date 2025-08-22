@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "build:prod": "vite build --base=/widget/scripts/app/",
     "preview": "vite preview",
     "copy:dev": "if not exist ..\\dev-host\\js\\react-app mkdir ..\\dev-host\\js\\react-app && xcopy /E /I /Y dist ..\\dev-host\\js\\react-app",
     "build:dev": "npm run build && npm run copy:dev"
