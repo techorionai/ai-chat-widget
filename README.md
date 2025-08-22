@@ -27,14 +27,25 @@ This widget is designed to provide a seamless chat experience, with extensive th
 
 Get started with the minimal setup:
 
-```js
-initAiChatWidget({
-  chatProvider: new NavigableChatProvider({
-    embedId: "YOUR_EMBED_ID",
-    userId: "USER_ID", // Optional, can be used to identify the user
-  }),
-});
-```
+1. Add the script to your HTML:
+
+   ```html
+   <script
+     type="module"
+     src="https://www.navigable.ai/widget/scripts/main/index.js"
+   ></script>
+   ```
+
+2. Initialize the widget in your JavaScript:
+
+   ```js
+   initAiChatWidget({
+     chatProvider: new NavigableChatProvider({
+       embedId: "YOUR_EMBED_ID",
+       userId: "USER_ID", // Optional, can be used to identify the user
+     }),
+   });
+   ```
 
 Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
 
@@ -47,7 +58,7 @@ The chat widget offers extensive theme and color customization through its confi
 - **primaryColor**: Your brand hex color OR Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
 - **colorScheme**: `"light"` or `"dark"`
 - **mantineThemeOverride**: Custom Mantine theme override object (see [Mantine theming](https://mantine.dev/theming/theme-override/))
-- **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value)
+- **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value for border-radius)
 - **colors**: Custom colors for widget background and text (see below)
 - **assistantMessage** / **userMessage**: Custom colors for assistant/user messages, supporting light/dark mode
 
@@ -130,7 +141,10 @@ window.$aiChatWidget.toggleColorScheme("dark");
 Include the main script in your HTML and initialize the widget:
 
 ```html
-<script src="path/to/main-script.js"></script>
+<script
+  type="module"
+  src="https://www.navigable.ai/widget/scripts/main/index.js"
+></script>
 <script>
   initAiChatWidget({
     debug: true,
