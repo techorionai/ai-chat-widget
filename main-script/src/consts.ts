@@ -1,4 +1,5 @@
 export const IFRAME_ID = "chat-widget-iframe";
+export const IFRAME_ORIGIN = "https://www.navigable.ai";
 export const IFRAME_SRC =
   "https://www.navigable.ai/widget/scripts/app/index.html";
 export const WIDGET_BUTTON_ID = "ai-chat-window-widget-button";

@@ -1,4 +1,4 @@
-import { IFRAME_SRC } from "../consts.js";
+import { IFRAME_ORIGIN } from "../consts.js";
 import chatProviderCreateSessionHandler from "../eventHandlers/chatProvider/createSession.js";
 import chatProviderListSessionMessagesEventHandler from "../eventHandlers/chatProvider/listSessionMessages.js";
 import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
@@ -10,7 +10,7 @@ import runHomeCardAction from "../eventHandlers/runHomeCardAction.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import logger from "./logger.js";
 const iframeEventHandler = (event) => {
-    if (event.origin !== IFRAME_SRC)
+    if (event.origin !== IFRAME_ORIGIN)
         return;
     if (!event.data || !event.data.type || event.data.type === "LOG")
         return;

@@ -1,4 +1,4 @@
-import { IFRAME_SRC } from "../consts.js";
+import { IFRAME_ORIGIN } from "../consts.js";
 import chatProviderCreateSessionHandler from "../eventHandlers/chatProvider/createSession.js";
 import chatProviderListSessionMessagesEventHandler from "../eventHandlers/chatProvider/listSessionMessages.js";
 import chatProviderListSessionsEventHandler from "../eventHandlers/chatProvider/listSessions.js";
@@ -12,7 +12,7 @@ import { EventTypeIframe } from "../types.js";
 import logger from "./logger.js";
 
 const iframeEventHandler = (event: MessageEvent<any>) => {
-  if (event.origin !== IFRAME_SRC) return;
+  if (event.origin !== IFRAME_ORIGIN) return;
   if (!event.data || !event.data.type || event.data.type === "LOG") return;
 
   const eventType = event.data?.type;
