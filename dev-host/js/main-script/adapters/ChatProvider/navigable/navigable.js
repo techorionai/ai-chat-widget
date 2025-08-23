@@ -3,28 +3,6 @@ import request from "../../../utils/request.js";
 import generateTULIP from "../../../utils/tulip.js";
 // const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
 const API_ENDPOINT = "http://localhost:3002/embed/v1";
-export const HOSTNAME = "www.navigable.ai";
-export const DEFAULT_TIMEOUT = 30000;
-export const API_KEY_HEADER = "X-Api-Key";
-// API Endpoints
-export const ENDPOINTS = {
-    SEND_MESSAGE: {
-        path: "/api/embed/v1/chat",
-        method: "POST",
-    },
-    GET_MESSAGES: {
-        path: "/api/embed/v1/chat",
-        method: "GET",
-    },
-    GET_CHAT_SESSIONS: {
-        path: "/api/embed/v1/chat/sessions",
-        method: "GET",
-    },
-    GET_SESSION_MESSAGES: {
-        path: "/api/embed/v1/chat/sessions/", // sessionId will be appended dynamically
-        method: "GET",
-    },
-};
 class NavigableChatProvider {
     apiMode = "unknown";
     embedId = undefined;
