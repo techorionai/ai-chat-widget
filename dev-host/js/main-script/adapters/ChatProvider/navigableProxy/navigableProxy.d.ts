@@ -2,6 +2,7 @@ import { ChatProvider, ChatProviderListSessionMessagesOptions, ChatProviderListS
 export interface ProxyChatProviderOptions {
     userId?: string;
     commonHeaders?: Record<string, string>;
+    sharedSecretKeyConfig?: import("../../../types.js").SharedSecretKeyConfig;
     endpoints: {
         listSessions?: {
             url: string;

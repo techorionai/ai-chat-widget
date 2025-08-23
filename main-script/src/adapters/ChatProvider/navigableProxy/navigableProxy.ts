@@ -36,6 +36,7 @@ interface NavigableAPIResponse<T> {
 export interface ProxyChatProviderOptions {
   userId?: string;
   commonHeaders?: Record<string, string>;
+  sharedSecretKeyConfig?: import("../../../types.js").SharedSecretKeyConfig;
   endpoints: {
     listSessions?: {
       url: string;
@@ -85,11 +86,17 @@ class NavigableProxyChatProvider implements ChatProvider {
       ...(endpoint.headers || {}),
     };
 
-    const res = await request<NavigableAPIResponse<ChatProviderSession[]>>({
-      url: endpoint.url.replace("{userId}", this.userId),
-      method: endpoint.method,
-      headers,
-    });
+    const res = await request<NavigableAPIResponse<ChatProviderSession[]>>(
+      {
+        url: endpoint.url.replace("{userId}", this.userId),
+        method: endpoint.method,
+        headers,
+        signaturePayload: this.userId,
+      },
+      this.options.sharedSecretKeyConfig
+        ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+        : undefined
+    );
 
     if (!res) {
       throw new Error("No response received from the API");
@@ -115,11 +122,17 @@ class NavigableProxyChatProvider implements ChatProvider {
       ...(endpoint.headers || {}),
     };
 
-    const res = await request<NavigableAPIResponse<{ id: string }>>({
-      url: endpoint.url.replace("{userId}", this.userId),
-      method: endpoint.method,
-      headers,
-    });
+    const res = await request<NavigableAPIResponse<{ id: string }>>(
+      {
+        url: endpoint.url.replace("{userId}", this.userId),
+        method: endpoint.method,
+        headers,
+        signaturePayload: this.userId,
+      },
+      this.options.sharedSecretKeyConfig
+        ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+        : undefined
+    );
 
     if (!res || !res.success) {
       throw new Error("Failed to create session");
@@ -148,11 +161,17 @@ class NavigableProxyChatProvider implements ChatProvider {
 
     const res = await request<
       NavigableAPIResponse<import("../../../types.js").IMessage[]>
-    >({
-      url,
-      method: endpoint.method,
-      headers,
-    });
+    >(
+      {
+        url,
+        method: endpoint.method,
+        headers,
+        signaturePayload: this.userId,
+      },
+      this.options.sharedSecretKeyConfig
+        ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+        : undefined
+    );
 
     if (!res) {
       throw new Error("No response received from the API");
@@ -197,12 +216,18 @@ class NavigableProxyChatProvider implements ChatProvider {
 
     const res = await request<
       NavigableAPIResponse<import("../../../types.js").IMessage>
-    >({
-      url,
-      method: endpoint.method,
-      headers,
-      body,
-    });
+    >(
+      {
+        url,
+        method: endpoint.method,
+        headers,
+        body,
+        signaturePayload: options.content,
+      },
+      this.options.sharedSecretKeyConfig
+        ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+        : undefined
+    );
 
     if (!res) {
       throw new Error("No response received from the API");

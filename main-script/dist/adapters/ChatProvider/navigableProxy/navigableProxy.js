@@ -33,7 +33,10 @@ class NavigableProxyChatProvider {
             url: endpoint.url.replace("{userId}", this.userId),
             method: endpoint.method,
             headers,
-        });
+            signaturePayload: this.userId,
+        }, this.options.sharedSecretKeyConfig
+            ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+            : undefined);
         if (!res) {
             throw new Error("No response received from the API");
         }
@@ -58,7 +61,10 @@ class NavigableProxyChatProvider {
             url: endpoint.url.replace("{userId}", this.userId),
             method: endpoint.method,
             headers,
-        });
+            signaturePayload: this.userId,
+        }, this.options.sharedSecretKeyConfig
+            ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+            : undefined);
         if (!res || !res.success) {
             throw new Error("Failed to create session");
         }
@@ -82,7 +88,10 @@ class NavigableProxyChatProvider {
             url,
             method: endpoint.method,
             headers,
-        });
+            signaturePayload: this.userId,
+        }, this.options.sharedSecretKeyConfig
+            ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+            : undefined);
         if (!res) {
             throw new Error("No response received from the API");
         }
@@ -120,7 +129,10 @@ class NavigableProxyChatProvider {
             method: endpoint.method,
             headers,
             body,
-        });
+            signaturePayload: options.content,
+        }, this.options.sharedSecretKeyConfig
+            ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
+            : undefined);
         if (!res) {
             throw new Error("No response received from the API");
         }
