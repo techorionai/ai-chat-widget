@@ -36,31 +36,3 @@ declare class NavigableProxyChatProvider implements ChatProvider {
     sendMessage(options: ChatProviderSendMessageOptions): Promise<ChatProviderListSessionMessagesMessage>;
 }
 export default NavigableProxyChatProvider;
-/**
- * ProxyChatProvider usage example:
- *
- * import { ProxyChatProvider } from "../adapters/ChatProvider/index.js";
- *
- * const proxyProvider = new ProxyChatProvider({
- *   userId: "user-123",
- *   commonHeaders: { "Authorization": "Bearer TOKEN" },
- *   endpoints: {
- *     listSessions: {
- *       url: "https://your-proxy.com/api/sessions?user={userId}",
- *       method: "GET"
- *     },
- *     createSession: {
- *       url: "https://your-proxy.com/api/sessions/create?user={userId}",
- *       method: "POST"
- *     },
- *     listSessionMessages: {
- *       url: "https://your-proxy.com/api/sessions/{sessionId}/messages?user={userId}",
- *       method: "GET"
- *     },
- *     sendMessage: {
- *       url: "https://your-proxy.com/api/sessions/{sessionId}/send?user={userId}",
- *       method: "POST"
- *     }
- *   }
- * });
- */
