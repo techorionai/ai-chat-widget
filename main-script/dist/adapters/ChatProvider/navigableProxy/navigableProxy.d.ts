@@ -25,7 +25,7 @@ export interface ProxyChatProviderOptions {
         };
     };
 }
-declare class ProxyChatProvider implements ChatProvider {
+declare class NavigableProxyChatProvider implements ChatProvider {
     userId: string;
     options: ProxyChatProviderOptions;
     constructor(options: ProxyChatProviderOptions);
@@ -34,7 +34,7 @@ declare class ProxyChatProvider implements ChatProvider {
     listSessionMessages(options: ChatProviderListSessionMessagesOptions): Promise<ChatProviderListSessionMessagesMessage[]>;
     sendMessage(options: ChatProviderSendMessageOptions): Promise<ChatProviderListSessionMessagesMessage>;
 }
-export default ProxyChatProvider;
+export default NavigableProxyChatProvider;
 /**
  * ProxyChatProvider usage example:
  *

@@ -9,7 +9,7 @@ const navigableSenderMap = {
     "ASSISTANT-LOADING": "user",
     ERROR: "user",
 };
-class ProxyChatProvider {
+class NavigableProxyChatProvider {
     userId;
     options;
     constructor(options) {
@@ -137,7 +137,7 @@ class ProxyChatProvider {
         };
     }
 }
-export default ProxyChatProvider;
+export default NavigableProxyChatProvider;
 /**
  * ProxyChatProvider usage example:
  *

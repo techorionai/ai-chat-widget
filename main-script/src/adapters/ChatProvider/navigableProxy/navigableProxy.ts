@@ -60,7 +60,7 @@ export interface ProxyChatProviderOptions {
   };
 }
 
-class ProxyChatProvider implements ChatProvider {
+class NavigableProxyChatProvider implements ChatProvider {
   userId: string;
   options: ProxyChatProviderOptions;
 
@@ -224,7 +224,7 @@ class ProxyChatProvider implements ChatProvider {
   }
 }
 
-export default ProxyChatProvider;
+export default NavigableProxyChatProvider;
 
 /**
  * ProxyChatProvider usage example:

@@ -1,4 +1,4 @@
-import NavigableChatProvider from "./adapters/ChatProvider/navigable/navigable.js";
+import { NavigableChatProvider, NavigableProxyChatProvider } from "./adapters/ChatProvider/index.js";
 import { ChatProvider, ChatWidgetConfig, sendMainEventFn } from "./types.js";
 declare global {
     interface Window {
@@ -16,6 +16,7 @@ declare global {
         };
         initAiChatWidget: (config: ChatWidgetConfig) => void;
         NavigableChatProvider: typeof NavigableChatProvider;
+        NavigableProxyChatProvider: typeof NavigableProxyChatProvider;
     }
 }
 export * from "./consts.js";
