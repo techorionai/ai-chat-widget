@@ -11,6 +11,7 @@ import {
 } from "../../../types.js";
 import request from "../../../utils/request.js";
 import navigableResponseHandler from "../../../utils/navigableResponseHandler.js";
+import generateTULIP from "../../../utils/tulip.js";
 
 // Same sender mapping as NavigableChatProvider
 const navigableSenderMap: Record<
@@ -72,7 +73,7 @@ class NavigableProxyChatProvider implements ChatProvider {
       typeof options.userId === "string" &&
       options.userId.trim() !== ""
         ? options.userId
-        : Math.random().toString(36).slice(2); // fallback userId
+        : generateTULIP(); // fallback userId
   }
 
   async listSessions(

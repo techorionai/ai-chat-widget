@@ -1,6 +1,7 @@
 // ProxyChatProvider adapter for Navigable AI
 import request from "../../../utils/request.js";
 import navigableResponseHandler from "../../../utils/navigableResponseHandler.js";
+import generateTULIP from "../../../utils/tulip.js";
 // Same sender mapping as NavigableChatProvider
 const navigableSenderMap = {
     USER: "user",
@@ -19,7 +20,7 @@ class NavigableProxyChatProvider {
                 typeof options.userId === "string" &&
                 options.userId.trim() !== ""
                 ? options.userId
-                : Math.random().toString(36).slice(2); // fallback userId
+                : generateTULIP(); // fallback userId
     }
     async listSessions(options) {
         const endpoint = this.options.endpoints.listSessions;
