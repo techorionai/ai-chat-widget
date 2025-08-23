@@ -13,6 +13,7 @@ const navigableSenderMap = {
 class NavigableProxyChatProvider {
     userId;
     options;
+    lastNewSessionRequest = undefined;
     constructor(options) {
         this.options = options;
         this.userId =
@@ -51,26 +52,10 @@ class NavigableProxyChatProvider {
         }));
     }
     async createSession() {
-        const endpoint = this.options.endpoints.createSession;
-        if (!endpoint)
-            throw new Error("createSession endpoint not configured");
-        const headers = {
-            ...(this.options.commonHeaders || {}),
-            ...(endpoint.headers || {}),
+        this.lastNewSessionRequest = {
+            time: new Date(),
+            fulfilled: false,
         };
-        const res = await request({
-            url: endpoint.url.replace("{userId}", this.userId),
-            method: endpoint.method,
-            headers,
-            signaturePayload: this.userId,
-        }, this.options.sharedSecretKeyConfig
-            ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
-            : undefined);
-        if (!res || !res.success) {
-            throw new Error("Failed to create session");
-        }
-        // Return session id if available, else void
-        return res.data?.id || undefined;
     }
     async listSessionMessages(options) {
         const endpoint = this.options.endpoints.listSessionMessages;
@@ -112,6 +97,11 @@ class NavigableProxyChatProvider {
         const endpoint = this.options.endpoints.sendMessage;
         if (!endpoint)
             throw new Error("sendMessage endpoint not configured");
+        // Check if a new session is needed
+        let newSession = false;
+        if (this.lastNewSessionRequest && !this.lastNewSessionRequest.fulfilled) {
+            newSession = true;
+        }
         const headers = {
             ...(this.options.commonHeaders || {}),
             ...(endpoint.headers || {}),
@@ -124,6 +114,7 @@ class NavigableProxyChatProvider {
             sessionId: options.sessionId,
             content: options.content,
             enabledActions: options.enabledActions,
+            new: newSession,
         };
         const res = await request({
             url,
@@ -138,6 +129,10 @@ class NavigableProxyChatProvider {
             throw new Error("No response received from the API");
         }
         navigableResponseHandler(res);
+        // If successful, mark the new session request as fulfilled
+        if (newSession && this.lastNewSessionRequest) {
+            this.lastNewSessionRequest.fulfilled = true;
+        }
         return {
             role: "assistant",
             content: res.data.content,

@@ -9,11 +9,6 @@ export interface ProxyChatProviderOptions {
             method: HTTPMethods;
             headers?: Record<string, string>;
         };
-        createSession?: {
-            url: string;
-            method: HTTPMethods;
-            headers?: Record<string, string>;
-        };
         listSessionMessages?: {
             url: string;
             method: HTTPMethods;
@@ -29,9 +24,13 @@ export interface ProxyChatProviderOptions {
 declare class NavigableProxyChatProvider implements ChatProvider {
     userId: string;
     options: ProxyChatProviderOptions;
+    lastNewSessionRequest: undefined | {
+        time: Date;
+        fulfilled: boolean;
+    };
     constructor(options: ProxyChatProviderOptions);
     listSessions(options?: ChatProviderListSessionsOptions): Promise<ChatProviderSession[]>;
-    createSession(): Promise<string | void>;
+    createSession(): Promise<void>;
     listSessionMessages(options: ChatProviderListSessionMessagesOptions): Promise<ChatProviderListSessionMessagesMessage[]>;
     sendMessage(options: ChatProviderSendMessageOptions): Promise<ChatProviderListSessionMessagesMessage>;
 }

@@ -44,11 +44,6 @@ export interface ProxyChatProviderOptions {
       method: HTTPMethods;
       headers?: Record<string, string>;
     };
-    createSession?: {
-      url: string;
-      method: HTTPMethods;
-      headers?: Record<string, string>;
-    };
     listSessionMessages?: {
       url: string;
       method: HTTPMethods;
@@ -65,6 +60,12 @@ export interface ProxyChatProviderOptions {
 class NavigableProxyChatProvider implements ChatProvider {
   userId: string;
   options: ProxyChatProviderOptions;
+  lastNewSessionRequest:
+    | undefined
+    | {
+        time: Date;
+        fulfilled: boolean;
+      } = undefined;
 
   constructor(options: ProxyChatProviderOptions) {
     this.options = options;
@@ -114,33 +115,11 @@ class NavigableProxyChatProvider implements ChatProvider {
     })) as ChatProviderSession[];
   }
 
-  async createSession(): Promise<string | void> {
-    const endpoint = this.options.endpoints.createSession;
-    if (!endpoint) throw new Error("createSession endpoint not configured");
-
-    const headers = {
-      ...(this.options.commonHeaders || {}),
-      ...(endpoint.headers || {}),
+  async createSession(): Promise<void> {
+    this.lastNewSessionRequest = {
+      time: new Date(),
+      fulfilled: false,
     };
-
-    const res = await request<NavigableAPIResponse<{ id: string }>>(
-      {
-        url: endpoint.url.replace("{userId}", this.userId),
-        method: endpoint.method,
-        headers,
-        signaturePayload: this.userId,
-      },
-      this.options.sharedSecretKeyConfig
-        ? { sharedSecretKeyConfig: this.options.sharedSecretKeyConfig }
-        : undefined
-    );
-
-    if (!res || !res.success) {
-      throw new Error("Failed to create session");
-    }
-
-    // Return session id if available, else void
-    return res.data?.id || undefined;
   }
 
   async listSessionMessages(
@@ -199,6 +178,12 @@ class NavigableProxyChatProvider implements ChatProvider {
     const endpoint = this.options.endpoints.sendMessage;
     if (!endpoint) throw new Error("sendMessage endpoint not configured");
 
+    // Check if a new session is needed
+    let newSession = false;
+    if (this.lastNewSessionRequest && !this.lastNewSessionRequest.fulfilled) {
+      newSession = true;
+    }
+
     const headers = {
       ...(this.options.commonHeaders || {}),
       ...(endpoint.headers || {}),
@@ -213,6 +198,7 @@ class NavigableProxyChatProvider implements ChatProvider {
       sessionId: options.sessionId,
       content: options.content,
       enabledActions: options.enabledActions,
+      new: newSession,
     };
 
     const res = await request<
@@ -235,6 +221,11 @@ class NavigableProxyChatProvider implements ChatProvider {
     }
 
     navigableResponseHandler(res);
+
+    // If successful, mark the new session request as fulfilled
+    if (newSession && this.lastNewSessionRequest) {
+      this.lastNewSessionRequest.fulfilled = true;
+    }
 
     return {
       role: "assistant",

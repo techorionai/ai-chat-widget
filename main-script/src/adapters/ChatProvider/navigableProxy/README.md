@@ -14,15 +14,14 @@ A flexible ChatProvider adapter for Navigable AI that lets you connect your chat
 
 If your backend uses the [NavigableAI Node.js SDK](https://www.npmjs.com/package/navigableai-node) and exposes endpoints like below:
 
-```txt
-// Example endpoints
+```js
 POST   /assistant/send-message
 GET    /assistant/get-messages
 GET    /assistant/get-chat-sessions
 GET    /assistant/get-session-messages/:sessionId
 ```
 
-Configure your frontend adapter like this, and pass it to the chat widget:
+Configure your frontend adapter like this:
 
 ```typescript
 const proxyProvider = new NavigableProxyChatProvider({
@@ -37,10 +36,6 @@ const proxyProvider = new NavigableProxyChatProvider({
     listSessions: {
       url: "http://localhost:3000/assistant/get-chat-sessions?identifier={userId}",
       method: "GET",
-    },
-    createSession: {
-      url: "http://localhost:3000/assistant/send-message",
-      method: "POST",
     },
     listSessionMessages: {
       url: "http://localhost:3000/assistant/get-session-messages/{sessionId}?identifier={userId}",
