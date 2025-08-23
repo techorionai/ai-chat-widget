@@ -1,5 +1,5 @@
-import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
-import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
+import NavigableChatProvider from "./adapters/ChatProvider/navigable/navigable.js";
+import { ChatProvider, ChatWidgetConfig, sendMainEventFn } from "./types.js";
 declare global {
     interface Window {
         $aiChatWidget: {
@@ -19,5 +19,5 @@ declare global {
     }
 }
 export * from "./consts.js";
-export * from "./types.js";
 export * from "./inject.js";
+export * from "./types.js";

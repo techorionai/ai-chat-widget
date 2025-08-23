@@ -1,8 +1,6 @@
-import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
+import NavigableChatProvider from "./adapters/ChatProvider/navigable/navigable.js";
 import { injectAiChatWidget } from "./inject.js";
-import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
-import toggleColorScheme from "../../dev-host/js/main-script/utils/toggleColorScheme";
-import { getColorScheme } from "./utils/toggleColorScheme";
+import { ChatProvider, ChatWidgetConfig, sendMainEventFn } from "./types.js";
 
 // Extend the Window interface to $aiChatWidget & initAiChatWidget
 declare global {
@@ -25,8 +23,8 @@ declare global {
 }
 
 export * from "./consts.js";
-export * from "./types.js";
 export * from "./inject.js";
+export * from "./types.js";
 
 window.initAiChatWidget = injectAiChatWidget;
 window.NavigableChatProvider = NavigableChatProvider;

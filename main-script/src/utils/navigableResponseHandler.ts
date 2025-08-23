@@ -1,4 +1,4 @@
-import { NavigableAPIResponse } from "../adapters/ChatProvider/navigable";
+import { NavigableAPIResponse } from "../adapters/ChatProvider/navigable/navigable";
 
 /**
  * Handles the response from the Navigable API.
