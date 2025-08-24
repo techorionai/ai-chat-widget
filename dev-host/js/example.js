@@ -2,11 +2,11 @@ import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/
 import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
 
 const navigableChatProvider = new NavigableChatProvider({
-  embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
-  userId: "david@techorionai.com",
+  embedId: "",
+  userId: "testing@techorionai.com",
 });
 const navigableProxyProvider = new NavigableProxyChatProvider({
-  userId: "davi@techorion.ai",
+  userId: "testing@techorion.ai",
   // commonHeaders: { "x-request-signature": "SIGNATURE" }, // Signature is auto-generated
   sharedSecretKeyConfig: {
     sharedSecretKey: "YOUR_SHARED_SECRET_KEY",
