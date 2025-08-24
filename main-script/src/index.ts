@@ -1,8 +1,9 @@
-import NavigableChatProvider from "./adapters/ChatProvider/navigable.js";
+import {
+  NavigableChatProvider,
+  NavigableProxyChatProvider,
+} from "./adapters/ChatProvider/index.js";
 import { injectAiChatWidget } from "./inject.js";
-import { sendMainEventFn, ChatWidgetConfig, ChatProvider } from "./types.js";
-import toggleColorScheme from "../../dev-host/js/main-script/utils/toggleColorScheme";
-import { getColorScheme } from "./utils/toggleColorScheme";
+import { ChatProvider, ChatWidgetConfig, sendMainEventFn } from "./types.js";
 
 // Extend the Window interface to $aiChatWidget & initAiChatWidget
 declare global {
@@ -20,13 +21,15 @@ declare global {
       getColorScheme: () => "light" | "dark";
     };
     initAiChatWidget: (config: ChatWidgetConfig) => void;
-    NavigableChatProvider: typeof NavigableChatProvider;
+    // NavigableChatProvider: typeof NavigableChatProvider;
+    // NavigableProxyChatProvider: typeof NavigableProxyChatProvider;
   }
 }
 
 export * from "./consts.js";
-export * from "./types.js";
 export * from "./inject.js";
+export * from "./types.js";
 
 window.initAiChatWidget = injectAiChatWidget;
-window.NavigableChatProvider = NavigableChatProvider;
+// window.NavigableChatProvider = NavigableChatProvider;
+// window.NavigableProxyChatProvider = NavigableProxyChatProvider;
