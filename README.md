@@ -13,15 +13,16 @@ This widget is designed to provide a seamless chat experience, with extensive th
 
 ## Table of Contents
 
-- Quickstart with Navigable AI
-- Introduction
-- Installation / Embedding
-- Initialization Example
-- Configuration Options
-- Widget Controls & Event Handling
-- Customization Tips & Advanced Usage
-- Implementing a Custom ChatProvider (Connect to Any LLM)
-- References
+- [Quickstart with Navigable AI](#quickstart-with-navigable-ai)
+- [Theme and Color Customization](#theme-and-color-customization)
+- [Installation / Embedding](#installation--embedding)
+- [Initialization Example](#initialization-example)
+- [Configuration Options](#configuration-options)
+- [Custom Widget Button](#custom-widget-button)
+- [Widget Controls & Event Handling](#widget-controls--event-handling)
+- [Customization Tips & Advanced Usage](#customization-tips--advanced-usage)
+- [Implementing a Custom ChatProvider (Connect to Any LLM)](#implementing-a-custom-chatprovider-connect-to-any-llm)
+- [References](#references)
 
 ## Quickstart with Navigable AI
 
