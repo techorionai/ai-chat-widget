@@ -170,7 +170,7 @@ Include the main script in your HTML and initialize the widget:
 </script>
 ```
 
-See [`dev-host/js/example.js:1`](dev-host/js/example.js:1) for a complete example.
+See [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) for a complete example.
 
 ## Initialization Example
 
@@ -253,7 +253,7 @@ The widget is configured via a `ChatWidgetConfig` object. Key options:
 - **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
 - **sessionsListConfig**: Customize chat sessions list (title, new session button).
 
-See [`main-script/src/types.ts:50`](main-script/src/types.ts:50) for full type definitions.
+See [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) for full type definitions.
 
 ## Custom Widget Button
 
@@ -276,7 +276,7 @@ initAiChatWidget({
 - Make sure your button includes an accessible label (`aria-label`) and is positioned as desired.
 - You can add event listeners to your custom button if needed.
 
-Refer to [`dev-host/js/example.js:3`](dev-host/js/example.js:3) for a real-world example.
+Refer to [`dev-host/js/example.js#L3`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L3) for a real-world example.
 
 ## Widget Controls & Event Handling
 
@@ -297,7 +297,7 @@ document.getElementById("toggle-btn").addEventListener("click", () => {
 });
 ```
 
-See [`dev-host/js/example.js:113`](dev-host/js/example.js:113) for more examples.
+See [`dev-host/js/example.js#L113`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L113) for more examples.
 
 ## Customization Tips & Advanced Usage
 
@@ -311,7 +311,7 @@ See [`dev-host/js/example.js:113`](dev-host/js/example.js:113) for more examples
 
 ## Implementing a Custom ChatProvider (Connect to Any LLM)
 
-To connect the chat widget to any LLM or backend, implement the [`ChatProvider`](main-script/src/types.ts:333) interface. **All four methods are required:**
+To connect the chat widget to any LLM or backend, implement the [`ChatProvider`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L333) interface. **All four methods are required:**
 
 - `listSessions(options)`: List all chat sessions.
 - `createSession()`: Create a new chat session.
@@ -362,9 +362,9 @@ initAiChatWidget({
 });
 ```
 
-See [`main-script/src/types.ts:333`](main-script/src/types.ts:333) for full interface details.
+See [`main-script/src/types.ts#L333`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L333) for full interface details.
 
 ## References
 
-- [`main-script/src/types.ts:50`](main-script/src/types.ts:50) - ChatWidgetConfig and related types
-- [`dev-host/js/example.js:1`](dev-host/js/example.js:1) - Example initialization and usage
+- [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) - ChatWidgetConfig and related types
+- [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) - Example initialization and usage

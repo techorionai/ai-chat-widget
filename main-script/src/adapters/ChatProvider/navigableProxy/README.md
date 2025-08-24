@@ -24,10 +24,13 @@ GET    /assistant/get-session-messages/:sessionId
 Configure your frontend adapter like this:
 
 ```typescript
+import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
+
 const proxyProvider = new NavigableProxyChatProvider({
-  userId: "user-123",
-  commonHeaders: { "x-request-signature": "SIGNATURE" }, // Signature is auto-generated
+  userId: "user-123", // Optional, Recommended if available
+  commonHeaders: { "x-custom-header": "value" }, // Signature is auto-generated
   sharedSecretKeyConfig: {
+    // Optional
     sharedSecretKey: "YOUR_SHARED_SECRET_KEY",
     placement: "header",
     key: "x-request-signature",
@@ -63,4 +66,4 @@ initAiChatWidget({
 
 ## API Reference
 
-See [`navigableProxy.ts`](./navigableProxy.ts) for full implementation details.
+See [`navigableProxy.ts`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/navigableProxy.ts) for full implementation details.
