@@ -1,4 +1,3 @@
-import { NavigableChatProvider, NavigableProxyChatProvider } from "./adapters/ChatProvider/index.js";
 import { ChatProvider, ChatWidgetConfig, sendMainEventFn } from "./types.js";
 declare global {
     interface Window {
@@ -15,8 +14,6 @@ declare global {
             getColorScheme: () => "light" | "dark";
         };
         initAiChatWidget: (config: ChatWidgetConfig) => void;
-        NavigableChatProvider: typeof NavigableChatProvider;
-        NavigableProxyChatProvider: typeof NavigableProxyChatProvider;
     }
 }
 export * from "./consts.js";

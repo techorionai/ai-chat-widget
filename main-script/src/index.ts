@@ -21,8 +21,8 @@ declare global {
       getColorScheme: () => "light" | "dark";
     };
     initAiChatWidget: (config: ChatWidgetConfig) => void;
-    NavigableChatProvider: typeof NavigableChatProvider;
-    NavigableProxyChatProvider: typeof NavigableProxyChatProvider;
+    // NavigableChatProvider: typeof NavigableChatProvider;
+    // NavigableProxyChatProvider: typeof NavigableProxyChatProvider;
   }
 }
 
@@ -31,5 +31,5 @@ export * from "./inject.js";
 export * from "./types.js";
 
 window.initAiChatWidget = injectAiChatWidget;
-window.NavigableChatProvider = NavigableChatProvider;
-window.NavigableProxyChatProvider = NavigableProxyChatProvider;
+// window.NavigableChatProvider = NavigableChatProvider;
+// window.NavigableProxyChatProvider = NavigableProxyChatProvider;

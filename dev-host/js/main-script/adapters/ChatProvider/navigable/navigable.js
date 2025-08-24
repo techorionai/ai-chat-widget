@@ -33,6 +33,9 @@ class NavigableChatProvider {
     }
     async listSessionMessages(options) {
         try {
+            if (options.sessionId?.trim() === "new") {
+                return [];
+            }
             const res = await request({
                 url: `${API_ENDPOINT}/chat/sessions/${options.sessionId}?identifier=${this.userId}`,
                 method: "GET",
@@ -70,7 +73,9 @@ class NavigableChatProvider {
         try {
             // Check if a new session is needed
             let newSession = false;
-            if (this.lastNewSessionRequest && !this.lastNewSessionRequest.fulfilled) {
+            if (this.lastNewSessionRequest &&
+                !this.lastNewSessionRequest.fulfilled &&
+                (!options.sessionId || options.sessionId === "new")) {
                 newSession = true;
             }
             // Send the message

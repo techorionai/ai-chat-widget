@@ -1,3 +1,33 @@
+import NavigableChatProvider from "./main-script/adapters/ChatProvider/navigable/navigable.js";
+import NavigableProxyChatProvider from "./main-script/adapters/ChatProvider/navigableProxy/navigableProxy.js";
+
+const navigableChatProvider = new NavigableChatProvider({
+  embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
+  userId: "david@techorionai.com",
+});
+const navigableProxyProvider = new NavigableProxyChatProvider({
+  userId: "davi@techorion.ai",
+  // commonHeaders: { "x-request-signature": "SIGNATURE" }, // Signature is auto-generated
+  sharedSecretKeyConfig: {
+    sharedSecretKey: "YOUR_SHARED_SECRET_KEY",
+    placement: "header",
+    key: "x-request-signature",
+  },
+  endpoints: {
+    listSessions: {
+      url: "http://localhost:3005/assistant/get-chat-sessions?identifier={userId}",
+      method: "GET",
+    },
+    listSessionMessages: {
+      url: "http://localhost:3005/assistant/get-session-messages/{sessionId}?identifier={userId}",
+      method: "GET",
+    },
+    sendMessage: {
+      url: "http://localhost:3005/assistant/send-message",
+      method: "POST",
+    },
+  },
+});
 initAiChatWidget({
   debug: true,
   // widgetButton: `<button id="override-widget-button" aria-label="Open assistant" style="background-color: #000; color: #ffffff; border-radius: 50%; border: none; position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; cursor: pointer;"> <svg  xmlns="http://www.w3.org/2000/svg"  width="40"  height="40"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-message-bolt"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M19 16l-2 3h4l-2 3" /></svg> </button>`,
@@ -60,10 +90,8 @@ initAiChatWidget({
         "We help improve and scale your customer support with the power of specialized AI agents.",
     },
   },
-  chatProvider: new NavigableChatProvider({
-    embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
-    userId: "david@techorionai.com",
-  }),
+  // chatProvider: navigableChatProvider,
+  chatProvider: navigableProxyProvider,
   actionsMap: {
     "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
     // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Alternatively, pass a link to handle action

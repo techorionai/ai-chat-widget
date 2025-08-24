@@ -62,6 +62,10 @@ class NavigableChatProvider implements ChatProvider {
     options: ChatProviderListSessionMessagesOptions
   ): Promise<ChatProviderListSessionMessagesMessage[]> {
     try {
+      if (options.sessionId?.trim() === "new") {
+        return [] as ChatProviderListSessionMessagesMessage[];
+      }
+
       const res = await request<NavigableAPIResponse<NavigableMessage[]>>({
         url: `${API_ENDPOINT}/chat/sessions/${options.sessionId}?identifier=${this.userId}`,
         method: "GET",
@@ -112,7 +116,11 @@ class NavigableChatProvider implements ChatProvider {
     try {
       // Check if a new session is needed
       let newSession = false;
-      if (this.lastNewSessionRequest && !this.lastNewSessionRequest.fulfilled) {
+      if (
+        this.lastNewSessionRequest &&
+        !this.lastNewSessionRequest.fulfilled &&
+        (!options.sessionId || options.sessionId === "new")
+      ) {
         newSession = true;
       }
 

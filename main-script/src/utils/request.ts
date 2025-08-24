@@ -23,7 +23,9 @@ const request = async <T extends any>(
       options?.sharedSecretKeyConfig.key &&
       config.signaturePayload
     ) {
-      const signature = await generateSignature(config.signaturePayload);
+      const signature = await generateSignature(config.signaturePayload, {
+        sharedSecretKeyConfig: options?.sharedSecretKeyConfig,
+      });
 
       if (!signature) {
         throw new Error("Failed to generate signature");

@@ -11,7 +11,7 @@ export default function ChatWindowHeaderBackButton() {
     <ActionIcon
       variant="subtle"
       color={headerColor ?? "gray"}
-      onClick={() => navigate(-1)}
+      onClick={() => navigate("/sessions")}
     >
       <IconChevronLeft className="action-icon" />
     </ActionIcon>
