@@ -1,5 +1,5 @@
-import NavigableChatProvider from "./main-script/adapters/ChatProvider/navigable/navigable.js";
-import NavigableProxyChatProvider from "./main-script/adapters/ChatProvider/navigableProxy/navigableProxy.js";
+import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
+import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
 
 const navigableChatProvider = new NavigableChatProvider({
   embedId: "Njg1ZmM4NGNjOTQxZmI2NzZlY2QwNWVk",
@@ -90,8 +90,8 @@ initAiChatWidget({
         "We help improve and scale your customer support with the power of specialized AI agents.",
     },
   },
-  // chatProvider: navigableChatProvider,
-  chatProvider: navigableProxyProvider,
+  chatProvider: navigableChatProvider,
+  // chatProvider: navigableProxyProvider,
   actionsMap: {
     "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
     // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Alternatively, pass a link to handle action

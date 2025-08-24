@@ -39,6 +39,8 @@ Get started with the minimal setup:
 2. Initialize the widget in your JavaScript:
 
    ```js
+   import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
+
    initAiChatWidget({
      chatProvider: new NavigableChatProvider({
        embedId: "YOUR_EMBED_ID",
