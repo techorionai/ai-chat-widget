@@ -1,4 +1,4 @@
-import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
+// import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
 import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
 
 const navigableChatProvider = new NavigableChatProvider({

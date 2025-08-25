@@ -169,3 +169,4 @@ class NavigableProxyChatProvider {
     }
 }
 export default NavigableProxyChatProvider;
+window.NavigableProxyChatProvider = NavigableProxyChatProvider;

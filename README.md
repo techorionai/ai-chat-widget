@@ -50,6 +50,8 @@ Get started with the minimal setup:
    });
    ```
 
+If you're looking to connect via your Navigable AI proxy server, refer to the [NavigableProxyChatProvider](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/README.md).
+
 Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
 
 ## Theme and Color Customization

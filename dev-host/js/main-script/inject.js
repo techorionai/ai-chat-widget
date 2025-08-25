@@ -1,5 +1,6 @@
 import { IFRAME_ID, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
 import { defaultExpandedSize, defaultNormalSize, } from "./eventHandlers/toggleExpand.js";
+import { getEnabledActionsMap } from "./utils/getEnabledActions.js";
 import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
 import logger from "./utils/logger.js";
 import sendEventToIframe from "./utils/sendEvent.js";
@@ -7,6 +8,15 @@ import { getColorScheme, toggleColorScheme, } from "./utils/toggleColorScheme.js
 import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 export function injectAiChatWidget(config) {
     try {
+        if (!config) {
+            throw new Error("Config is required to initialize the chat widget");
+        }
+        config.actionsMap = getEnabledActionsMap(config.actionsMap);
+        if (config.chatWindow?.welcomeMessage?.actions) {
+            const sanitizedWelcomeActions = config.chatWindow?.welcomeMessage?.actions?.filter((action) => config.actionsMap &&
+                Object.prototype.hasOwnProperty.call(config.actionsMap, action)) ?? [];
+            config.chatWindow.welcomeMessage.actions = sanitizedWelcomeActions;
+        }
         // Use existing iframe if present, else create
         let iframe = document.getElementById(IFRAME_ID);
         if (!iframe) {

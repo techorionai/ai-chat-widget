@@ -139,3 +139,4 @@ const navigableSenderMap = {
     ERROR: "user",
 };
 export default NavigableChatProvider;
+window.NavigableChatProvider = NavigableChatProvider;
