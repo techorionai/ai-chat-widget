@@ -2,10 +2,11 @@ import { IFRAME_ORIGIN } from "../consts.js";
 import logger from "./logger.js";
 const sendEventToIframe = (type, data) => {
     try {
-        window.$aiChatWidget.Iframe?.contentWindow?.postMessage({
+        const payload = JSON.parse(JSON.stringify({
             type,
             data,
-        }, IFRAME_ORIGIN);
+        }));
+        window.$aiChatWidget.Iframe?.contentWindow?.postMessage(payload, IFRAME_ORIGIN);
     }
     catch (error) {
         logger.error("Error sending event:", error);

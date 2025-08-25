@@ -4,11 +4,15 @@ import logger from "./logger.js";
 
 const sendEventToIframe: sendMainEventFn = (type, data) => {
   try {
-    window.$aiChatWidget.Iframe?.contentWindow?.postMessage(
-      {
+    const payload = JSON.parse(
+      JSON.stringify({
         type,
         data,
-      },
+      })
+    );
+
+    window.$aiChatWidget.Iframe?.contentWindow?.postMessage(
+      payload,
       IFRAME_ORIGIN
     );
   } catch (error) {

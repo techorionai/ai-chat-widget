@@ -4,13 +4,14 @@ import logToIframe from "./logger.js";
 const sendEventToMain: sendIframeEventFn = (type, data) => {
   try {
     if (window?.parent && "postMessage" in window.parent) {
-      window.parent.postMessage(
-        {
+      const payload = JSON.parse(
+        JSON.stringify({
           type,
           data,
-        },
-        "*"
+        })
       );
+
+      window.parent.postMessage(payload, "*");
     }
   } catch (error) {
     logToIframe("Error sending event to main:", error);
