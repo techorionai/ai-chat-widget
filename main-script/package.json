@@ -1,8 +1,24 @@
 {
-  "name": "navigableai-navigableai-chat-widget",
+  "name": "navigableai-chat-widget",
   "version": "0.9.0",
+  "description": "Highly customizable chat widget for web applications, supporting any backend or LLM via a custom provider.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [
+    "chat",
+    "widget",
+    "ai",
+    "navigable",
+    "llm",
+    "support",
+    "web"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techorionai/navigableai-chat-widget"
+  },
+  "author": "Navigable AI",
+  "license": "MIT",
   "scripts": {
     "types:sync": "echo \"Syncing types for main & react app\" && cp ./src/types.ts ../react-app/src/types/mainProcess.ts",
     "dev": "nodemon --exec \"npm run build:dev\" -e ts --ignore dist/*",

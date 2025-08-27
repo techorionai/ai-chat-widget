@@ -19,3 +19,4 @@ declare global {
 export * from "./consts.js";
 export * from "./inject.js";
 export * from "./types.js";
+export * from "./adapters/ChatProvider/index.js";
