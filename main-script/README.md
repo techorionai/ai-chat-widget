@@ -11,186 +11,109 @@ This widget is designed to provide a seamless chat experience, with extensive th
 - [react-router](https://reactrouter.com/)
 - [@tanstack/react-query](https://tanstack.com/query/latest)
 
-## Installation
+## Table of Contents
 
-Install the package via npm:
+- [Quickstart with Navigable AI](#quickstart-with-navigable-ai)
+- [Theme and Color Customization](#theme-and-color-customization)
+- [Installation / Embedding](#installation--embedding)
+- [Initialization Example](#initialization-example)
+- [Configuration Options](#configuration-options)
+- [Custom Widget Button](#custom-widget-button)
+- [Widget Controls & Event Handling](#widget-controls--event-handling)
+- [Customization Tips & Advanced Usage](#customization-tips--advanced-usage)
+- [Implementing a Custom ChatProvider (Connect to Any LLM)](#implementing-a-custom-chatprovider-connect-to-any-llm)
+- [References](#references)
 
-```bash
-npm install navigableai-chat-widget
-```
+## Quickstart with Navigable AI
 
-## Quick Start
+Get started with the minimal setup.
 
-The following examples demonstrate how to integrate the chat widget into your web application with [Navigable AI](https://www.navigable.ai) as the chat provider. If you want to use a different backend or LLM, implement the `ChatProvider` interface as described in [this section below](#implementing-a-custom-chatprovider).
+### Via CDN
 
-### Using ES Modules (Recommended)
+1. Add the script to your HTML:
 
-```javascript
-import {
-  injectAiChatWidget,
-  NavigableChatProvider,
-} from "navigableai-chat-widget";
+   ```html
+   <script
+     type="module"
+     src="https://www.navigable.ai/widget/scripts/main/index.js"
+   ></script>
+   <script
+     type="module"
+     src="https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js"
+   ></script>
+   ```
 
-// Initialize the widget with NavigableChatProvider
-injectAiChatWidget({
-  chatProvider: new NavigableChatProvider({
-    embedId: "YOUR_EMBED_ID",
-    userId: "USER_ID", // Optional
-  }),
-  chatWindow: {
-    defaults: {
-      primaryColor: "blue",
-      colorScheme: "light",
-    },
-  },
-});
-```
+   Remember to use type="module" in your script tags to support ES module imports if you're using the CDN approach.
 
-### Using Script Tag
+2. Initialize the widget in your JavaScript:
 
-```html
-<script
-  type="module"
-  src="https://www.navigable.ai/widget/scripts/main/index.js"
-></script>
-<script>
-  // The function is available globally as initAiChatWidget
-  initAiChatWidget({
-    chatProvider: new NavigableChatProvider({
-      embedId: "YOUR_EMBED_ID",
-      userId: "USER_ID",
-    }),
-    // ... configuration
-  });
-</script>
-```
+   ```js
+   initAiChatWidget({
+     chatProvider: new NavigableChatProvider({
+       embedId: "YOUR_EMBED_ID",
+       // userId: "USER_ID", // Optional, can be used to identify the user
+     }),
+   });
+   ```
 
-## Configuration Options
+### Via NPM
 
-The widget is configured via a `ChatWidgetConfig` object. Key options:
+1. Install the package via npm:
 
-- **debug**: Enable console logs (`true`/`false`).
-- **widgetButton**: Custom HTML for the widget button.
-- **chatWindow**: Customize chat window appearance and behavior.
-  - `defaults`: Colors, color scheme, message radius, etc.
-  - `header`: Avatars, title, background, and text color.
-  - `expanded`, `disallowExpand`: Control expand/collapse behavior.
-  - `welcomeMessage`: Initial message, actions, info text.
-  - `hideAssistantMessageAvatar`, `hideUserMessageAvatar`: Hide avatars in messages.
-- **chatProvider**: Adapter for chat backend (required - implement `ChatProvider` interface).
-- **actionsMap**: Map action names to functions or URLs. Used for handling agent-suggested actions.
-- **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
-- **sessionsListConfig**: Customize chat sessions list (title, new session button).
+   ```bash
+   npm install navigableai-chat-widget
+   ```
 
-## Basic Example
+2. Import and initialize the widget in your JavaScript:
 
-```javascript
-import { injectAiChatWidget } from "navigableai-chat-widget";
+   ```javascript
+   import {
+     injectAiChatWidget,
+     NavigableChatProvider,
+   } from "navigableai-chat-widget";
 
-// Example with minimal configuration
-injectAiChatWidget({
-  debug: true,
-  chatWindow: {
-    defaults: {
-      primaryColor: "violet",
-      colorScheme: "light",
-    },
-    header: {
-      avatars: [{ name: "Assistant", url: "https://example.com/avatar.png" }],
-      title: { title: "Support Chat", showOnlineSubtitle: true },
-    },
-    welcomeMessage: {
-      message: "Hello! How can I help you today?",
-      infoText: "I'm here to assist you with any questions.",
-    },
-  },
-  chatProvider: new NavigableChatProvider({
-    embedId: "YOUR_EMBED_ID",
-    userId: "USER_ID",
-  }),
-  actionsMap: {
-    "Contact Support": "https://example.com/support",
-    "Go to Dashboard": () => (window.location.href = "/dashboard"),
-  },
-});
-```
+   // Initialize the widget with NavigableChatProvider
+   injectAiChatWidget({
+     chatProvider: new NavigableChatProvider({
+       embedId: "YOUR_EMBED_ID",
+       userId: "USER_ID", // Optional
+     }),
+   });
+   ```
 
-## Implementing a Custom ChatProvider
+Note the name change: `initAiChatWidget` is `injectAiChatWidget` if you are importing the package you installed via npm. All options remain the same.
 
-To connect the chat widget to any LLM or backend, implement the `ChatProvider` interface. **All four methods are required:**
+### Using Other Backends or LLMs
 
-```javascript
-class YourChatProvider {
-  async listSessions(options) {
-    // Fetch sessions from your backend
-    return [
-      { id: "session1", title: "Chat 1", createdAt: new Date().toISOString() },
-    ];
-  }
+If you're looking to connect via your Navigable AI proxy server, refer to the [NavigableProxyChatProvider](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/README.md).
 
-  async createSession() {
-    // Create a new session
-    return "new-session-id";
-  }
-
-  async listSessionMessages({ sessionId }) {
-    // Fetch messages for a session
-    return [
-      { role: "user", content: "Hello" },
-      { role: "assistant", content: "Hi, how can I help?" },
-    ];
-  }
-
-  async sendMessage({ sessionId, content, enabledActions }) {
-    // Send message and return assistant's reply
-    const response = await fetch("https://api.your-backend.com/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionId, content, enabledActions }),
-    });
-    const data = await response.json();
-
-    return {
-      role: "assistant",
-      content: data.reply,
-      suggestedActions: data.suggestedActions, // Optional
-      createdAt: new Date().toISOString(), // Optional
-    };
-  }
-}
-```
-
-## Widget Controls
-
-Control the widget programmatically:
-
-```javascript
-// Toggle widget open/closed
-window.$aiChatWidget.toggle();
-
-// Open the widget
-window.$aiChatWidget.open();
-
-// Close the widget
-window.$aiChatWidget.close();
-
-// Toggle color scheme
-window.$aiChatWidget.toggleColorScheme("dark");
-window.$aiChatWidget.toggleColorScheme("light");
-
-// Get current color scheme
-const currentScheme = window.$aiChatWidget.getColorScheme();
-```
+Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://www.navigable.ai/). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
 
 ## Theme and Color Customization
 
-The chat widget offers extensive theme and color customization:
+The chat widget offers extensive theme and color customization through its configuration options. You can control colors, appearance, and layout for both light and dark modes.
 
-```javascript
+### Chat Window Theme (`chatWindow.defaults`)
+
+- **primaryColor**: Your brand hex color OR Predefined theme color (`"dark"`, `"gray"`, `"red"`, `"pink"`, `"grape"`, `"violet"`, `"indigo"`, `"blue"`, `"cyan"`, `"green"`, `"lime"`, `"yellow"`, `"orange"`, `"teal"`)
+- **colorScheme**: `"light"` or `"dark"`
+- **mantineThemeOverride**: Custom Mantine theme override object (see [Mantine theming](https://mantine.dev/theming/theme-override/))
+- **messageRadius**: Border radius for messages (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"` or any CSS value for border-radius)
+- **colors**: Custom colors for widget background and text (see below)
+- **assistantMessage** / **userMessage**: Custom colors for assistant/user messages, supporting light/dark mode
+
+**Note:** All `bg` and `color` properties throughout the widget (including `chatWindow.defaults`, `assistantMessage`, `userMessage`, header, and home screen) support both predefined color names (e.g., `"blue"`, `"violet"`, `"gray"`, etc.) and hex codes (e.g., `"#22223b"`, `"#fff"`), as well as standard CSS color values.
+
+#### Example
+
+```js
 chatWindow: {
   defaults: {
-    primaryColor: "violet", // or hex code like "#7c3aed"
+    primaryColor: "violet",
     colorScheme: "dark",
+    mantineThemeOverride: {
+      // Custom Mantine theme overrides
+    },
     messageRadius: "lg",
     colors: {
       light: { bg: "#f8f9fa", color: "#222" },
@@ -204,55 +127,282 @@ chatWindow: {
       light: { bg: "#fffbe6", color: "#92400e" },
       dark: { bg: "#92400e", color: "#fffbe6" }
     }
-  },
-  header: {
-    bg: "#22223b",
-    color: "#fff"
   }
 }
 ```
 
-## Custom Widget Button
+### Chat Window Header (`chatWindow.header`)
 
-Override the default widget button:
+- **bg**: Header background color (applies to both light and dark modes)
+- **color**: Header text color
 
-```javascript
-injectAiChatWidget({
-  widgetButton: `
-    <button id="custom-widget-button" aria-label="Open chat" 
-            style="background: #7c3aed; color: white; border: none; 
-                   border-radius: 50%; position: fixed; bottom: 20px; 
-                   right: 20px; width: 60px; height: 60px; cursor: pointer;">
-      💬
-    </button>
-  `,
-  // ... other config
+#### Example
+
+```js
+header: {
+  bg: "#22223b",
+  color: "#fff"
+}
+```
+
+### Home Screen Background (`homeScreenConfig.bgColor`)
+
+- **type**: `"plain"`, `"custom"`, or `"default"`
+- **background**: Custom CSS background (if `type` is `"custom"`)
+
+#### Example
+
+```js
+homeScreenConfig: {
+  bgColor: {
+    type: "custom",
+    background: "linear-gradient(135deg, #f0f4f8, #e0e7ed)"
+  }
+}
+```
+
+### Switching Color Schemes
+
+You can toggle between light and dark modes programmatically:
+
+```js
+window.$aiChatWidget.toggleColorScheme("light");
+window.$aiChatWidget.toggleColorScheme("dark");
+```
+
+### Tips
+
+- Use hex, rgb, or CSS color values for maximum flexibility.
+- Combine predefined theme colors with custom overrides for unique branding.
+- All color options support both light and dark modes for accessibility.
+
+## Installation / Embedding
+
+Include the main script in your HTML and initialize the widget:
+
+```html
+<script
+  type="module"
+  src="https://www.navigable.ai/widget/scripts/main/index.js"
+></script>
+<script>
+  initAiChatWidget({
+    debug: true,
+    chatWindow: {
+      /* ... */
+    },
+    chatProvider: new NavigableChatProvider({
+      embedId: "YOUR_EMBED_ID",
+      userId: "USER_ID",
+    }),
+    actionsMap: {
+      /* ... */
+    },
+    homeScreenConfig: {
+      /* ... */
+    },
+    sessionsListConfig: {
+      /* ... */
+    },
+  });
+</script>
+```
+
+See [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) for a complete example.
+
+## Initialization Example
+
+```js
+initAiChatWidget({
+  debug: true,
+  chatWindow: {
+    defaults: {
+      primaryColor: "orange",
+      colorScheme: "light",
+    },
+    header: {
+      avatars: [
+        { name: "Navigable AI", url: "https://www.navigable.ai/logo/64.png" },
+      ],
+      maxShownAvatars: 2,
+      title: { title: "Support", showOnlineSubtitle: true },
+    },
+    hideAssistantMessageAvatar: true,
+    hideUserMessageAvatar: true,
+    welcomeMessage: {
+      message: "Hello! I'm Navi, your AI assistant...",
+      actions: ["Go to Sign Up", "Go to Log In"],
+      infoText: "We help improve and scale your customer support...",
+    },
+  },
+  chatProvider: new NavigableChatProvider({
+    embedId: "YOUR_EMBED_ID",
+    userId: "USER_ID",
+  }),
+  actionsMap: {
+    // "Go to Support Portal": () => alert("Navigating..."),
+    // "Go to Support Portal": "https://www.navigable.ai/contact-us",
+  },
+  homeScreenConfig: {
+    bgColor: { type: "custom", background: "linear-gradient(...)" },
+    logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
+    logoUrlDark: "https://www.navigable.ai/logo/64.png",
+    additionalCards: [
+      {
+        type: "button",
+        config: { title: "...", description: "...", action: "/" },
+      },
+      {
+        type: "image",
+        config: {
+          imageUrl: "...",
+          title: "...",
+          description: "...",
+          action: "/",
+        },
+      },
+      {
+        type: "link",
+        config: { title: "...", description: "...", action: "/" },
+      },
+    ],
+  },
+  sessionsListConfig: {
+    // title: "Sessions",
+    // newSessionButton: { text: "New Session" },
+  },
 });
 ```
 
-## Browser Environment
+## Configuration Options
 
-This package is designed for browser environments only. It requires `window` and `document` objects and will throw an error if used in Node.js or other non-browser environments.
+The widget is configured via a `ChatWidgetConfig` object. Key options:
 
-## TypeScript Support
+- **debug**: Enable console logs (`true`/`false`).
+- **widgetButton**: Custom HTML for the widget button (see [Custom Widget Button](#custom-widget-button)).
+- **chatWindow**: Customize chat window appearance and behavior.
+  - `defaults`: Colors, color scheme, message radius, etc.
+  - `header`: Avatars, title, background, and text color.
+  - `expanded`, `disallowExpand`: Control expand/collapse behavior.
+  - `welcomeMessage`: Initial message, actions, info text.
+  - `hideAssistantMessageAvatar`, `hideUserMessageAvatar`: Hide avatars in messages.
+- **chatProvider**: Adapter for chat backend (e.g., `NavigableChatProvider` or custom).
+- **actionsMap**: Map action names to functions or URLs. Used for handling agent-suggested actions.
+- **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
+- **sessionsListConfig**: Customize chat sessions list (title, new session button).
 
-This package includes TypeScript definitions. All configuration interfaces are exported:
+See [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) for full type definitions.
 
-```typescript
-import {
-  injectAiChatWidget,
-  ChatWidgetConfig,
-  ChatProvider,
-  ChatProviderSession,
-  ChatProviderListSessionMessagesMessage,
-  NavigableChatProvider,
-} from "navigableai-chat-widget";
+## Custom Widget Button
+
+You can override the default widget button by providing your own HTML using the `widgetButton` option in `ChatWidgetConfig`. This allows full control over the button's appearance, accessibility, and behavior.
+
+**Example:**
+
+```js
+initAiChatWidget({
+  widgetButton: `<button id="override-widget-button" aria-label="Open assistant" style="background-color: #000; color: #fff; border-radius: 50%; border: none; position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-bolt"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M19 16l-2 3h4l-2 3" /></svg>
+  </button>`,
+  // ...other config
+});
 ```
 
-## License
+**Usage Notes:**
 
-This package is part of the [Navigable AI Chat Widget](https://github.com/techorionai/ai-chat-widget) project. Please refer to the main project repository for licensing information.
+- The HTML string is injected directly, so you can use any valid HTML and inline styles.
+- Make sure your button includes an accessible label (`aria-label`) and is positioned as desired.
+- You can add event listeners to your custom button if needed.
 
-## Support
+Refer to [`dev-host/js/example.js#L3`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L3) for a real-world example.
 
-For issues, questions, or contributions, please visit the [main project repository](https://github.com/techorionai/ai-chat-widget).
+## Widget Controls & Event Handling
+
+Control the widget programmatically:
+
+- `window.$aiChatWidget.toggle()`: Toggle widget open/closed.
+- `window.$aiChatWidget.open()`: Open the widget.
+- `window.$aiChatWidget.close()`: Close the widget.
+- `window.$aiChatWidget.toggleColorScheme()`: Toggle between light/dark mode.
+- `window.$aiChatWidget.toggleColorScheme("light" | "dark")`: Set color scheme directly.
+- `window.$aiChatWidget.getColorScheme()`: Get current color scheme.
+
+Example:
+
+```js
+document.getElementById("toggle-btn").addEventListener("click", () => {
+  window.$aiChatWidget.toggle();
+});
+```
+
+See [`dev-host/js/example.js#L113`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L113) for more examples.
+
+## Customization Tips & Advanced Usage
+
+- **Appearance**: Customize colors, avatars, header, and message radius via `chatWindow.defaults` and `chatWindow.header`.
+- **Welcome Message**: Set a custom welcome message, info text, and suggested actions using `chatWindow.welcomeMessage`.
+- **Actions Map**: Map action names to functions or URLs for agent-suggested actions (`actionsMap`).
+- **Home Screen**: Configure background, logo, avatars, and additional cards (`homeScreenConfig`). Cards can be buttons, images, or links.
+- **Session List**: Customize session list title and new session button (`sessionsListConfig`).
+- **Chat Provider**: Integrate with your backend by implementing the `ChatProvider` interface.
+- **Dark/Light Mode**: Support both color schemes and toggle programmatically.
+
+## Implementing a Custom ChatProvider (Connect to Any LLM)
+
+To connect the chat widget to any LLM or backend, implement the [`ChatProvider`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L333) interface. **All four methods are required:**
+
+- `listSessions(options)`: List all chat sessions.
+- `createSession()`: Create a new chat session.
+- `listSessionMessages(options)`: Return messages for a session.
+- `sendMessage(options)`: Send a message and return the response.
+
+In case of any errors, simply throw an error.
+
+**Example:**
+
+```js
+class MyLLMChatProvider {
+  async listSessions(options) {
+    // Fetch sessions from your backend or LLM API
+    return [
+      { id: "session1", title: "Chat 1", createdAt: new Date().toISOString() },
+    ];
+  }
+
+  async createSession() {
+    // Create a new session in your backend or LLM API
+    return "new-session-id";
+  }
+
+  async listSessionMessages({ sessionId }) {
+    // Fetch messages from your backend or LLM API
+    return [
+      { role: "user", content: "Hello" },
+      { role: "assistant", content: "Hi, how can I help?" },
+    ];
+  }
+
+  async sendMessage({ sessionId, content }) {
+    // Send message to your LLM and return the assistant's reply
+    const response = await fetch("https://api.my-llm.com/chat", {
+      method: "POST",
+      body: JSON.stringify({ sessionId, content }),
+    });
+    const data = await response.json();
+    return { role: "assistant", content: data.reply };
+  }
+}
+
+// Usage:
+initAiChatWidget({
+  chatProvider: new MyLLMChatProvider(),
+  // ...other config
+});
+```
+
+See [`main-script/src/types.ts#L333`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L333) for full interface details.
+
+## References
+
+- [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) - ChatWidgetConfig and related types
+- [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) - Example initialization and usage

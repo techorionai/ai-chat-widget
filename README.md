@@ -26,7 +26,9 @@ This widget is designed to provide a seamless chat experience, with extensive th
 
 ## Quickstart with Navigable AI
 
-Get started with the minimal setup:
+Get started with the minimal setup.
+
+### Via CDN
 
 1. Add the script to your HTML:
 
@@ -35,20 +37,53 @@ Get started with the minimal setup:
      type="module"
      src="https://www.navigable.ai/widget/scripts/main/index.js"
    ></script>
+   <script
+     type="module"
+     src="https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js"
+   ></script>
    ```
+
+   Remember to use type="module" in your script tags to support ES module imports if you're using the CDN approach.
 
 2. Initialize the widget in your JavaScript:
 
    ```js
-   import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
-
    initAiChatWidget({
      chatProvider: new NavigableChatProvider({
        embedId: "YOUR_EMBED_ID",
-       userId: "USER_ID", // Optional, can be used to identify the user
+       // userId: "USER_ID", // Optional, can be used to identify the user
      }),
    });
    ```
+
+### Via NPM
+
+1. Install the package via npm:
+
+   ```bash
+   npm install navigableai-chat-widget
+   ```
+
+2. Import and initialize the widget in your JavaScript:
+
+   ```javascript
+   import {
+     injectAiChatWidget,
+     NavigableChatProvider,
+   } from "navigableai-chat-widget";
+
+   // Initialize the widget with NavigableChatProvider
+   injectAiChatWidget({
+     chatProvider: new NavigableChatProvider({
+       embedId: "YOUR_EMBED_ID",
+       userId: "USER_ID", // Optional
+     }),
+   });
+   ```
+
+Note the name change: `initAiChatWidget` is `injectAiChatWidget` if you are importing the package you installed via npm. All options remain the same.
+
+### Using Other Backends or LLMs
 
 If you're looking to connect via your Navigable AI proxy server, refer to the [NavigableProxyChatProvider](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/README.md).
 
