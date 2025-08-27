@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { PARENT_ORIGIN } from "../consts/parent";
 import { EventTypeMain } from "../types/mainProcess";
 
 export function useMainEventListener(
@@ -7,7 +6,6 @@ export function useMainEventListener(
 ) {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== PARENT_ORIGIN) return;
       const eventType = event.data?.type as EventTypeMain | undefined;
       if (!eventType) return;
       const handler = handlers[eventType];
