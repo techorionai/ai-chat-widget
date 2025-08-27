@@ -1,8 +1,8 @@
 {
   "name": "chat-widget-main-script",
   "version": "0.1.0",
-  "private": true,
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "types:sync": "echo \"Syncing types for main & react app\" && cp ./src/types.ts ../react-app/src/types/mainProcess.ts",
     "dev": "nodemon --exec \"npm run build:dev\" -e ts --ignore dist/*",

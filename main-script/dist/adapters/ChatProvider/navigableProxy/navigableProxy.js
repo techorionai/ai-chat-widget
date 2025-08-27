@@ -169,4 +169,6 @@ class NavigableProxyChatProvider {
     }
 }
 export default NavigableProxyChatProvider;
-window.NavigableProxyChatProvider = NavigableProxyChatProvider;
+if (typeof window !== "undefined") {
+    window.NavigableProxyChatProvider = NavigableProxyChatProvider;
+}

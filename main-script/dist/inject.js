@@ -7,6 +7,9 @@ import sendEventToIframe from "./utils/sendEvent.js";
 import { getColorScheme, toggleColorScheme, } from "./utils/toggleColorScheme.js";
 import { closeWidget, openWidget, toggleWidget } from "./utils/toggleWidget.js";
 export function injectAiChatWidget(config) {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+        throw new Error("injectAiChatWidget can only be used in a browser environment.");
+    }
     try {
         if (!config) {
             throw new Error("Config is required to initialize the chat widget");

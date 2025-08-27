@@ -281,4 +281,6 @@ class NavigableProxyChatProvider implements ChatProvider {
 
 export default NavigableProxyChatProvider;
 
-(window as any).NavigableProxyChatProvider = NavigableProxyChatProvider;
+if (typeof window !== "undefined") {
+  (window as any).NavigableProxyChatProvider = NavigableProxyChatProvider;
+}

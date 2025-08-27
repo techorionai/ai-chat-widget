@@ -234,4 +234,6 @@ const navigableSenderMap: Record<
 
 export default NavigableChatProvider;
 
-(window as any).NavigableChatProvider = NavigableChatProvider;
+if (typeof window !== "undefined") {
+  (window as any).NavigableChatProvider = NavigableChatProvider;
+}
