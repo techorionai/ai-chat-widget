@@ -15,6 +15,8 @@ const sendEventToIframe: sendMainEventFn = (type, data) => {
       payload,
       IFRAME_ORIGIN
     );
+
+    logger.log("Sent event to iframe:", payload);
   } catch (error) {
     logger.error("Error sending event:", error);
   }

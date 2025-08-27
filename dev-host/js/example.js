@@ -1,32 +1,8 @@
 // import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
-import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
 
 const navigableChatProvider = new NavigableChatProvider({
   embedId: "",
   userId: "testing@techorionai.com",
-});
-const navigableProxyProvider = new NavigableProxyChatProvider({
-  userId: "testing@techorion.ai",
-  // commonHeaders: { "x-request-signature": "SIGNATURE" }, // Signature is auto-generated
-  sharedSecretKeyConfig: {
-    sharedSecretKey: "YOUR_SHARED_SECRET_KEY",
-    placement: "header",
-    key: "x-request-signature",
-  },
-  endpoints: {
-    listSessions: {
-      url: "http://localhost:3005/assistant/get-chat-sessions?identifier={userId}",
-      method: "GET",
-    },
-    listSessionMessages: {
-      url: "http://localhost:3005/assistant/get-session-messages/{sessionId}?identifier={userId}",
-      method: "GET",
-    },
-    sendMessage: {
-      url: "http://localhost:3005/assistant/send-message",
-      method: "POST",
-    },
-  },
 });
 initAiChatWidget({
   debug: true,

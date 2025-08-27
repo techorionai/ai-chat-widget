@@ -1,7 +1,6 @@
 import merge from "lodash.merge";
 import React, { createContext, useContext, useEffect } from "react";
 
-import { PARENT_ORIGIN } from "../consts/parent";
 import {
   ChatProviderListSessionMessagesMessage,
   ChatProviderSession,
@@ -104,7 +103,7 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== PARENT_ORIGIN) return;
+      logToIframe("log", "Received event from parent:", event.data);
       const eventType = event.data?.type;
       if (!eventType) return;
       switch (eventType as EventTypeMain) {
