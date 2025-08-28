@@ -18,6 +18,14 @@ import { useEffect, useState } from "react";
 import sendEventToMain from "../../../../../utils/sendEvent";
 import { useConfig } from "../../../../../providers/ConfigProvider";
 
+marked.use({
+  renderer: {
+    link: (tokens) => {
+      return `<a href="${tokens.href}" target="_blank" rel="noopener noreferrer">${tokens.text}</a>`;
+    },
+  },
+});
+
 interface IChatWindowMessageProps
   extends ChatProviderListSessionMessagesMessage {
   isLoading?: boolean;
