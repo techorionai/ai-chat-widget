@@ -16,7 +16,7 @@ export default function LinkCard(props: {
       onClick={() => triggerHomeCardAction([props.idx])}
     >
       <Group justify="space-between" align="center">
-        <Box maw="80%">
+        <Box maw="calc(100% - 2.5rem)">
           {props.config?.title && (
             <Text fz="sm" fw="bold">
               {props.config?.title}
