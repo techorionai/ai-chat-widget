@@ -15,7 +15,7 @@ export default function HomeHeader() {
       <Group>
         <HomeHeaderLogo />
       </Group>
-      <Group>
+      <Group mr="2.5rem">
         <HomeHeaderAvatar />
         <HomeHeaderCloseButton />
       </Group>
