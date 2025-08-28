@@ -100,7 +100,7 @@ export interface ChatWidgetDefaults {
     /** Default color scheme for the chat widget */
     colorScheme?: "light" | "dark";
     /** Primary Color for the chat widget. One of the following. Default is blue */
-    primaryColor?: "dark" | "gray" | "red" | "pink" | "grape" | "violet" | "indigo" | "blue" | "cyan" | "green" | "lime" | "yellow" | "orange" | "teal";
+    primaryColor?: "dark" | "gray" | "red" | "pink" | "grape" | "violet" | "indigo" | "blue" | "cyan" | "green" | "lime" | "yellow" | "orange" | "teal" | string;
     /** Mantine theme override for the chat widget. Refer: https://mantine.dev/theming/theme-object/ */
     mantineThemeOverride?: Record<string, any>;
     /** Border/Corner radius for each message. Can be one of the predefined sizes or a custom CSS value for border-radius property. */

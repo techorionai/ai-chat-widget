@@ -149,7 +149,8 @@ export interface ChatWidgetDefaults {
     | "lime"
     | "yellow"
     | "orange"
-    | "teal";
+    | "teal"
+    | string;
   /** Mantine theme override for the chat widget. Refer: https://mantine.dev/theming/theme-object/ */
   mantineThemeOverride?: Record<string, any>;
   /** Border/Corner radius for each message. Can be one of the predefined sizes or a custom CSS value for border-radius property. */
