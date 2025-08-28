@@ -8,6 +8,8 @@ export default function ChatSessionsHeader() {
   const { config } = useConfig();
   const { headerBg, headerColor, borderColor } = useConfigColors();
 
+  const PlaceholderButton = () => <Box w="27px" h="27px"></Box>;
+
   return (
     <Container
       fluid
@@ -20,12 +22,16 @@ export default function ChatSessionsHeader() {
       id={AI_CHAT_WINDOW_SESSIONS_HEADER_ID}
     >
       <Group justify="space-between" align="center">
-        <Box w="27px" h="27px"></Box>{" "}
         {/* Placeholder to keep the title in the center */}
+        <PlaceholderButton />
         <Title fz="lg" ta="center">
           {config.sessionsListConfig?.title ?? "Messages"}
         </Title>
-        <ChatSessionsHeaderCloseButton />
+        {config.disableCloseButton ? (
+          <PlaceholderButton />
+        ) : (
+          <ChatSessionsHeaderCloseButton />
+        )}
       </Group>
     </Container>
   );

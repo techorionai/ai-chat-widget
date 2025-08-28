@@ -117,6 +117,7 @@ initAiChatWidget({
     //   text: "New Session",
     // },
   },
+  disableCloseButton: true,
 });
 
 document.getElementById("toggle-btn").addEventListener("click", () => {

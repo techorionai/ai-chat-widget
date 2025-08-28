@@ -67,6 +67,8 @@ export interface ChatWidgetConfig {
   homeScreenConfig?: HomeScreenConfig;
   /** Configuration for the chat sessions list, where users can see their list of chat sessions */
   sessionsListConfig?: SessionsListConfig;
+  /** Disable close button. Don't allow closing on any screen */
+  disableCloseButton?: boolean;
 }
 
 export interface ChatWindowConfig {

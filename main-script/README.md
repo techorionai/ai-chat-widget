@@ -271,6 +271,7 @@ initAiChatWidget({
     // title: "Sessions",
     // newSessionButton: { text: "New Session" },
   },
+  disableCloseButton: true, // Prevents users from closing the widget
 });
 ```
 
@@ -290,6 +291,7 @@ The widget is configured via a `ChatWidgetConfig` object. Key options:
 - **actionsMap**: Map action names to functions or URLs. Used for handling agent-suggested actions.
 - **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
 - **sessionsListConfig**: Customize chat sessions list (title, new session button).
+- **disableCloseButton**: Disable the close button on all screens (`true`/`false`). When enabled, users cannot close the widget.
 
 See [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) for full type definitions.
 
