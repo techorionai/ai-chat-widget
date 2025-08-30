@@ -168,7 +168,7 @@ jobs:
         run: |
           PR_EXISTS=$(gh pr list --base main --head "release-$VERSION" --json number --jq length)
           if [ "$PR_EXISTS" = "0" ]; then
-            gh pr create \
+            gh pr create --draft \
               --title "Release version $VERSION" \
               --body "## Release version $VERSION
 
