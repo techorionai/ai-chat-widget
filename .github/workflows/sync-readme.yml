@@ -1,0 +1,66 @@
+name: Sync README to main-script
+
+on:
+  push:
+    paths:
+      - "README.md"
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CHAT_WIDGET_DEPLOY_TOKEN_PAT }}
+          fetch-depth: 0
+
+      - name: Copy README.md to main-script directory
+        run: |
+          echo "Copying README.md to main-script/README.md"
+          cp README.md main-script/README.md
+          echo "Copy completed"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add main-script/README.md
+          if git diff --staged --quiet; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure Git
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git commit -m "chore: sync README.md to main-script directory
+
+          - Copied from root README.md
+          - Automated by sync-readme workflow
+          - Triggered by commit: ${{ github.sha }}"
+
+      - name: Push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git push origin master
+          echo "Changes pushed to master branch"
+
+      - name: Report completion
+        run: |
+          if [[ "${{ steps.check_changes.outputs.has_changes }}" == "true" ]]; then
+            echo "✅ README.md successfully synced to main-script directory and pushed to master"
+          else
+            echo "ℹ️ No changes needed - main-script/README.md is already up to date"
+          fi
