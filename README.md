@@ -185,6 +185,10 @@ Include the main script in your HTML and initialize the widget:
   type="module"
   src="https://www.navigable.ai/sdk-web/0.9.3/main/index.js"
 ></script>
+<script
+  type="module"
+  src="https://www.navigable.ai/sdk-web/0.9.3/main/adapters/ChatProvider/navigable/navigable.js"
+></script>
 <script>
   initAiChatWidget({
     debug: true,
