@@ -28,6 +28,8 @@
     "build:dev": "npm run build && npm run copy:dev"
   },
   "devDependencies": {
+    "@mantine/core": "^8.2.7",
+    "@types/react": "^19.1.12",
     "nodemon": "^3.1.10",
     "typescript": "^5.0.0"
   }

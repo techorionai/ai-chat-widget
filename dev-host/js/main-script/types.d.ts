@@ -1,3 +1,4 @@
+import { GroupProps, PaperProps, TextProps, ThemeIconProps } from "@mantine/core";
 /** Common events to both the main script and iframe. Round-trip events. */
 type CommonEventTypes = "toggleExpand" | "chatProviderListSessions" | "chatProviderCreateSession" | "chatProviderListSessionMessages" | "chatProviderSendMessage";
 /** Function to send an event from the main script to the iframe */
@@ -40,6 +41,8 @@ export interface ChatWidgetConfig {
     sessionsListConfig?: SessionsListConfig;
     /** Disable close button. Don't allow closing on any screen */
     disableCloseButton?: boolean;
+    /** Configuration for the footer, shown on home and sessions list */
+    footerConfig?: FooterConfig;
 }
 export interface ChatWindowConfig {
     /** Override options for default colors */
@@ -139,6 +142,8 @@ export interface HomeScreenConfig {
     sendUsAMessageConfig?: SendUsAMessageConfig;
     /** Configuration for the cards displayed on the home screen */
     additionalCards?: AdditionalCardConfig[];
+    /** Props to pass to the container element. Example: { mb: "2rem" } */
+    headerContainerProps?: GroupProps;
 }
 export interface HomeBgConfig {
     /** Type of background color
@@ -221,6 +226,22 @@ export interface SessionsListConfig {
         /** Alternative text to display on the new session button */
         text?: string;
     };
+}
+export interface FooterConfig {
+    /** Props to pass to the container element. Example: { mb: "2rem" } */
+    containerProps?: PaperProps;
+    /** Configuration for the home tab */
+    home: FooterTabProps;
+    /** Configuration for the messages tab */
+    messages: FooterTabProps;
+}
+export interface FooterTabProps {
+    /** Alternative text for the tab */
+    text?: string;
+    /** Props to pass to the text element. Example: { fw: "500" } */
+    props?: TextProps;
+    /** Props to pass to the icon element. Example: { size: "4rem" } */
+    iconProps?: ThemeIconProps;
 }
 /**
  * Options for listing chat sessions for a user.

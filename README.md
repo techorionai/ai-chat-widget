@@ -251,6 +251,7 @@ initAiChatWidget({
     bgColor: { type: "custom", background: "linear-gradient(...)" },
     logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
     logoUrlDark: "https://www.navigable.ai/logo/64.png",
+    headerContainerProps: { mb: "2rem" },
     additionalCards: [
       {
         type: "button",
@@ -276,6 +277,19 @@ initAiChatWidget({
     // newSessionButton: { text: "New Session" },
   },
   disableCloseButton: true, // Prevents users from closing the widget
+  footerConfig: {
+    containerProps: { p: "md", radius: "lg" }, // Mantine PaperProps
+    home: {
+      text: "Home",
+      props: { fw: 500 }, // Mantine TextProps
+      iconProps: { size: "2rem" }, // Mantine ThemeIconProps
+    },
+    messages: {
+      text: "Messages",
+      props: { fw: 500 },
+      iconProps: { size: "2rem" },
+    },
+  },
 });
 ```
 
@@ -293,11 +307,58 @@ The widget is configured via a `ChatWidgetConfig` object. Key options:
   - `hideAssistantMessageAvatar`, `hideUserMessageAvatar`: Hide avatars in messages.
 - **chatProvider**: Adapter for chat backend (e.g., `NavigableChatProvider` or custom).
 - **actionsMap**: Map action names to functions or URLs. Used for handling agent-suggested actions.
-- **homeScreenConfig**: Configure home screen (background, logo, avatars, cards).
+- **homeScreenConfig**: Configure home screen (background, logo, avatars, cards, header container props).
 - **sessionsListConfig**: Customize chat sessions list (title, new session button).
+- **footerConfig**: Configure the footer shown on the home and sessions list screens.
+
+  - `containerProps`: Mantine [PaperProps](https://mantine.dev/core/paper/) for styling the footer container.
+  - `home`: Configuration for the home tab (see below).
+  - `messages`: Configuration for the messages tab (see below).
+
 - **disableCloseButton**: Disable the close button on all screens (`true`/`false`). When enabled, users cannot close the widget.
 
 See [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) for full type definitions.
+
+### Footer Configuration (`footerConfig`)
+
+The `footerConfig` option allows you to customize the footer displayed on the home and sessions list screens.
+
+**Example:**
+
+```js
+footerConfig: {
+  containerProps: { p: "md", radius: "lg" }, // Mantine PaperProps for styling
+  home: {
+    text: "Home",
+    props: { fw: 500 }, // Mantine TextProps for text styling
+    iconProps: { size: "2rem" }, // Mantine ThemeIconProps for icon styling
+  },
+  messages: {
+    text: "Messages",
+    props: { fw: 500 },
+    iconProps: { size: "2rem" },
+  },
+}
+```
+
+- `containerProps`: Mantine [PaperProps](https://mantine.dev/core/paper/) for the footer container.
+- `home` / `messages`: Each tab can be customized with:
+  - `text`: Alternative tab text.
+  - `props`: Mantine [TextProps](https://mantine.dev/core/text/) for text styling.
+  - `iconProps`: Mantine [ThemeIconProps](https://mantine.dev/core/theme-icon/) for icon styling.
+
+### Home Screen Header Container Props (`homeScreenConfig.headerContainerProps`)
+
+The `headerContainerProps` option lets you pass Mantine [GroupProps](https://mantine.dev/core/group/) to the header container on the home screen.
+
+**Example:**
+
+```js
+homeScreenConfig: {
+  // ...other options
+  headerContainerProps: { mb: "2rem" }, // Adds margin-bottom to the header container
+}
+```
 
 ## Custom Widget Button
 
@@ -412,3 +473,7 @@ See [`main-script/src/types.ts#L333`](https://github.com/techorionai/ai-chat-wid
 
 - [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) - ChatWidgetConfig and related types
 - [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) - Example initialization and usage
+
+```
+
+```
