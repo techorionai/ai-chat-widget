@@ -124,9 +124,11 @@ jobs:
           mkdir -p "builds/$VERSION/app"
           cp -r ../main-script-dist/* "builds/$VERSION/main/"
           cp -r ../react-app-dist/* "builds/$VERSION/app/"
+          cp ../README.md "builds/$VERSION/README.md"
           ls -la builds/$VERSION/
           ls -la builds/$VERSION/main/
           ls -la builds/$VERSION/app/
+          ls -la builds/$VERSION/README.md
 
       - name: Commit and push changes
         env:
