@@ -1,0 +1,173 @@
+name: Deploy Chat Widget
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-main-script:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: main-script/package-lock.json
+
+      - name: Extract version from package.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./main-script/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Install main-script dependencies
+        working-directory: main-script
+        run: npm ci
+
+      - name: Build main-script
+        working-directory: main-script
+        run: npm run build
+
+      - name: Upload main-script build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-script-build
+          path: main-script/dist/
+          retention-days: 1
+
+  build-react-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: react-app/package-lock.json
+
+      - name: Install react-app dependencies
+        working-directory: react-app
+        run: npm ci
+
+      - name: Build react-app
+        working-directory: react-app
+        run: npm run build:prod
+
+      - name: Upload react-app build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-app-build
+          path: react-app/dist/
+          retention-days: 1
+
+  deploy:
+    needs: [build-main-script, build-react-app]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download main-script artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: main-script-build
+          path: ./main-script-dist
+
+      - name: Download react-app artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: react-app-build
+          path: ./react-app-dist
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone target repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHAT_WIDGET_DEPLOY_TOKEN_PAT }}
+        run: |
+          git clone https://oauth2:${GITHUB_TOKEN}@github.com/techorionai/navigableai-sdk-web.git sdk-repo
+          cd sdk-repo
+
+      - name: Check if version branch exists and create/checkout
+        env:
+          VERSION: ${{ needs.build-main-script.outputs.version }}
+        working-directory: sdk-repo
+        run: |
+          echo "Working with version: $VERSION"
+          git fetch origin
+          if git ls-remote --heads origin "release-$VERSION" | grep -q "release-$VERSION"; then
+            echo "Branch release-$VERSION exists, checking it out"
+            git checkout "release-$VERSION"
+            git pull origin "release-$VERSION"
+          else
+            echo "Branch release-$VERSION does not exist, creating new branch"
+            git checkout -b "release-$VERSION"
+          fi
+
+      - name: Create directory structure and copy builds
+        env:
+          VERSION: ${{ needs.build-main-script.outputs.version }}
+        working-directory: sdk-repo
+        run: |
+          mkdir -p "builds/$VERSION/main"
+          mkdir -p "builds/$VERSION/app"
+          cp -r ../main-script-dist/* "builds/$VERSION/main/"
+          cp -r ../react-app-dist/* "builds/$VERSION/app/"
+          ls -la builds/$VERSION/
+          ls -la builds/$VERSION/main/
+          ls -la builds/$VERSION/app/
+
+      - name: Commit and push changes
+        env:
+          VERSION: ${{ needs.build-main-script.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.CHAT_WIDGET_DEPLOY_TOKEN_PAT }}
+        working-directory: sdk-repo
+        run: |
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "HAS_CHANGES=false" >> $GITHUB_ENV
+          else
+            git commit -m "Add chat widget build for version $VERSION"
+            git push -u origin "release-$VERSION"
+            echo "HAS_CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request
+        if: env.HAS_CHANGES == 'true'
+        env:
+          VERSION: ${{ needs.build-main-script.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.CHAT_WIDGET_DEPLOY_TOKEN_PAT }}
+        working-directory: sdk-repo
+        run: |
+          PR_EXISTS=$(gh pr list --base main --head "release-$VERSION" --json number --jq length)
+          if [ "$PR_EXISTS" = "0" ]; then
+            gh pr create \
+              --title "Release version $VERSION" \
+              --body "## Release version $VERSION
+
+            **Checklist:**
+            - [ ] Update README with correct version in examples
+            - [ ] Update package.json & package-lock.json with correct version
+
+            **Build Information:**
+            - Main script build: \`builds/$VERSION/main/\`
+            - React app build: \`builds/$VERSION/app/\`
+            - Source commit: ${{ github.sha }}
+            - Workflow run: ${{ github.run_id }}" \
+              --base main \
+              --head "release-$VERSION"
+          else
+            echo "Pull request already exists for this version"
+          fi
