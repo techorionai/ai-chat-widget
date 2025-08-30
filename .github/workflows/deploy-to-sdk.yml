@@ -43,6 +43,13 @@ jobs:
           path: main-script/dist/
           retention-days: 1
 
+      - name: Upload README.md as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chat-widget-readme
+          path: README.md
+          retention-days: 1
+
   build-react-app:
     runs-on: ubuntu-latest
     steps:
@@ -87,6 +94,12 @@ jobs:
           name: react-app-build
           path: ./react-app-dist
 
+      - name: Download README.md artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: chat-widget-readme
+          path: ./readme-artifact
+
       - name: Setup Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -124,7 +137,7 @@ jobs:
           mkdir -p "builds/$VERSION/app"
           cp -r ../main-script-dist/* "builds/$VERSION/main/"
           cp -r ../react-app-dist/* "builds/$VERSION/app/"
-          cp ../README.md "builds/$VERSION/README.md"
+          cp ../readme-artifact/README.md "builds/$VERSION/README.md"
           ls -la builds/$VERSION/
           ls -la builds/$VERSION/main/
           ls -la builds/$VERSION/app/
