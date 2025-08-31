@@ -180,6 +180,9 @@ jobs:
             **Checklist:**
             - [ ] Update README with correct version in examples
             - [ ] Update package.json & package-lock.json with correct version
+            - [ ] Update main-script/src/consts.ts with correct version
+            - [ ] Update react-app/src/main.tsx with correct version basename
+            - [ ] Update vite.config.js in react-app with correct version base path 
 
             **Build Information:**
             - Main script build: \`builds/$VERSION/main/\`
