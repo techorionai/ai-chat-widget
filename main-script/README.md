@@ -208,6 +208,9 @@ Include the main script in your HTML and initialize the widget:
     sessionsListConfig: {
       /* ... */
     },
+    footerConfig: {
+      /* ... */
+    },
   });
 </script>
 ```
@@ -332,11 +335,13 @@ footerConfig: {
     text: "Home",
     props: { fw: 500 }, // Mantine TextProps for text styling
     iconProps: { size: "2rem" }, // Mantine ThemeIconProps for icon styling
+    altIcon: "outline/home" // Optional: Custom icon name from Tabler Icons
   },
   messages: {
     text: "Messages",
     props: { fw: 500 },
     iconProps: { size: "2rem" },
+    altIcon: "outline/message-2-check" // Optional: Custom icon name from Tabler Icons
   },
 }
 ```
@@ -346,6 +351,7 @@ footerConfig: {
   - `text`: Alternative tab text.
   - `props`: Mantine [TextProps](https://mantine.dev/core/text/) for text styling.
   - `iconProps`: Mantine [ThemeIconProps](https://mantine.dev/core/theme-icon/) for icon styling.
+  - `altIcon`: Optional custom icon name or URL. Search our directory of [Tabler Icons](https://assets.navigable.ai/icons/) for available icons or provide your own URL for an SVG icon.
 
 ### Home Screen Header Container Props (`homeScreenConfig.headerContainerProps`)
 
