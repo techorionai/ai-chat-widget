@@ -1,11 +1,7 @@
-import { ActionIcon } from "@mantine/core";
-import {
-  IconArrowsDiagonal,
-  IconArrowsDiagonalMinimize2,
-} from "@tabler/icons-react";
 import useConfigColors from "../../../../../hooks/useConfigColors";
-import sendEventToMain from "../../../../../utils/sendEvent";
 import { useConfig } from "../../../../../providers/ConfigProvider";
+import sendEventToMain from "../../../../../utils/sendEvent";
+import Icon from "../../../../Icon";
 
 export default function ChatWindowHeaderToggleExpandButton() {
   const { config } = useConfig();
@@ -22,16 +18,16 @@ export default function ChatWindowHeaderToggleExpandButton() {
   }
 
   return (
-    <ActionIcon
+    <Icon
+      icon={
+        config.chatWindow?.expanded
+          ? "outline/arrows-diagonal-minimize-2"
+          : "outline/arrows-diagonal"
+      }
+      iconType="action"
       variant="subtle"
       color={headerColor ?? "gray"}
       onClick={handleToggleExpand}
-    >
-      {config.chatWindow?.expanded ? (
-        <IconArrowsDiagonalMinimize2 className="action-icon" />
-      ) : (
-        <IconArrowsDiagonal className="action-icon" />
-      )}
-    </ActionIcon>
+    />
   );
 }

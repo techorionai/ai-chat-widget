@@ -1,7 +1,7 @@
-import { Box, Group, Paper, Text, ThemeIcon } from "@mantine/core";
+import { Box, Group, Paper, Text } from "@mantine/core";
 import { LinkCardConfig } from "../../../../../types/mainProcess";
-import { IconExternalLink, IconSend2 } from "@tabler/icons-react";
 import triggerHomeCardAction from "../../../../../utils/triggerHomeCardAction";
+import Icon from "../../../../Icon";
 
 export default function LinkCard(props: {
   config: LinkCardConfig;
@@ -26,9 +26,7 @@ export default function LinkCard(props: {
             <Text fz="sm">{props.config?.description}</Text>
           )}
         </Box>
-        <ThemeIcon variant="transparent">
-          <IconExternalLink className="action-icon" />
-        </ThemeIcon>
+        <Icon icon="outline/external-link" variant="transparent" size="sm" />
       </Group>
     </Paper>
   );

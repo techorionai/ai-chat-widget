@@ -1,10 +1,11 @@
-import { Box, Group, Paper, Text, ThemeIcon } from "@mantine/core";
-import { IconHome2, IconMessageChatbot } from "@tabler/icons-react";
+import { Box, Group, Paper, Text } from "@mantine/core";
 import { NavLink, useLocation } from "react-router";
+
 import useConfigColors from "../../hooks/useConfigColors";
 import { useConfig } from "../../providers/ConfigProvider";
+import Icon from "../Icon";
 
-export const NavFooterHeight = 101;
+export const NavFooterHeight = 89;
 
 export default function NavFooter() {
   const location = useLocation();
@@ -31,16 +32,15 @@ export default function NavFooter() {
       <Group justify="center" gap="7rem" pos="relative" top="-4px">
         <NavLink to="/">
           <Box ta="center">
-            <ThemeIcon
+            <Icon
+              icon="outline/home"
               variant="transparent"
               color={isHomeActive ? undefined : "gray"}
               size="2.5rem"
               pos="relative"
               top="8px"
               {...config.footerConfig?.home?.iconProps}
-            >
-              <IconHome2 size="100%" />
-            </ThemeIcon>
+            />
             <Text
               fw="bold"
               fz="sm"
@@ -53,16 +53,15 @@ export default function NavFooter() {
         </NavLink>
         <NavLink to="/sessions">
           <Box ta="center">
-            <ThemeIcon
+            <Icon
+              icon="outline/message-chatbot"
               variant="transparent"
               color={isSessionsActive ? undefined : "gray"}
               size="2.5rem"
               pos="relative"
               top="8px"
               {...config.footerConfig?.messages?.iconProps}
-            >
-              <IconMessageChatbot size="100%" />
-            </ThemeIcon>
+            />
             <Text
               fw="bold"
               fz="sm"

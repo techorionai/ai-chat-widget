@@ -2,16 +2,18 @@ import {
   Blockquote,
   Box,
   Button,
+  Collapse,
   Group,
   Paper,
-  Text,
-  Collapse,
   ScrollArea,
+  Text,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { useQueries } from "@tanstack/react-query";
 import { NavLink, useNavigate } from "react-router";
 import { CHAT_PROVIDER_LIST_SESSIONS_QUERY_KEY } from "../../../../consts/queryKeys";
 import useConfigColors from "../../../../hooks/useConfigColors";
+import { useMainEventListener } from "../../../../hooks/useMainEventListener";
 import {
   ChatProviderSession,
   DataOrError,
@@ -20,15 +22,13 @@ import getPrettyDate from "../../../../utils/getPrettyDate";
 import getQueryDataOrError from "../../../../utils/getQueryDataOrError";
 import sendEventToMain from "../../../../utils/sendEvent";
 import ChatWindowHeaderAvatar from "../../ChatWindow/Header/Avatar";
-import { IconSend2 } from "@tabler/icons-react";
-import { useMainEventListener } from "../../../../hooks/useMainEventListener";
-import { useForm } from "@mantine/form";
 
 import { useDisclosure } from "@mantine/hooks";
-import useElementSizeById from "../../../../hooks/useElementSizeById";
 import { AI_CHAT_WINDOW_SESSIONS_HEADER_ID } from "../../../../consts/elementIds";
-import { NavFooterHeight } from "../../../NavFooter";
+import useElementSizeById from "../../../../hooks/useElementSizeById";
 import { useConfig } from "../../../../providers/ConfigProvider";
+import Icon from "../../../Icon";
+import { NavFooterHeight } from "../../../NavFooter";
 
 export default function SessionsList() {
   const navigate = useNavigate();
@@ -176,7 +176,9 @@ export default function SessionsList() {
         )}
         <Box ta="center" mt="sm" pb="xl">
           <Button
-            rightSection={<IconSend2 size={18} />}
+            rightSection={
+              <Icon icon="outline/send-2" variant="filled" size="22px" />
+            }
             mx="auto"
             onClick={onCreateSession}
             loading={form.values.newSessionLoading}

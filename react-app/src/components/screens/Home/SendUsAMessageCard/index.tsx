@@ -1,18 +1,11 @@
-import {
-  Box,
-  Group,
-  LoadingOverlay,
-  Paper,
-  Text,
-  ThemeIcon,
-} from "@mantine/core";
-import { useConfig } from "../../../../providers/ConfigProvider";
-import { Link, useNavigate } from "react-router";
-import { IconSend2 } from "@tabler/icons-react";
+import { Box, Group, LoadingOverlay, Paper, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useNavigate } from "react-router";
 import { useMainEventListener } from "../../../../hooks/useMainEventListener";
+import { useConfig } from "../../../../providers/ConfigProvider";
 import { DataOrError } from "../../../../types/mainProcess";
 import sendEventToMain from "../../../../utils/sendEvent";
+import Icon from "../../../Icon";
 
 export default function SendUsAMessageCard() {
   const { config } = useConfig();
@@ -69,7 +62,7 @@ export default function SendUsAMessageCard() {
         onClick={onCreateSession}
       >
         <Group justify="space-between" align="center">
-          <Box maw="80%">
+          <Box maw="calc(100% - 2.75rem)">
             <Text fz="sm" fw="bold">
               {config.homeScreenConfig?.sendUsAMessageConfig?.title ??
                 "Send us a message"}
@@ -79,9 +72,7 @@ export default function SendUsAMessageCard() {
                 "Get instant support with AI assistance"}
             </Text>
           </Box>
-          <ThemeIcon variant="transparent">
-            <IconSend2 />
-          </ThemeIcon>
+          <Icon icon="outline/send-2" variant="transparent" />
         </Group>
       </Paper>
     </Box>

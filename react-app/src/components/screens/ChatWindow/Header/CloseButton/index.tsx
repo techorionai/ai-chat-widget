@@ -1,8 +1,7 @@
-import { ActionIcon } from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
 import useConfigColors from "../../../../../hooks/useConfigColors";
-import sendEventToMain from "../../../../../utils/sendEvent";
 import { useConfig } from "../../../../../providers/ConfigProvider";
+import sendEventToMain from "../../../../../utils/sendEvent";
+import Icon from "../../../../Icon";
 
 export default function ChatWindowHeaderCloseButton() {
   const { config } = useConfig();
@@ -18,12 +17,12 @@ export default function ChatWindowHeaderCloseButton() {
   }
 
   return (
-    <ActionIcon
+    <Icon
+      icon="outline/x"
+      iconType="action"
       variant="subtle"
       color={headerColor ?? "gray"}
       onClick={handleCloseWidget}
-    >
-      <IconX className="action-icon" />
-    </ActionIcon>
+    />
   );
 }

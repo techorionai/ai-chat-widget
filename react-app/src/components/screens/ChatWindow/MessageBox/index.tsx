@@ -1,18 +1,10 @@
-import {
-  ActionIcon,
-  Blockquote,
-  Box,
-  Group,
-  Paper,
-  Stack,
-  Textarea,
-} from "@mantine/core";
-import { IconArrowUp } from "@tabler/icons-react";
-import { AI_CHAT_WINDOW_MESSAGE_BOX_ID } from "../../../../consts/elementIds";
+import { Blockquote, Box, Group, Paper, Stack, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useParams } from "react-router";
+import { AI_CHAT_WINDOW_MESSAGE_BOX_ID } from "../../../../consts/elementIds";
 import isSessionClosed from "../../../../utils/isSessionClosed";
 import sendEventToMain from "../../../../utils/sendEvent";
+import Icon from "../../../Icon";
 
 interface IChatWindowMessageBoxProps {
   onMessageSubmit: (message: string) => void;
@@ -82,14 +74,14 @@ export default function ChatWindowMessageBox(
               {...form.getInputProps("message")}
             />
             <Group justify="end">
-              <ActionIcon
+              <Icon
+                icon="outline/arrow-up"
+                iconType="action"
                 size="lg"
                 radius="xl"
                 type="submit"
                 disabled={!form.isValid()}
-              >
-                <IconArrowUp className="action-icon" />
-              </ActionIcon>
+              />
             </Group>
           </Stack>
         </form>

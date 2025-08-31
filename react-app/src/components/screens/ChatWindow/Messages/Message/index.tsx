@@ -122,7 +122,7 @@ export default function ChatWindowMessage(props: IChatWindowMessageProps) {
               <Loader type="dots" size="sm" />
             ) : htmlContent && htmlContent.length ? (
               <Typography>
-                <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
               </Typography>
             ) : (
               <Text>{props.content}</Text>

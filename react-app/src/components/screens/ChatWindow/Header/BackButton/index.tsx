@@ -1,19 +1,18 @@
-import { ActionIcon } from "@mantine/core";
-import { IconChevronLeft } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import useConfigColors from "../../../../../hooks/useConfigColors";
+import Icon from "../../../../Icon";
 
 export default function ChatWindowHeaderBackButton() {
   const { headerColor } = useConfigColors();
   const navigate = useNavigate();
 
   return (
-    <ActionIcon
+    <Icon
+      icon="outline/chevron-left"
+      iconType="action"
       variant="subtle"
       color={headerColor ?? "gray"}
       onClick={() => navigate("/sessions")}
-    >
-      <IconChevronLeft className="action-icon" />
-    </ActionIcon>
+    />
   );
 }
