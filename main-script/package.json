@@ -22,7 +22,7 @@
   "scripts": {
     "types:sync": "echo \"Syncing types for main & react app\" && cp ./src/types.ts ../react-app/src/types/mainProcess.ts",
     "inject-version": "node ./inject-version.js",
-    "dev": "nodemon --exec \"npm run build:dev\" -e ts --ignore dist/*",
+    "dev": "nodemon --exec \"npm run build:dev\" -e ts --ignore dist/* --ignore src/consts.ts",
     "build": "npm run inject-version && rm -rf dist/* && npx tsc --project tsconfig.json || exit 1",
     "mkdir:dev": "if not exist ../dev-host/js/main-script mkdir ../dev-host/js/main-script",
     "copy:dev": "npm run types:sync && npm run mkdir:dev && cp -a ./dist/. ../dev-host/js/main-script/",
