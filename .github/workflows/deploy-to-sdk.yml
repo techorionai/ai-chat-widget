@@ -34,6 +34,8 @@ jobs:
 
       - name: Build main-script
         working-directory: main-script
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: npm run build
 
       - name: Upload main-script build artifacts
@@ -51,6 +53,7 @@ jobs:
           retention-days: 1
 
   build-react-app:
+    needs: build-main-script
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -69,6 +72,8 @@ jobs:
 
       - name: Build react-app
         working-directory: react-app
+        env:
+          VERSION: ${{ needs.build-main-script.outputs.version }}
         run: npm run build:prod
 
       - name: Upload react-app build artifacts
