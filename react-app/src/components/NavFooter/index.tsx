@@ -33,7 +33,7 @@ export default function NavFooter() {
         <NavLink to="/">
           <Box ta="center">
             <Icon
-              icon="outline/home"
+              icon={config.footerConfig?.home?.altIcon || "outline/home"}
               variant="transparent"
               color={isHomeActive ? undefined : "gray"}
               size="2.5rem"
@@ -54,7 +54,10 @@ export default function NavFooter() {
         <NavLink to="/sessions">
           <Box ta="center">
             <Icon
-              icon="outline/message-chatbot"
+              icon={
+                config.footerConfig?.messages?.altIcon ||
+                "outline/message-chatbot"
+              }
               variant="transparent"
               color={isSessionsActive ? undefined : "gray"}
               size="2.5rem"

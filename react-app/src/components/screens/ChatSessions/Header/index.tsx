@@ -25,7 +25,9 @@ export default function ChatSessionsHeader() {
         {/* Placeholder to keep the title in the center */}
         <PlaceholderButton />
         <Title fz="lg" ta="center">
-          {config.sessionsListConfig?.title ?? "Messages"}
+          {config.sessionsListConfig?.title ||
+            config.footerConfig?.messages?.text ||
+            "Messages"}
         </Title>
         {config.disableCloseButton ? (
           <PlaceholderButton />
