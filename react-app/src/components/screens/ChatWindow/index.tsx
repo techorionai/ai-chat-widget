@@ -12,8 +12,11 @@ import sendEventToMain from "../../../utils/sendEvent";
 import ChatWindowHeader from "./Header";
 import ChatWindowMessageBox from "./MessageBox";
 import ChatWindowMessages from "./Messages";
+import { useQueryClient } from "@tanstack/react-query";
+import { CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY } from "../../../consts/queryKeys";
 
 export default function ChatWindow() {
+  const queryClient = useQueryClient();
   const { sessionId } = useParams();
   const { bg, color } = useConfigColors();
   const form = useForm({
@@ -36,12 +39,30 @@ export default function ChatWindow() {
       if ("error" in data) {
         form.setValues({ isResponding: false, error: data.error });
       } else if ("data" in data) {
-        setTimeout(() => {
+        if (sessionId && sessionId !== "new") {
+          // Update the query cache directly
+          const queryKey = CHAT_PROVIDER_SESSION_MESSAGES_QUERY_KEY(sessionId);
+
+          // Let's get the data first
+          const existingData =
+            queryClient.getQueryData<
+              DataOrError<ChatProviderListSessionMessagesMessage[]>
+            >(queryKey);
+
+          // Append the user and ai messages to the existing data
+          if (existingData && "data" in existingData) {
+            const newData = [...existingData.data, data.data];
+            queryClient.setQueryData(queryKey, {
+              ...existingData,
+              data: newData,
+            });
+          }
+        } else {
           sendEventToMain("chatProviderListSessionMessages", {
             sessionId: sessionId || "new",
           });
-          form.setValues({ isResponding: false, message: "", error: null });
-        }, 500);
+        }
+        form.setValues({ isResponding: false, message: "", error: null });
       }
     },
   });
