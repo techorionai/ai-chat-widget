@@ -1,8 +1,7 @@
-import {
-  ChatProviderListSessionsOptions,
-  ChatProviderSendMessageOptions,
-} from "../../types.js";
+import { ChatProviderSendMessageOptions } from "../../types.js";
+import executeToolCalls from "../../utils/executeToolCalls.js";
 import getEnabledActions from "../../utils/getEnabledActions.js";
+import getEnabledFunctions from "../../utils/getEnabledFunctions.js";
 import logger from "../../utils/logger.js";
 import sendEventToIframe from "../../utils/sendEvent.js";
 
@@ -10,6 +9,8 @@ const chatProviderSendMessageEventHandler = async (
   data: ChatProviderSendMessageOptions
 ) => {
   try {
+    logger.log("Handling chatProviderSendMessage event:", data);
+
     if (!window.$aiChatWidget.chatProvider) {
       throw new Error("Chat provider is not initialized.");
     }
@@ -20,6 +21,10 @@ const chatProviderSendMessageEventHandler = async (
 
     const enabledActions = getEnabledActions();
     data.enabledActions = enabledActions;
+
+    const enabledFunctions = getEnabledFunctions();
+    data.enabledFunctions = enabledFunctions;
+
     const result = await window.$aiChatWidget.chatProvider?.sendMessage(data);
 
     if (!result) {
@@ -30,6 +35,17 @@ const chatProviderSendMessageEventHandler = async (
     sendEventToIframe("chatProviderSendMessage", {
       data: result,
     });
+
+    logger.log("ToolCalls from sendMessage:", result.toolCalls);
+    if (result.toolCalls && result.toolCalls.length > 0) {
+      const toolCallResults = await executeToolCalls(result.toolCalls);
+      logger.log("ToolCall results:", toolCallResults);
+      chatProviderSendMessageEventHandler({
+        sessionId: data.sessionId,
+        content: "",
+        toolCallResults,
+      });
+    }
   } catch (error) {
     logger.error("Error handling chatProviderSendMessage event:", error);
 

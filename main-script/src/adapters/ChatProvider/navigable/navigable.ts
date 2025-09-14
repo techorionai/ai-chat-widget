@@ -84,6 +84,8 @@ class NavigableChatProvider implements ChatProvider {
         content: message.content,
         suggestedActions: message.action ? [message.action] : undefined,
         createdAt: message.createdAt,
+        toolCalls: message.toolCalls ?? undefined,
+        toolCallId: message.tool_call_id ?? undefined,
       }));
     } catch (error) {
       throw new Error(
@@ -123,6 +125,13 @@ class NavigableChatProvider implements ChatProvider {
         newSession = true;
       }
 
+      let functionCallId: string | undefined = undefined;
+      if (options.toolCallResults && options.toolCallResults.length > 0) {
+        // Navigable API supports only 1 tool call/result at a time
+        options.content = options.toolCallResults[0].result;
+        functionCallId = options.toolCallResults[0].id;
+      }
+
       // Send the message
       const res = await request<NavigableAPIResponse<NavigableMessage>>({
         url: `${API_ENDPOINT}/chat`,
@@ -133,6 +142,8 @@ class NavigableChatProvider implements ChatProvider {
           message: options.content,
           markdown: true,
           configuredActions: options.enabledActions || [],
+          configuredFunctions: options.enabledFunctions || [],
+          functionCallId,
         },
         headers: {
           "x-embed-id": this.embedId || "",
@@ -155,6 +166,7 @@ class NavigableChatProvider implements ChatProvider {
         content: res.data.content,
         suggestedActions: res.data.action ? [res.data.action] : undefined,
         createdAt: res.data.createdAt,
+        toolCalls: res.data.toolCalls ?? undefined,
       };
     } catch (error) {
       throw new Error(

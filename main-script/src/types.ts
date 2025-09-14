@@ -70,6 +70,21 @@ export interface ChatWidgetConfig {
    * If a string value is provided, it will be treated as a URL and the user will be redirected to that URL.
    */
   actionsMap?: Record<string, Function | string>;
+  /** Map of function names to the corresponding function, for agent functions.
+   *
+   * These functions can be called by the agent during a chat session to perform specific tasks.
+   *
+   * The functions may have an argument, which is a record of key-value pairs. The functions can return a string or boolean, or a Promise that resolves to a string or boolean.
+   *
+   * For tool calling, it is generally recommended to provide a descriptive string response for the agent to understand the result of the function call.
+   */
+  functionsMap?: Record<
+    string,
+    {
+      executionAlias?: string;
+      fn: AgentFunction;
+    }
+  >;
   /** Configuration for the home screen, what the user see's when they open the chat widget */
   homeScreenConfig?: HomeScreenConfig;
   /** Configuration for the chat sessions list, where users can see their list of chat sessions */
@@ -347,6 +362,10 @@ export interface ChatProviderListSessionMessagesMessage {
   suggestedActions?: string[];
   /** ISO string of message creation date/time (optional). */
   createdAt?: string;
+  /** Tool calls: Sent by the assistant */
+  toolCalls?: ToolCall[];
+  /** Tool call response id: Sent by the tool */
+  toolCallId?: string;
 }
 
 /**
@@ -359,6 +378,10 @@ export interface ChatProviderSendMessageOptions {
   content: string;
   /** List of navigation actions that the agent is allowed to use. Use this to enable the agent to suggest actions for the user to take. */
   enabledActions?: string[];
+  /** List of enabled functions or tools that the agent is allowed to use. Use this to enable the agent to make use of functionality in your application. */
+  enabledFunctions?: string[];
+  /** Results of tool calls executed during the message processing. Provider should handle sender correctly if the message is a response to a tool call. */
+  toolCallResults?: ToolCallResult[];
 }
 
 /**
@@ -428,6 +451,11 @@ export interface ToolCall {
      */
     arguments: string;
   };
+}
+
+export interface ToolCallResult {
+  id: string;
+  result: string;
 }
 
 export interface NavigableChatProviderOptions {
