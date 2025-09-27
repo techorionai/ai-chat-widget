@@ -35,11 +35,11 @@ Get started with the minimal setup.
    ```html
    <script
      type="module"
-     src="https://www.navigable.ai/sdk-web/0.9.7/main/index.js"
+     src="https://www.navigable.ai/sdk-web/0.9.8/main/index.js"
    ></script>
    <script
      type="module"
-     src="https://www.navigable.ai/sdk-web/0.9.7/main/adapters/ChatProvider/navigable/navigable.js"
+     src="https://www.navigable.ai/sdk-web/0.9.8/main/adapters/ChatProvider/navigable/navigable.js"
    ></script>
    ```
 
@@ -183,11 +183,11 @@ Include the main script in your HTML and initialize the widget:
 ```html
 <script
   type="module"
-  src="https://www.navigable.ai/sdk-web/0.9.7/main/index.js"
+  src="https://www.navigable.ai/sdk-web/0.9.8/main/index.js"
 ></script>
 <script
   type="module"
-  src="https://www.navigable.ai/sdk-web/0.9.7/main/adapters/ChatProvider/navigable/navigable.js"
+  src="https://www.navigable.ai/sdk-web/0.9.8/main/adapters/ChatProvider/navigable/navigable.js"
 ></script>
 <script>
   initAiChatWidget({
