@@ -1,6 +1,6 @@
 {
   "name": "navigableai-chat-widget",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Highly customizable chat widget for web applications, supporting any backend or LLM via a custom provider.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
