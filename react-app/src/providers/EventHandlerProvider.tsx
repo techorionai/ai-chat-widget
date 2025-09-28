@@ -30,8 +30,11 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
   const queryClient = useQueryClient();
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
-  const setConfigEventHandler = (data: ChatWidgetConfig = {}) => {
-    setConfig((prev) => merge({}, prev, data));
+  const setConfigEventHandler = (
+    data: ChatWidgetConfig = {},
+    override?: boolean
+  ) => {
+    setConfig((prev) => (override ? data : merge({}, prev, data)));
     if (
       data.chatWindow?.defaults?.colorScheme &&
       ["light", "dark"].includes(data.chatWindow.defaults.colorScheme)
@@ -109,6 +112,8 @@ export const EventHandlerProvider: React.FC<{ children: React.ReactNode }> = ({
       switch (eventType as EventTypeMain) {
         case "set_config":
           setConfigEventHandler(event.data?.data);
+        case "override_config":
+          setConfigEventHandler(event.data?.data, true);
           break;
         case "toggleExpand":
           toggleExpandEventHandler(event.data?.data);

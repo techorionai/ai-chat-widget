@@ -23,6 +23,7 @@ export type sendMainEventFn = (
 export type EventTypeMain =
   | CommonEventTypes
   | "set_config"
+  | "override_config"
   | "toggleColorScheme";
 
 /** Function to send an event from the iframe to the main script */
