@@ -112,9 +112,9 @@ class NavigableChatProvider {
             }
             return {
                 role: "assistant",
-                content: res.data.content,
+                content: res.data.assistantMessage,
                 suggestedActions: res.data.action ? [res.data.action] : undefined,
-                createdAt: res.data.createdAt,
+                createdAt: new Date().toISOString(),
                 toolCalls: res.data.toolCalls ?? undefined,
             };
         }

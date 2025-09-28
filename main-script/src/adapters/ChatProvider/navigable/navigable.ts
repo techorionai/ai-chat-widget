@@ -8,6 +8,7 @@ import {
   HTTPMethods,
   IMessage,
   NavigableChatProviderOptions,
+  IChatSendMessageResponse,
   ToolCall,
 } from "../../../types.js";
 import navigableResponseHandler from "../../../utils/navigableResponseHandler.js";
@@ -133,7 +134,9 @@ class NavigableChatProvider implements ChatProvider {
       }
 
       // Send the message
-      const res = await request<NavigableAPIResponse<NavigableMessage>>({
+      const res = await request<
+        NavigableAPIResponse<IChatSendMessageResponse["data"]>
+      >({
         url: `${API_ENDPOINT}/chat`,
         method: "POST",
         body: {
@@ -154,7 +157,7 @@ class NavigableChatProvider implements ChatProvider {
         throw new Error("No response received from the API");
       }
 
-      navigableResponseHandler<NavigableMessage>(res);
+      navigableResponseHandler<IChatSendMessageResponse["data"]>(res);
 
       // If successful, mark the new session request as fulfilled
       if (newSession && this.lastNewSessionRequest) {
@@ -163,9 +166,9 @@ class NavigableChatProvider implements ChatProvider {
 
       return {
         role: "assistant",
-        content: res.data.content,
+        content: res.data.assistantMessage,
         suggestedActions: res.data.action ? [res.data.action] : undefined,
-        createdAt: res.data.createdAt,
+        createdAt: new Date().toISOString(),
         toolCalls: res.data.toolCalls ?? undefined,
       };
     } catch (error) {

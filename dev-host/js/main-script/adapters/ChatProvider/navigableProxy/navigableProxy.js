@@ -158,13 +158,9 @@ class NavigableProxyChatProvider {
         }
         return {
             role: "assistant",
-            content: res.data.content,
+            content: res.data.assistantMessage,
             suggestedActions: res.data.action ? [res.data.action] : undefined,
-            createdAt: typeof res.data.createdAt === "string"
-                ? res.data.createdAt
-                : res.data.createdAt instanceof Date
-                    ? res.data.createdAt.toISOString()
-                    : String(res.data.createdAt),
+            createdAt: new Date().toISOString(),
         };
     }
 }

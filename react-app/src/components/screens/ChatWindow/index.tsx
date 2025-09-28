@@ -23,13 +23,19 @@ export default function ChatWindow() {
     initialValues: {
       isResponding: false,
       message: "",
+      lastMessageTime: undefined as Date | undefined,
       error: null as string | null,
     },
   });
 
   const onMessageSubmit = (message: string) => {
     if (form.values.isResponding) return;
-    form.setValues({ isResponding: true, message });
+    form.setValues({
+      isResponding: true,
+      message,
+      lastMessageTime: new Date(),
+      error: null,
+    });
   };
 
   useMainEventListener({
@@ -37,7 +43,7 @@ export default function ChatWindow() {
       data: DataOrError<ChatProviderListSessionMessagesMessage>
     ) => {
       if ("error" in data) {
-        form.setValues({ isResponding: false, error: data.error });
+        form.setValues({ isResponding: false, error: data.error, message: "" });
       } else if ("data" in data) {
         if (sessionId && sessionId !== "new") {
           // Update the query cache directly
@@ -51,7 +57,18 @@ export default function ChatWindow() {
 
           // Append the user and ai messages to the existing data
           if (existingData && "data" in existingData) {
-            const newData = [...existingData.data, data.data];
+            const newData: ChatProviderListSessionMessagesMessage[] = [
+              ...existingData.data,
+              {
+                role: "user",
+                content: form.values.message,
+                createdAt:
+                  form.values.lastMessageTime?.toISOString() ||
+                  new Date().toISOString(),
+              },
+              data.data,
+            ];
+            console.log("New messages data:", newData.slice(-2));
             queryClient.setQueryData(queryKey, {
               ...existingData,
               data: newData,
