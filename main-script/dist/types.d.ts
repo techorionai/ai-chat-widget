@@ -1,10 +1,10 @@
-import { GroupProps, PaperProps, TextProps, ThemeIconProps } from "@mantine/core";
+import { GroupProps, PaperProps, TextProps, ThemeIconProps, TitleProps } from "@mantine/core";
 /** Common events to both the main script and iframe. Round-trip events. */
 type CommonEventTypes = "toggleExpand" | "chatProviderListSessions" | "chatProviderCreateSession" | "chatProviderListSessionMessages" | "chatProviderSendMessage";
 /** Function to send an event from the main script to the iframe */
 export type sendMainEventFn = (type: EventTypeMain, data?: Record<string, any>) => void;
 /** Events sent from the main script */
-export type EventTypeMain = CommonEventTypes | "set_config" | "toggleColorScheme";
+export type EventTypeMain = CommonEventTypes | "set_config" | "override_config" | "toggleColorScheme";
 /** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (type: EventTypeIframe, data?: Record<string, any>) => void;
 /** Events sent from the iframe */
@@ -150,6 +150,10 @@ export interface HomeScreenConfig {
     heading?: string;
     /** Second heading text displayed on the home screen */
     heading2?: string;
+    /** Props to pass to the first heading element. Refer: https://mantine.dev/core/title/?t=props */
+    headingStyles?: TitleProps;
+    /** Props to pass to the second heading element. Refer: https://mantine.dev/core/title/?t=props */
+    heading2Styles?: TitleProps;
     /** Configuration for the "Send us a message" section */
     sendUsAMessageConfig?: SendUsAMessageConfig;
     /** Configuration for the cards displayed on the home screen */
