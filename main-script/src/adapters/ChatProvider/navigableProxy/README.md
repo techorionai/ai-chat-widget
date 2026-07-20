@@ -24,7 +24,7 @@ GET    /assistant/get-session-messages/:sessionId
 Configure your frontend adapter like this:
 
 ```typescript
-import NavigableProxyChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
+import NavigableProxyChatProvider from "https://navigable-ai-production-r7qp8.ondigitalocean.app/widget/scripts/main/adapters/ChatProvider/navigableProxy/navigableProxy.js";
 
 const proxyProvider = new NavigableProxyChatProvider({
   userId: "user-123", // Optional, Recommended if available

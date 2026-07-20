@@ -10,7 +10,7 @@ const distPath = path.join(__dirname, "src", "consts.ts");
 let content = fs.readFileSync(srcPath, "utf8");
 content = content.replace(
   "__IFRAME_SRC__",
-  `https://www.navigable.ai/sdk-web/${version}/app/`
+  `https://navigable-ai-production-r7qp8.ondigitalocean.app/sdk-web/${version}/app/`,
 );
 fs.writeFileSync(distPath, content);
 console.log(`Injected version ${version} into consts.ts`);

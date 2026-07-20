@@ -1,4 +1,4 @@
-// import NavigableChatProvider from "https://www.navigable.ai/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
+// import NavigableChatProvider from "https://navigable-ai-production-r7qp8.ondigitalocean.app/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
 
 const navigableChatProvider = new NavigableChatProvider({
   embedId: "",
@@ -38,7 +38,7 @@ initAiChatWidget({
       avatars: [
         {
           name: "Navigable AI",
-          url: "https://www.navigable.ai/logo/64.png",
+          url: "https://navigable-ai-production-r7qp8.ondigitalocean.app/logo/64.png",
         },
       ],
       maxShownAvatars: 2,
@@ -70,7 +70,7 @@ initAiChatWidget({
   // chatProvider: navigableProxyProvider,
   actionsMap: {
     "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action
-    // "Go to Support Portal": "https://www.navigable.ai/contact-us", // Alternatively, pass a link to handle action
+    // "Go to Support Portal": "https://navigable-ai-production-r7qp8.ondigitalocean.app/contact-us", // Alternatively, pass a link to handle action
     "Go to Sign Up": () => alert("Navigating to Sign Up page..."),
     "Go to Log In": () => alert("Navigating to Log In page..."),
     "Go to Pricing": () => alert("Navigating to Pricing page..."),
@@ -80,8 +80,10 @@ initAiChatWidget({
       // type: "custom", // Or "plain" or "default"
       // background: "linear-gradient(135deg, #f0f4f8, #e0e7ed)",
     },
-    logoUrl: "https://www.navigable.ai/banner-transparent-bg.png",
-    logoUrlDark: "https://www.navigable.ai/logo/64.png",
+    logoUrl:
+      "https://navigable-ai-production-r7qp8.ondigitalocean.app/banner-transparent-bg.png",
+    logoUrlDark:
+      "https://navigable-ai-production-r7qp8.ondigitalocean.app/logo/64.png",
     additionalCards: [
       {
         type: "button",

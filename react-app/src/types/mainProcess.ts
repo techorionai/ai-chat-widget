@@ -17,7 +17,7 @@ type CommonEventTypes =
 /** Function to send an event from the main script to the iframe */
 export type sendMainEventFn = (
   type: EventTypeMain,
-  data?: Record<string, any>
+  data?: Record<string, any>,
 ) => void;
 
 /** Events sent from the main script */
@@ -30,7 +30,7 @@ export type EventTypeMain =
 /** Function to send an event from the iframe to the main script */
 export type sendIframeEventFn = (
   type: EventTypeIframe,
-  data?: Record<string, any>
+  data?: Record<string, any>,
 ) => void;
 
 /** Events sent from the iframe */
@@ -43,7 +43,7 @@ export type EventTypeIframe =
   | "runHomeCardAction";
 
 export type EventHandler = <T extends any>(
-  data: MessageEvent<T>["data"]
+  data: MessageEvent<T>["data"],
 ) => void;
 
 export type DataOrError<T> =
@@ -325,7 +325,7 @@ export interface FooterTabProps {
   props?: TextProps;
   /** Props to pass to the icon element. Example: { size: "4rem" } */
   iconProps?: ThemeIconProps;
-  /** Alternative icon to display. Any icon path from the icons directory (https://assets.navigable.ai/icons/) or a URL to an SVG icon. */
+  /** Alternative icon to display. Any icon path from the icons directory (https://assets-clvwr.ondigitalocean.app/icons/) or a URL to an SVG icon. */
   altIcon?: string;
 }
 
@@ -404,7 +404,7 @@ export interface ChatProvider {
    * @returns Promise resolving to an array of chat sessions.
    */
   listSessions: (
-    options: ChatProviderListSessionsOptions
+    options: ChatProviderListSessionsOptions,
   ) => Promise<ChatProviderSession[]>;
 
   /**
@@ -419,7 +419,7 @@ export interface ChatProvider {
    * @returns Promise resolving to an array of messages.
    */
   listSessionMessages: (
-    options: ChatProviderListSessionMessagesOptions
+    options: ChatProviderListSessionMessagesOptions,
   ) => Promise<ChatProviderListSessionMessagesMessage[]>;
 
   /**
@@ -428,7 +428,7 @@ export interface ChatProvider {
    * @returns Promise resolving to the sent message.
    */
   sendMessage: (
-    options: ChatProviderSendMessageOptions
+    options: ChatProviderSendMessageOptions,
   ) => Promise<ChatProviderListSessionMessagesMessage>;
 }
 
@@ -442,7 +442,7 @@ export type HTTPMethods =
   | "OPTIONS";
 
 export type AgentFunction = (
-  args?: Record<string, any>
+  args?: Record<string, any>,
 ) =>
   | Promise<string | boolean>
   | ((args?: Record<string, any>) => string | boolean);

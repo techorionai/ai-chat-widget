@@ -39,7 +39,7 @@ export default function Icon({
       return icon;
     }
 
-    return `https://assets.navigable.ai/icons/${icon}.svg`;
+    return `https://assets-clvwr.ondigitalocean.app/icons/${icon}.svg`;
   };
 
   const src = getFullIconUrl(icon);

@@ -15,7 +15,8 @@ import navigableResponseHandler from "../../../utils/navigableResponseHandler.js
 import request from "../../../utils/request.js";
 import generateTULIP from "../../../utils/tulip.js";
 
-const API_ENDPOINT = "https://www.navigable.ai/api/embed/v1";
+const API_ENDPOINT =
+  "https://navigable-ai-production-r7qp8.ondigitalocean.app/api/embed/v1";
 
 class NavigableChatProvider implements ChatProvider {
   private apiMode: "unknown" | "embed" | "proxy-api" = "unknown";
@@ -53,13 +54,13 @@ class NavigableChatProvider implements ChatProvider {
 
     if (!options?.embedId) {
       throw new Error(
-        "Please provide an embedId or proxy API config to use NavigableChatProvider."
+        "Please provide an embedId or proxy API config to use NavigableChatProvider.",
       );
     }
   }
 
   async listSessionMessages(
-    options: ChatProviderListSessionMessagesOptions
+    options: ChatProviderListSessionMessagesOptions,
   ): Promise<ChatProviderListSessionMessagesMessage[]> {
     try {
       if (options.sessionId?.trim() === "new") {
@@ -92,7 +93,7 @@ class NavigableChatProvider implements ChatProvider {
       throw new Error(
         `Failed to list session messages: ${
           error instanceof Error ? error.message : String(error)
-        }`
+        }`,
       );
     }
   }
@@ -107,13 +108,13 @@ class NavigableChatProvider implements ChatProvider {
       throw new Error(
         `Failed to create session: ${
           error instanceof Error ? error.message : String(error)
-        }`
+        }`,
       );
     }
   }
 
   async sendMessage(
-    options: ChatProviderSendMessageOptions
+    options: ChatProviderSendMessageOptions,
   ): Promise<ChatProviderListSessionMessagesMessage> {
     try {
       // Check if a new session is needed
@@ -175,13 +176,13 @@ class NavigableChatProvider implements ChatProvider {
       throw new Error(
         `Failed to send message: ${
           error instanceof Error ? error.message : String(error)
-        }`
+        }`,
       );
     }
   }
 
   async listSessions(
-    options?: ChatProviderListSessionsOptions
+    options?: ChatProviderListSessionsOptions,
   ): Promise<ChatProviderSession[]> {
     try {
       const res = await request<NavigableAPIResponse<NavigableSession[]>>({
@@ -203,7 +204,7 @@ class NavigableChatProvider implements ChatProvider {
       throw new Error(
         `Failed to list sessions: ${
           error instanceof Error ? error.message : String(error)
-        }`
+        }`,
       );
     }
   }
