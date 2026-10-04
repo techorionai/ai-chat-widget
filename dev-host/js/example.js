@@ -1,10 +1,16 @@
-// import NavigableChatProvider from "https://navigable-ai-production-r7qp8.ondigitalocean.app/widget/scripts/main/adapters/ChatProvider/navigable/navigable.js";
+const chatProvider =
+  typeof MockChatProvider !== "undefined"
+    ? new MockChatProvider({ initialSessionTitle: "TechOrion AI Assistant" })
+    : new NavigableChatProvider({
+        embedId: "mock-id",
+        userId: "testing@techorionai.com",
+      });
 
-const navigableChatProvider = new NavigableChatProvider({
-  embedId: "",
-  userId: "testing@techorionai.com",
-});
 initAiChatWidget({
+  // Uncomment below to test against local React dev server (http://localhost:5173):
+  _dev: {
+    iframeSrc: "http://localhost:5173",
+  },
   debug: true,
   // widgetButton: `<button id="override-widget-button" aria-label="Open assistant" style="background-color: #000; color: #ffffff; border-radius: 50%; border: none; position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; cursor: pointer;"> <svg  xmlns="http://www.w3.org/2000/svg"  width="40"  height="40"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-message-bolt"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M19 16l-2 3h4l-2 3" /></svg> </button>`,
   chatWindow: {
@@ -66,7 +72,7 @@ initAiChatWidget({
         "We help improve and scale your customer support with the power of specialized AI agents.",
     },
   },
-  chatProvider: navigableChatProvider,
+  chatProvider: chatProvider,
   // chatProvider: navigableProxyProvider,
   actionsMap: {
     "Go to Support Portal": () => alert("Navigating to Support Portal..."), // Function to handle action

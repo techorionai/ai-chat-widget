@@ -1,6 +1,6 @@
 // vite.config.js
 const version = process.env.VERSION;
-const base = version ? `/sdk-web/${version}/app/` : "/sdk-web/0.9.14/app/";
+const base = version ? `/builds/${version}/app/` : "/";
 
 module.exports = {
   base,

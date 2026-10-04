@@ -35,11 +35,11 @@ Get started with the minimal setup.
    ```html
    <script
      type="module"
-     src="https://navigable-ai-production-r7qp8.ondigitalocean.app/sdk-web/0.9.14/main/index.js"
+     src="https://chat.techorionai.com/builds/0.9.17/main/index.js"
    ></script>
    <script
      type="module"
-     src="https://navigable-ai-production-r7qp8.ondigitalocean.app/sdk-web/0.9.14/main/adapters/ChatProvider/navigable/navigable.js"
+     src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
    ></script>
    ```
 
@@ -83,11 +83,23 @@ Get started with the minimal setup.
 
 Note the name change: `initAiChatWidget` is `injectAiChatWidget` if you are importing the package you installed via npm. All options remain the same.
 
-### Using Other Backends or LLMs
+### Using Other Backends, LLMs, or Mock Provider
 
-If you're looking to connect via your Navigable AI proxy server, refer to the [NavigableProxyChatProvider](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/README.md).
+For zero-backend testing, prototype demos, or offline development, use the built-in `MockChatProvider`:
 
-Note: The default NavigableChatProvider implements all required methods (`listSessions`, `createSession`, `listSessionMessages`, `sendMessage`) and is intended for use with [Navigable AI](https://navigable-ai-production-r7qp8.ondigitalocean.app/). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
+```html
+<script
+  type="module"
+  src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
+></script>
+<script>
+  initAiChatWidget({
+    chatProvider: new MockChatProvider(),
+  });
+</script>
+```
+
+If you're looking to connect via your proxy server, refer to the [NavigableProxyChatProvider](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/adapters/ChatProvider/navigableProxy/README.md). For building custom providers, [see the sections below](#implementing-a-custom-chatprovider-connect-to-any-llm).
 
 ## Theme and Color Customization
 
@@ -183,11 +195,11 @@ Include the main script in your HTML and initialize the widget:
 ```html
 <script
   type="module"
-  src="https://navigable-ai-production-r7qp8.ondigitalocean.app/sdk-web/0.9.14/main/index.js"
+  src="https://chat.techorionai.com/builds/0.9.17/main/index.js"
 ></script>
 <script
   type="module"
-  src="https://navigable-ai-production-r7qp8.ondigitalocean.app/sdk-web/0.9.14/main/adapters/ChatProvider/navigable/navigable.js"
+  src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
 ></script>
 <script>
   initAiChatWidget({
@@ -479,11 +491,32 @@ initAiChatWidget({
 
 See [`main-script/src/types.ts#L333`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L333) for full interface details.
 
+## Local Development & Testing
+
+You can run and test the chat widget locally on your machine with hot reloading:
+
+### 1. Start the React App (UI dev server with HMR)
+```bash
+cd react-app
+npm run start
+# Runs Vite dev server at http://localhost:5173
+```
+
+### 2. Build the Main Script
+```bash
+cd main-script
+npm run build:dev
+# Compiles main-script and copies bundle to dev-host/js/main-script
+```
+
+### 3. Serve the Dev Host
+```bash
+npx serve dev-host -p 3000
+```
+
+Open `http://localhost:3000` in your browser. The dev host will open, render the local React UI, and use `MockChatProvider` for simulated conversational responses without needing an external API key or backend.
+
 ## References
 
 - [`main-script/src/types.ts#L50`](https://github.com/techorionai/ai-chat-widget/blob/master/main-script/src/types.ts#L50) - ChatWidgetConfig and related types
 - [`dev-host/js/example.js#L1`](https://github.com/techorionai/ai-chat-widget/blob/master/dev-host/js/example.js#L1) - Example initialization and usage
-
-```
-
-```

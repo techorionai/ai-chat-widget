@@ -8,7 +8,7 @@
     "build": "vite build",
     "build:prod": "vite build",
     "preview": "vite preview",
-    "copy:dev": "if not exist ..\\dev-host\\js\\react-app mkdir ..\\dev-host\\js\\react-app && xcopy /E /I /Y dist ..\\dev-host\\js\\react-app",
+    "copy:dev": "node -e \"fs.mkdirSync('../dev-host/js/react-app', {recursive:true}); fs.cpSync('dist', '../dev-host/js/react-app', {recursive:true})\"",
     "build:dev": "npm run build && npm run copy:dev"
   },
   "dependencies": {

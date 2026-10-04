@@ -95,6 +95,15 @@ export interface ChatWidgetConfig {
   disableCloseButton?: boolean;
   /** Configuration for the footer, shown on home and sessions list */
   footerConfig?: FooterConfig;
+  /** Optional developer configuration for local development / testing */
+  _dev?: ChatWidgetDevConfig;
+}
+
+export interface ChatWidgetDevConfig {
+  /** Override iframe source URL (e.g. "http://localhost:5173") */
+  iframeSrc?: string;
+  /** Override expected iframe origin (e.g. "http://localhost:5173") */
+  iframeOrigin?: string;
 }
 
 export interface ChatWindowConfig {

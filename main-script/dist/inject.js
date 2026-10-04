@@ -1,4 +1,4 @@
-import { IFRAME_ID, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
+import { IFRAME_ID, IFRAME_ORIGIN, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
 import { defaultExpandedSize, defaultNormalSize, } from "./eventHandlers/toggleExpand.js";
 import { getEnabledActionsMap } from "./utils/getEnabledActions.js";
 import { initIframeEventLogger } from "./utils/iframeEventLogger.js";
@@ -20,6 +20,16 @@ export function injectAiChatWidget(config) {
                 Object.prototype.hasOwnProperty.call(config.actionsMap, action)) ?? [];
             config.chatWindow.welcomeMessage.actions = sanitizedWelcomeActions;
         }
+        const iframeSrc = config?._dev?.iframeSrc || IFRAME_SRC;
+        let computedOrigin = IFRAME_ORIGIN;
+        try {
+            computedOrigin =
+                config?._dev?.iframeOrigin ||
+                    new URL(iframeSrc, window.location.href).origin;
+        }
+        catch {
+            computedOrigin = IFRAME_ORIGIN;
+        }
         // Use existing iframe if present, else create
         let iframe = document.getElementById(IFRAME_ID);
         if (!iframe) {
@@ -28,6 +38,7 @@ export function injectAiChatWidget(config) {
             document.body.appendChild(iframe);
             window.$aiChatWidget = {
                 Iframe: iframe,
+                iframeOrigin: computedOrigin,
                 sendEvent: sendEventToIframe,
                 initialConfig: config,
                 chatProvider: config?.chatProvider,
@@ -40,7 +51,10 @@ export function injectAiChatWidget(config) {
             };
             initIframeEventLogger();
         }
-        iframe.src = IFRAME_SRC;
+        else if (window.$aiChatWidget) {
+            window.$aiChatWidget.iframeOrigin = computedOrigin;
+        }
+        iframe.src = iframeSrc;
         iframe.style.display = "none";
         iframe.style.position = "fixed";
         iframe.style.bottom = "1.5rem";

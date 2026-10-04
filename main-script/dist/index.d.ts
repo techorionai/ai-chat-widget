@@ -3,6 +3,7 @@ declare global {
     interface Window {
         $aiChatWidget: {
             Iframe?: HTMLIFrameElement;
+            iframeOrigin?: string;
             sendEvent: sendMainEventFn;
             initialConfig?: ChatWidgetConfig;
             chatProvider?: ChatProvider;

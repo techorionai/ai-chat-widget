@@ -10,7 +10,8 @@ import runHomeCardAction from "../eventHandlers/runHomeCardAction.js";
 import toggleExpandEventHandler from "../eventHandlers/toggleExpand.js";
 import logger from "./logger.js";
 const iframeEventHandler = (event) => {
-    if (event.origin !== IFRAME_ORIGIN)
+    const expectedOrigin = window.$aiChatWidget?.iframeOrigin || IFRAME_ORIGIN;
+    if (event.origin !== expectedOrigin)
         return;
     if (!event.data || !event.data.type || event.data.type === "LOG")
         return;

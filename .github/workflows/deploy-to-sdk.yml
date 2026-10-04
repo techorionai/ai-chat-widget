@@ -187,8 +187,8 @@ jobs:
             **Build Information:**
             - Main script build: \`builds/$VERSION/main/\`
             - React app build: \`builds/$VERSION/app/\`
-            - Source commit: [${{ github.sha }}](https://github.com/techorionai/ai-chat-widget/commit/${{ github.sha }})
-            - Workflow run: [${{ github.run_id }}](https://github.com/techorionai/ai-chat-widget/actions/runs/${{ github.run_id }})" \
+            - Source commit: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            - Workflow run: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" \
               --base main \
               --head "release-$VERSION"
           else

@@ -11,9 +11,10 @@ const sendEventToIframe: sendMainEventFn = (type, data) => {
       })
     );
 
+    const targetOrigin = window.$aiChatWidget?.iframeOrigin || IFRAME_ORIGIN;
     window.$aiChatWidget.Iframe?.contentWindow?.postMessage(
       payload,
-      IFRAME_ORIGIN
+      targetOrigin
     );
 
     logger.log("Sent event to iframe:", payload);

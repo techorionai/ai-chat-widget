@@ -1,4 +1,4 @@
-import { IFRAME_ID, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
+import { IFRAME_ID, IFRAME_ORIGIN, IFRAME_SRC, WIDGET_BUTTON } from "./consts.js";
 import {
   defaultExpandedSize,
   defaultNormalSize,
@@ -37,6 +37,16 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
       config.chatWindow.welcomeMessage.actions = sanitizedWelcomeActions;
     }
 
+    const iframeSrc = config?._dev?.iframeSrc || IFRAME_SRC;
+    let computedOrigin = IFRAME_ORIGIN;
+    try {
+      computedOrigin =
+        config?._dev?.iframeOrigin ||
+        new URL(iframeSrc, window.location.href).origin;
+    } catch {
+      computedOrigin = IFRAME_ORIGIN;
+    }
+
     // Use existing iframe if present, else create
     let iframe = document.getElementById(IFRAME_ID) as HTMLIFrameElement | null;
     if (!iframe) {
@@ -45,6 +55,7 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
       document.body.appendChild(iframe);
       window.$aiChatWidget = {
         Iframe: iframe,
+        iframeOrigin: computedOrigin,
         sendEvent: sendEventToIframe,
         initialConfig: config,
         chatProvider: config?.chatProvider,
@@ -56,8 +67,10 @@ export function injectAiChatWidget(config?: ChatWidgetConfig) {
         getColorScheme: getColorScheme,
       };
       initIframeEventLogger();
+    } else if (window.$aiChatWidget) {
+      window.$aiChatWidget.iframeOrigin = computedOrigin;
     }
-    iframe.src = IFRAME_SRC;
+    iframe.src = iframeSrc;
     iframe.style.display = "none";
     iframe.style.position = "fixed";
     iframe.style.bottom = "1.5rem";

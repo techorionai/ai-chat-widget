@@ -12,7 +12,8 @@ import { EventTypeIframe } from "../types.js";
 import logger from "./logger.js";
 
 const iframeEventHandler = (event: MessageEvent<any>) => {
-  if (event.origin !== IFRAME_ORIGIN) return;
+  const expectedOrigin = window.$aiChatWidget?.iframeOrigin || IFRAME_ORIGIN;
+  if (event.origin !== expectedOrigin) return;
   if (!event.data || !event.data.type || event.data.type === "LOG") return;
 
   const eventType = event.data?.type;
