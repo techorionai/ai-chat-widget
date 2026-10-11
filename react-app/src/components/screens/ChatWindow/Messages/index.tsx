@@ -1,4 +1,4 @@
-import { Blockquote, ScrollArea, Stack, Text } from "@mantine/core";
+import { Blockquote, Box, ScrollArea, Stack, Text } from "@mantine/core";
 import { useQueries } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
@@ -64,25 +64,6 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
     ],
   });
 
-  const scrollToBottom = () => {
-    setTimeout(() => {
-      // Use requestAnimationFrame to ensure DOM has updated
-      requestAnimationFrame(() => {
-        if (scrollAreaViewportRef.current) {
-          const viewport = scrollAreaViewportRef.current;
-          logToIframe(
-            `Scrolling to bottom of messages list for session ${sessionId}`,
-            viewport.scrollHeight
-          );
-          viewport.scrollTo({
-            top: viewport.scrollHeight,
-            behavior: "smooth", // Optional: adds smooth scrolling animation
-          });
-        }
-      });
-    }, 100);
-  };
-
   const {
     component: Component,
     hasError,
@@ -91,20 +72,77 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
     containerSize: `calc(100vh - ${occupiedHeight}px)`,
   });
 
-  // Scroll when messages change and data is actually loaded
-  useEffect(() => {
-    if (messagesList && messagesList.length > 0 && !messagesListRes.isLoading) {
-      scrollToBottom();
-    }
-  }, [messagesList, messagesListRes.isLoading, props.isResponding]);
+  // Scroll to the bottom, or to the start of the latest message.
+  // Returns a function that cancels the scroll that is waiting.
+  const scrollToTarget = (
+    mode: "bottom" | "latest-start",
+    messages: ChatProviderListSessionMessagesMessage[]
+  ) => {
+    const timer = setTimeout(() => {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        const viewport = scrollAreaViewportRef.current;
+        if (!viewport) return;
 
-  // Also scroll when the component first mounts with existing messages
+        let top = viewport.scrollHeight;
+
+        if (mode === "latest-start") {
+          // Tool messages render nothing, so skip them
+          let latestIndex = -1;
+          for (let i = messages.length - 1; i >= 0; i--) {
+            if (messages[i].role !== "tool") {
+              latestIndex = i;
+              break;
+            }
+          }
+          const element = viewport.querySelector<HTMLElement>(
+            `[data-message-index="${latestIndex}"]`
+          );
+          if (element) {
+            top =
+              element.getBoundingClientRect().top -
+              viewport.getBoundingClientRect().top +
+              viewport.scrollTop -
+              8;
+          }
+        }
+
+        logToIframe(
+          `Scrolling messages list for session ${sessionId} (${mode})`,
+          top
+        );
+        viewport.scrollTo({
+          top: Math.max(0, top),
+          behavior: "smooth", // Optional: adds smooth scrolling animation
+        });
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  };
+
+  // Scroll when messages change and data is actually loaded.
+  // Also runs on mount with existing messages.
   useEffect(() => {
-    if (messagesList && messagesList.length > 0) {
-      // Small delay to ensure ScrollArea is fully rendered
-      setTimeout(scrollToBottom, 100);
+    if (
+      !messagesList ||
+      messagesList.length === 0 ||
+      messagesListRes.isLoading
+    ) {
+      return;
     }
-  }, []);
+
+    // Show the user's message, the loader, or the error at the bottom.
+    // Show a reply, or loaded history, from the start of the latest message.
+    const mode =
+      props.isResponding || props.respondingError ? "bottom" : "latest-start";
+    return scrollToTarget(mode, messagesList);
+  }, [
+    messagesList,
+    messagesListRes.isLoading,
+    props.isResponding,
+    props.respondingError,
+  ]);
 
   if (hasError || !messagesList) {
     return Component;
@@ -132,10 +170,12 @@ export default function ChatWindowMessages(props: IChatWindowMessagesProps) {
             />
           )}
         {messagesList.map((message, idx) => (
-          <ChatWindowMessage
-            {...message}
+          <Box
+            data-message-index={idx}
             key={`message-${message.content}-${message.createdAt}-${idx}`}
-          />
+          >
+            <ChatWindowMessage {...message} />
+          </Box>
         ))}
         {props.isResponding &&
           props.respondingMessage &&
