@@ -35,11 +35,11 @@ Get started with the minimal setup.
    ```html
    <script
      type="module"
-     src="https://chat.techorionai.com/builds/0.9.17/main/index.js"
+     src="https://chat.techorionai.com/builds/0.9.18/main/index.js"
    ></script>
    <script
      type="module"
-     src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
+     src="https://chat.techorionai.com/builds/0.9.18/main/adapters/ChatProvider/mock/mock.js"
    ></script>
    ```
 
@@ -90,7 +90,7 @@ For zero-backend testing, prototype demos, or offline development, use the built
 ```html
 <script
   type="module"
-  src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
+  src="https://chat.techorionai.com/builds/0.9.18/main/adapters/ChatProvider/mock/mock.js"
 ></script>
 <script>
   initAiChatWidget({
@@ -195,11 +195,11 @@ Include the main script in your HTML and initialize the widget:
 ```html
 <script
   type="module"
-  src="https://chat.techorionai.com/builds/0.9.17/main/index.js"
+  src="https://chat.techorionai.com/builds/0.9.18/main/index.js"
 ></script>
 <script
   type="module"
-  src="https://chat.techorionai.com/builds/0.9.17/main/adapters/ChatProvider/mock/mock.js"
+  src="https://chat.techorionai.com/builds/0.9.18/main/adapters/ChatProvider/mock/mock.js"
 ></script>
 <script>
   initAiChatWidget({
