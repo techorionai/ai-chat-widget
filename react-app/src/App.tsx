@@ -11,6 +11,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      // Keep unobserved data (for example the sessions list while a chat window is open)
+      gcTime: Infinity,
     },
   },
 });
